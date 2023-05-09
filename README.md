@@ -105,4 +105,14 @@ Project Strucuture - Frontend
 3. styles - This will have styles written for pages and components in their respective folders.
 4. tests - Here, we will write tests for the individual pages.
 
+Project Strucuture - Backend
+------------------------------------
+
+1. To be updated
+
+Running Ports 
+------------------------------------
+
+1. UI - 3000
+2. Backend - 3001
 
