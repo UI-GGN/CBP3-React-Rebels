@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   BookingDetails.init({
-    pickUpLocation: DataTypes.STRING
+    pickUpLocation: DataTypes.STRING,
+    dropLocation: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'BookingDetails',

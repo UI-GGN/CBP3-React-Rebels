@@ -12,6 +12,9 @@ module.exports = {
       pickUpLocation: {
         type: Sequelize.STRING
       },
+      dropLocation: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
