@@ -97,11 +97,12 @@ Stories we are covering
     Show respective data.
     Give Options for Cancel, Reschedule.
 
-Project Strucuture
+Project Strucuture - Frontend
 ------------------------------------
 
 1. pages - Here we will keep all the pages we are building. These pages will make use of the components.
 2. components - Here, all reusable components will be written. These will be used by the pages for respective functionality.
 3. styles - This will have styles written for pages and components in their respective folders.
 4. tests - Here, we will write tests for the individual pages.
+
 
