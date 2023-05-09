@@ -8,7 +8,7 @@ npm run dev
 ### Create a model named Users using sequelize-cli
 
 ```sh
-npx sequelize-cli model:generate --name Users --attributes firstName:string,lastName:string,email:string
+npx sequelize-cli model:generate --name Users --attributes firstName:string,lastName:string,email:string,password:string,isActive:boolean
 ```
 
 ### Running Migrations
