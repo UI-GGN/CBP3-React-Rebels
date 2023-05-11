@@ -7,7 +7,7 @@ import Form from "../components/Form"
 const Login = props => {
   const handleLogin = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:3000/login", { params: { email, password } })
+      const response = await axios.post("http://localhost:3001/login", { params: { email, password } })
       console.log(response.data)
     } catch (error) {
       console.error(error)
@@ -17,7 +17,7 @@ const Login = props => {
   return (
     <div className="login-container">
       <h1>Employee Login</h1>
-      <Form onSubmit={handleLogin} buttonText="Login" showSignUpFields={false} />
+      <Form onSubmitForm={handleLogin} buttonText="Login" showSignUpFields={false} />
 
       <p>
         New User?
