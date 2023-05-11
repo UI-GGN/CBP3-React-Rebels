@@ -17,6 +17,13 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
   const [pincodeError, setPincodeError] = useState("")
   const [error, setError] = useState(null)
 
+  // const isFormEmpty = (name, phoneNumber, email, pincode, password, address) => {
+  //   if (name === "" || password === "" || email === "" || phoneNumber === "" || address === "" || pincode === "") {
+  //     return true
+  //   } else {
+  //     return false
+  //   }
+  // }
   const handleNameChange = event => {
     setName(event.target.value)
   }
@@ -35,7 +42,7 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
   const handlePhoneNumberBlur = () => {
     if (!phoneNumber) {
       setPhoneNumberError("Phone Number is required")
-    } else if (!/^(9|8|7|6)\d{9}$/.test(name)) {
+    } else if (!/^(9|8|7|6)\d{9}$/.test(phoneNumber)) {
       setPhoneNumberError("Invalid phone number format")
     } else {
       setPhoneNumberError("")
@@ -47,10 +54,10 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
   const handleEmailBlur = () => {
     if (!email) {
       setEmailError("Email is required")
-    } else if (!/\S+@\S+\.\S+/.test(name)) {
-      setEmail("Invalid email format")
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Invalid email format")
     } else {
-      setEmail("")
+      setEmailError("")
     }
   }
   const handlePasswordChange = event => {
@@ -59,7 +66,7 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
   const handlePasswordBlur = () => {
     if (!password) {
       setPasswordError("Password is required")
-    } else if (!/^[A-Za-z ]+$/.test(name)) {
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
       setPasswordError("Invalid password format")
     } else {
       setPasswordError("")
@@ -71,10 +78,10 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
   const handleAddressBlur = () => {
     if (!address) {
       setAddressError("Addres is required")
-    } else if (!/^.{5,}$/.test(name)) {
+    } else if (!/^[a-zA-Z0-9\s\,\#\.]{5,}$/.test(address)) {
       setAddressError("Invalid address format")
     } else {
-      setAddress("")
+      setAddressError("")
     }
   }
   const handlePincodeChange = event => {
@@ -83,7 +90,7 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
   const handlePincodeBlur = () => {
     if (!pincode) {
       setPincodeError("Pincode is required")
-    } else if (!/^\d{6}$/.test(name)) {
+    } else if (!/^\d{6}$/.test(pincode)) {
       setPincodeError("Invalid pincode format")
     } else {
       setPincodeError("")

@@ -3,9 +3,11 @@ import axios from "axios"
 import Form from "../components/Form"
 import { Link } from "react-router-dom"
 import "../styles/pages/Signup.scss"
+import { useNavigate } from "react-router-dom"
 
 const SignUp = props => {
   const [error, setError] = useState(null)
+  const navigate = useNavigate()
 
   const handleSignUp = async (email, password, name, phoneNumber, address, pincode) => {
     try {
@@ -19,10 +21,10 @@ const SignUp = props => {
         pincode
       })
       console.log("response -->", response.data)
-
       // redirect the user to the login page or do some other action here
-    } catch (error) {
-      console.error(error)
+      navigate("/login")
+    } catch (err) {
+      console.error(err)
       setError("An error occurred while signing up. Please try again later.")
     }
   }
