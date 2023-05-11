@@ -9,12 +9,31 @@ import SignUp from "./pages/Signup";
 import ErrorPage from "./pages/ErrorPage";
 
 function App() {
-  const ride = {
+  const rides = [{
+    bookingId:1,
+    dropLocation: "address1",
+    pickUpLocation: "address2",
+    city:'Chennai',
+    area:'T.Nagar',
+    time: '2022-04-22 10:34:23',
+    status: "confirmed",
+  },{
+    bookingId:2,
     dropLocation: "Delhi",
     pickUpLocation: "Chennai",
     time: "2022-04-22 10:34:23",
+    city:'Chennai',
+    area:'T.Nagar',
     status: "confirmed",
-  };
+  },{
+    bookingId:3,
+    dropLocation: "Delhi",
+    pickUpLocation: "Chennai",
+    time: "2022-04-22 10:34:23",
+    city:'Chennai',
+    area:'T.Nagar',
+    status: "confirmed",
+  }];
   
   return (
     <BrowserRouter>
@@ -25,7 +44,7 @@ function App() {
         <Route path="booking" element={<Booking />} />
         <Route
           path="booking-confirmation"
-          element={<BookingConfirmation ride={ride} />}
+          element={<BookingConfirmation rides={rides} />}
         />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
