@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
 import "../styles/pages/LandingPage.scss"
 
 function LandingPage() {
@@ -33,80 +32,70 @@ function LandingPage() {
       <h3>Add A Cab</h3>
       <div className="align-items-center w-100">
         <form className="form" onSubmit={onSubmit}>
-          <div className="form-control">
-            <label>
-              City :
-              <select
+          <div className="form-group field">
+            <label className="label">City</label>
+            <select
                 name="city"
+                class="form-select"
                 value={values.city}
                 onChange={handleInputChange}
               >
                 <option value="Gurugram">Gurugram</option>
                 <option value="Delhi">Delhi</option>
-              </select>
-            </label>
+            </select>
           </div>
-          <div className="form-control">
-            <label>
-              Sector/Area :
-              <input
+          <div className="form-group field">
+            <label className="label">Sector/Area</label>
+            <input
                 type="text"
                 name="area"
+                className="form-control"
                 value={values.area}
                 onChange={handleInputChange}
                 required
-              />
-            </label>
+            />
           </div>
-          <div className="form-control">
-            <label>
-              Address :
-              <div className="form-control">
-                <label>
-                  Line 1 :
-                  <input
+          <div className="form-group field">
+            <label>Address</label>
+            <div>
+                <label className="sub-label">Line 1</label>
+                <input
                     type="text"
                     name="line1"
+                    className="form-control"
                     value={values.line1}
-                    placeholder="line 1"
+                    placeholder="Enter Line 1"
                     onChange={handleInputChange}
                     required
-                 />
-                </label>
-              </div>
-              <div className="form-control">
-                <label>
-                  Line 2 :
-                  <input
+                />
+                <label className="sub-label">Line 2</label>
+                <input
                     type="text"
                     name="line2"
+                    className="form-control"
                     value={values.line2}
-                    placeholder="line 2"
+                    placeholder="Enter Line 2"
                     onChange={handleInputChange}
                     required
-                  />
-                </label>
-              </div>
-              <div className="form-control">
-                <label>
-                  Pin code :
-                  <input
+                />
+                <label className="sub-label">Pincode</label>
+                <input
                     type="text"
                     name="pincode"
+                    className="form-control"
                     value={values.pincode}
-                    placeholder="pincode"
+                    placeholder="Enter Pincode"
                     onChange={handleInputChange}
                     required
-                  />
-                </label>
-              </div>
-            </label>
+                />
+                </div>
           </div>
-          <div className="form-control">
-            <label>Pick Up Time</label>
+          <div className="form-group field">
+            <label className="label">Pick Up Time</label>
             <input
                 type="time"
                 name="pickupTime"
+                className="form-control"
                 value={values.pickupTime}
                 onChange={handleInputChange}
             />
@@ -121,7 +110,7 @@ function LandingPage() {
                 onChange={handleInputChange}
               />
           </div>
-          <Button className="submit-button" text={"Raise Request"} />
+          <button className="btn btn-secondary submit-button" type="submit">Raise Request</button>
         </form>
       </div>
     </div>

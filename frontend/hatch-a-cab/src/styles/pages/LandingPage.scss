@@ -20,9 +20,16 @@ h3 {
   padding: 40px 55px 45px 55px;
   border-radius: 15px;
 }
+.sub-field{
+    margin-left: 10px;
+    width: 50%;
+}
 
 .field {
     margin-bottom: 1rem;
+}
+.label {
+    padding-bottom: 5px;
 }
 
 .form {
@@ -32,6 +39,8 @@ h3 {
 }
 
 .submit-button {
-    background-color: #575cbe;
-    border-color: #575cbe;
+    background-color: #474747;
+    border-color: #474747;
+    width: 100%;
+    height: 40px;
 }
