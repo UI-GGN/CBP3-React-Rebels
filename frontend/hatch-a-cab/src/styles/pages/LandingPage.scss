@@ -44,3 +44,7 @@ h3 {
     width: 100%;
     height: 40px;
 }
+.submit-button :disabled {
+    cursor: not-allowed;
+    border-color: #b8b5b5;
+}

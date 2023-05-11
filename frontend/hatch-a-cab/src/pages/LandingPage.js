@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/pages/LandingPage.scss";
 
 function LandingPage() {
@@ -13,13 +13,31 @@ function LandingPage() {
   };
 
   const [values, setValues] = useState(initialValues);
-  const [cityError, setCityError] = useState("");
-  const [areaError, setAreaError] = useState("");
-  const [line1Error, setLine1Error] = useState("");
+  const [cityError, setCityError] = useState("City is mandatory.");
+  const [areaError, setAreaError] = useState("Area is mandatory.");
+  const [line1Error, setLine1Error] = useState("Line 1 is mandatory.");
   const [line2Error, setLine2Error] = useState("");
-  const [pincodeError, setPincodeError] = useState("");
+  const [pincodeError, setPincodeError] = useState("Pincode is mandatory.");
   const [pickupTimeError, setPickupTimeError] = useState("");
   const [fromDateError, setFromDateError] = useState("");
+
+  const [cityIsTouched, setCityIsTouched] = useState(false);
+  const [areaIsTouched, setAreaIsTouched] = useState(false);
+  const [line1IsTouched, setLine1IsTouched] = useState(false)
+  const [line2IsTouched, setLine2IsTouched] = useState(false)
+  const [pincodeIsTouched, setPincodeIsTouched] = useState(false);
+  const [pickupTimeIsTouched, setPickupTimeIsTouched] = useState(false);
+  const [fromDateIsTouched, setFromDateIsTouched] = useState(false);
+
+  const [isFormValid, setIsFormValid] = useState(false)
+
+  useEffect(()=>{
+    if(cityError.length>0||areaError.length>0||line1Error.length>0||line2Error.length>0||pincodeError.length>0||pickupTimeError.length>0||fromDateError.length>0) {
+      setIsFormValid(true)
+    } else {
+      setIsFormValid(false)
+    }
+  },[cityError,areaError,line1Error,line2Error,pincodeError,pickupTimeError,fromDateError])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,6 +48,7 @@ function LandingPage() {
   };
 
   const cityInputBlurHandler = () => {
+    setCityIsTouched(true)
     if (!values.city.trim().length > 0) {
       setCityError("City is mandatory.");
       return;
@@ -38,6 +57,7 @@ function LandingPage() {
   };
 
   const areaInputBlurHandler = () => {
+    setAreaIsTouched(true)
     if (!values.area.trim().length > 0) {
       setAreaError("Area is mandatory.");
       return;
@@ -46,6 +66,7 @@ function LandingPage() {
   };
 
   const line1InputBlurHandler = () => {
+    setLine1IsTouched(true)
     if (!values.line1.trim().length > 0) {
       setLine1Error("Line 1 is mandatory.");
       return;
@@ -53,17 +74,29 @@ function LandingPage() {
     setLine1Error("");
   };
 
-  const line2InputBlurHandler = () => {};
+  const line2InputBlurHandler = () => {
+    setLine2IsTouched(true)
+  };
 
   const pincodeInputBlurHandler = () => {
+    setPincodeIsTouched(true)
     if (!values.pincode.trim().length > 0) {
       setPincodeError("Pincode is mandatory.");
+      return;
+    }
+    if(isNaN(values.pincode)) {
+      setPincodeError("Pincode should contain integer only.");
+      return;
+    }
+    if(values.pincode.length !== 6) {
+      setPincodeError("Pincode should contain 6 Digits.");
       return;
     }
     setPincodeError("");
   };
 
   const pickupTimeInputBlurHandler = () => {
+    setPickupTimeIsTouched(true);
     if (values.pickupTime) {
       var today = new Date();
       var time = today.getHours() + 2 + ":" + today.getMinutes();
@@ -80,6 +113,7 @@ function LandingPage() {
   };
 
   const fromDateInputBlurHandler = () => {
+    setFromDateIsTouched(true);
     if (values.fromDate) {
       var today = new Date();
       var formDate = values.fromDate
@@ -94,21 +128,19 @@ function LandingPage() {
     setFromDateError("");
   };
 
-  const autoValidateForm = () => {
-    cityInputBlurHandler();
-    areaInputBlurHandler();
-    line1InputBlurHandler();
-    line2InputBlurHandler();
-    pincodeInputBlurHandler();
-    pickupTimeInputBlurHandler();
-    fromDateInputBlurHandler();
-  };
+ 
 
   const onSubmit = (e) => {
     e.preventDefault();
-    autoValidateForm();
   };
-
+  
+  const cityHasError = cityError.length > 1 && cityIsTouched
+  const areaHasError = areaError.length > 1 && areaIsTouched
+  const line1HasError = line1Error.length > 1 && line1IsTouched
+  const line2HasError = line2Error.length > 1 && line2IsTouched
+  const pincodeHasError = pincodeError.length > 1 && pincodeIsTouched
+  const pickupTimeHasError = pickupTimeError.length > 1 && pickupTimeIsTouched
+  const fromDateHasError = fromDateError.length > 1 && fromDateIsTouched
   return (
     <div className="wrapper">
       <h3>Add A Cab</h3>
@@ -118,7 +150,7 @@ function LandingPage() {
             <label className="label">City</label>
             <select
               name="city"
-              className="form-select"
+              className={`form-control ${cityHasError? 'is-invalid':''}`}
               value={values.city}
               onChange={handleInputChange}
               onBlur={cityInputBlurHandler}
@@ -126,7 +158,7 @@ function LandingPage() {
               <option value="Gurugram">Gurugram</option>
               <option value="Delhi">Delhi</option>
             </select>
-            {cityError.length > 1 && (
+            { cityHasError && (
               <div className="text-danger">{cityError}</div>
             )}
           </div>
@@ -135,55 +167,55 @@ function LandingPage() {
             <input
               type="text"
               name="area"
-              className="form-control"
+              className={`form-control ${areaHasError? 'is-invalid':''}`}
               value={values.area}
               onChange={handleInputChange}
               onBlur={areaInputBlurHandler}
             />
-            {areaError.length > 1 && (
+            {areaHasError && (
               <div className="text-danger">{areaError}</div>
             )}
           </div>
-          <div className="form-group field">
+          <div className="form-group field py-2">
             <label>Address</label>
             <div>
               <label className="sub-label">Line 1</label>
               <input
                 type="text"
                 name="line1"
-                className="form-control"
+                className={`form-control ${line1HasError? 'is-invalid':''}`}
                 value={values.line1}
                 placeholder="Enter Line 1"
                 onChange={handleInputChange}
                 onBlur={line1InputBlurHandler}
               />
-              {line1Error.length > 1 && (
+              { line1HasError &&(
                 <div className="text-danger">{line1Error}</div>
               )}
               <label className="sub-label">Line 2</label>
               <input
                 type="text"
                 name="line2"
-                className="form-control"
+                className={`form-control ${line2HasError? 'is-invalid':''}`}
                 value={values.line2}
                 placeholder="Enter Line 2"
                 onChange={handleInputChange}
                 onBlur={line2InputBlurHandler}
               />
-              {line2Error.length > 1 && (
+              { line2HasError && (
                 <div className="text-danger">{line2Error}</div>
               )}
               <label className="sub-label">Pincode</label>
               <input
                 type="text"
                 name="pincode"
-                className="form-control"
+                className={`form-control ${pincodeHasError? 'is-invalid':''}`}
                 value={values.pincode}
                 placeholder="Enter Pincode"
                 onChange={handleInputChange}
                 onBlur={pincodeInputBlurHandler}
               />
-              {pincodeError.length > 1 && (
+              { pincodeHasError && (
                 <div className="text-danger">{pincodeError}</div>
               )}
             </div>
@@ -193,12 +225,12 @@ function LandingPage() {
             <input
               type="time"
               name="pickupTime"
-              className="form-control"
+              className={`form-control ${pickupTimeHasError? 'is-invalid':''}`}
               value={values.pickupTime}
               onChange={handleInputChange}
               onBlur={pickupTimeInputBlurHandler}
             />
-            {pickupTimeError.length > 1 && (
+            { pickupTimeHasError && (
               <div className="text-danger">{pickupTimeError}</div>
             )}
           </div>
@@ -207,16 +239,16 @@ function LandingPage() {
             <input
               type="date"
               name="fromDate"
-              className="form-control"
+              className={`form-control ${fromDateHasError? 'is-invalid':''}`}
               value={values.fromDate}
               onChange={handleInputChange}
               onBlur={fromDateInputBlurHandler}
             />
-            {fromDateError.length > 1 && (
+            { fromDateHasError && (
               <div className="text-danger">{fromDateError}</div>
             )}
           </div>
-          <button className="btn btn-secondary submit-button" type="submit">
+          <button disabled={isFormValid} className="btn btn-secondary submit-button" type="submit">
             Raise Request
           </button>
         </form>
