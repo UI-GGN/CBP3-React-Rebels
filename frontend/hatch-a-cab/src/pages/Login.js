@@ -23,14 +23,17 @@ const Login = props => {
   }
 
   return (
+   <div>
+        <h1 className="login-container">Hatch-A-Cab</h1>
     <div className="login-container">
-      <h1>Employee Login</h1>
+      <h2>Employee Login</h2>
       <Form onFieldClick={handleError} onSubmitForm={handleLogin} buttonText="Login" showSignUpFields={false} />
       {error && <p>{error}</p>}
       <p>
         New User?
         <Link to="/signup"> Signup </Link>
       </p>
+    </div>
     </div>
   )
 }
