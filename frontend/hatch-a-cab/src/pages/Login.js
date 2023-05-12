@@ -12,10 +12,8 @@ const Login = props => {
   const handleLogin = async (email, password) => {
     try {
       const response = await axios.post("http://localhost:3001/login", { email, password })
-      console.log(response.data)
-      navigate("/home")
+      navigate("/booking")
     } catch (error) {
-      console.error(error)
       setError("An error occurred while Login. Please try again later.")
     }
   }

@@ -99,7 +99,6 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
 
   const handleSubmitForm = event => {
     event.preventDefault()
-    console.log(event)
     onSubmitForm(email, password, name, pincode, phoneNumber, address)
   }
   const handleFieldClick = () => {

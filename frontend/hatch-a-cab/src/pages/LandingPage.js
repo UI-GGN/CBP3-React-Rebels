@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/pages/LandingPage.scss";
+import { useNavigate, useNavigation } from "react-router-dom"
 
 function LandingPage() {
   const initialValues = {
@@ -29,7 +30,8 @@ function LandingPage() {
   const [pickupTimeIsTouched, setPickupTimeIsTouched] = useState(false);
   const [fromDateIsTouched, setFromDateIsTouched] = useState(false);
 
-  const [isFormValid, setIsFormValid] = useState(false)
+  const [isFormValid, setIsFormValid] = useState(false);
+  const navigate  = useNavigate();
 
   useEffect(()=>{
     if(cityError.length>0||areaError.length>0||line1Error.length>0||line2Error.length>0||pincodeError.length>0||pickupTimeError.length>0||fromDateError.length>0) {
@@ -100,8 +102,6 @@ function LandingPage() {
     if (values.pickupTime) {
       var today = new Date();
       var time = today.getHours() + 2 + ":" + today.getMinutes();
-      console.log(values.pickupTime)
-      console.log(time)
       if (values.pickupTime < time) {
         setPickupTimeError(
           "Pickup time atleast should be 2 hrs later from now."
@@ -131,6 +131,7 @@ function LandingPage() {
  
 
   const onSubmit = (e) => {
+    navigate('/booking-confirmation');
     e.preventDefault();
   };
   

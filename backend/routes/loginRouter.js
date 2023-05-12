@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt")
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body
-
   const user = await Users.findOne({ where: { email } })
   const dbPPassword = user.password
   //const hashedPassword = await bcrypt.hash(password, 10)

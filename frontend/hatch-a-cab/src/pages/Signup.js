@@ -11,7 +11,6 @@ const SignUp = props => {
 
   const handleSignUp = async (email, password, name, phoneNumber, address, pincode) => {
     try {
-      console.log("handling signup")
       const response = await axios.post("http://localhost:3001/signup", {
         email,
         password,
@@ -20,11 +19,9 @@ const SignUp = props => {
         address,
         pincode
       })
-      console.log("response -->", response.data)
       // redirect the user to the login page or do some other action here
       navigate("/login")
     } catch (err) {
-      console.error(err)
       setError("An error occurred while signing up. Please try again later.")
     }
   }
