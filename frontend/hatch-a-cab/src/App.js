@@ -7,6 +7,7 @@ import Booking from './pages/Booking';
 import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
 import ErrorPage from './pages/ErrorPage';
+import LandingPage_ from './pages/LandingPage_';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
           <Route path="/" element={<Login />} />
           <Route path="login"  element={<Login />} />
+          <Route path="landing"  element={<LandingPage_ />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="booking" element={<LandingPage />} />
           <Route path="booking-confirmation" element={<BookingConfirmation />} />
