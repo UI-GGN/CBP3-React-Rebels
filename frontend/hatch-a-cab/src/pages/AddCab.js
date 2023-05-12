@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "../styles/pages/LandingPage.scss";
+import "../styles/pages/AddCab.scss";
 import { useNavigate, useNavigation } from "react-router-dom"
 
-function LandingPage() {
+function AddCab() {
   const initialValues = {
-    city: "Gurugram",
+    city: "",
     area: "",
     line1: "",
     line2: "",
@@ -151,11 +151,12 @@ function LandingPage() {
             <label className="label">City</label>
             <select
               name="city"
-              className={`form-control ${cityHasError? 'is-invalid':''}`}
+              className={`form-control form-select ${cityHasError? 'is-invalid':''}`}
               value={values.city}
               onChange={handleInputChange}
               onBlur={cityInputBlurHandler}
             >
+              <option selected>Select City</option>
               <option value="Gurugram">Gurugram</option>
               <option value="Delhi">Delhi</option>
             </select>
@@ -231,9 +232,10 @@ function LandingPage() {
               onChange={handleInputChange}
               onBlur={pickupTimeInputBlurHandler}
             />
-            { pickupTimeHasError && (
-              <div className="text-danger">{pickupTimeError}</div>
-            )}
+            { pickupTimeHasError?            
+              <div className="text-danger">{pickupTimeError}</div> :
+              <p>Pickup time atleast should be 2 hrs later from now.</p>
+            }
           </div>
           <div className="form-group field">
             <label className="label">Starting From</label>
@@ -258,4 +260,4 @@ function LandingPage() {
   );
 }
 
-export default LandingPage;
+export default AddCab;

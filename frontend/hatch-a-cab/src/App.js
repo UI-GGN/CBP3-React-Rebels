@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.scss';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from './pages/LandingPage';
+import AddCab from './pages/AddCab';
 import Login from './pages/Login';
 import Booking from './pages/Booking';
 import BookingConfirmation from './pages/Bookingconfirmation';
@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="login"  element={<Login />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="booking" element={<LandingPage />} />
+          <Route path="booking" element={<AddCab />} />
           <Route path="booking-confirmation" element={<BookingConfirmation />} />
           <Route path="*" element={<Login />} />
       </Routes>
