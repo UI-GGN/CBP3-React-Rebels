@@ -1,12 +1,13 @@
 import logo from "./logo.svg";
 import "./App.scss";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
-import Booking from "./pages/Booking";
-import BookingConfirmation from "./pages/Bookingconfirmation";
-import SignUp from "./pages/Signup";
-import ErrorPage from "./pages/ErrorPage";
+import AddCab from './pages/AddCab';
+import Login from './pages/Login';
+import Booking from './pages/Booking';
+import BookingConfirmation from './pages/Bookingconfirmation';
+import SignUp from './pages/Signup';
+import ErrorPage from './pages/ErrorPage';
+import LandingPage_ from './pages/LandingPage_';
 
 function App() {
   const rides = [{
@@ -47,6 +48,7 @@ function App() {
           element={<BookingConfirmation rides={rides} />}
         />
         <Route path="*" element={<ErrorPage />} />
+
       </Routes>
     </BrowserRouter>
   );
