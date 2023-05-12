@@ -4,6 +4,7 @@ import axios from "axios"
 import "../styles/pages/Login.scss"
 import Form from "../components/Form"
 import { useNavigate } from "react-router-dom"
+import "../styles/components/Form.scss";
 
 const Login = props => {
   const [error, setError] = useState(null)

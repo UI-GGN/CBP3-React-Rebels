@@ -106,7 +106,7 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
   }
 
   return (
-    <form className="form-control" required onSubmit={handleSubmitForm}>
+    <form className="" required onSubmit={handleSubmitForm}>
       {showSignUpFields && (
         <>
           <div className="form-control">

@@ -249,7 +249,7 @@ function LandingPage() {
               <div className="text-danger">{fromDateError}</div>
             )}
           </div>
-          <button disabled={isFormValid} className="btn btn-secondary submit-button" type="submit">
+          <button disabled={isFormValid} className="btn btn-primary submit-button" type="submit">
             Raise Request
           </button>
         </form>
