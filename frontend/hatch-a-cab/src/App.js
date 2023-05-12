@@ -13,8 +13,8 @@ function App() {
     bookingId:1,
     dropLocation: "address1",
     pickUpLocation: "address2",
-    city:'Chennai',
-    area:'T.Nagar',
+    city:'city',
+    area:'area',
     time: '2022-04-22 10:34:23',
     status: "confirmed",
   },{
@@ -28,10 +28,10 @@ function App() {
   },{
     bookingId:3,
     dropLocation: "Delhi",
-    pickUpLocation: "Chennai",
+    pickUpLocation: "Bangalore",
     time: "2022-04-22 10:34:23",
-    city:'Chennai',
-    area:'T.Nagar',
+    city:'Koramangla',
+    area:'BTM Layout',
     status: "confirmed",
   }];
   
