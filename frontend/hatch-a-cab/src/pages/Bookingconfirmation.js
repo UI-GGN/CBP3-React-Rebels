@@ -31,8 +31,8 @@ const BookingConfirmation = ({ rides }) => {
     return (
       <div>
         Details
-        <div>{selectedCab?.area}</div>
-        <div>{selectedCab?.date}</div>
+        <div><strong>Area :</strong> {selectedCab?.area}</div>
+        <div><strong>Date :</strong>{selectedCab?.time}</div>
         <div>
           <strong>Pickup :</strong> {selectedCab?.pickUpLocation}
         </div>
@@ -47,12 +47,13 @@ const BookingConfirmation = ({ rides }) => {
     )
   }
   return (
-    <div>
-      <div>
+    <div className="container text-center mt-5">
+    <div class="row">
+      <div class="col">
         {rides.map(ride => (
-          <div className="container" key={ride.bookingId}>
+          <div className="row bg-light m-5 p-3" key={ride.bookingId}>
             {checkStatus(ride)}
-            <div>
+            <div class="row m-2">
               <div onClick={()=>selectCab(ride.bookingId)}>
                 <strong>Pickup :</strong> {ride.pickUpLocation}
               </div>
@@ -64,12 +65,16 @@ const BookingConfirmation = ({ rides }) => {
                 <strong>Time :</strong> {convertDate(ride.time)}
               </div>
             </div>
+            
           </div>
         )
 
         )}
       </div>
+      <div class="col m-5 bg-light">
       {selectedCab !== undefined ? showDetails() : <></>}
+      </div>
+    </div>
     </div>
   );
 };
