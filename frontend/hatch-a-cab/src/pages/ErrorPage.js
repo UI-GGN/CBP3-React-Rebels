@@ -1,9 +1,7 @@
-import React from "react"
+import React from 'react';
 
 const ErrorPage = (props) => {
-    return (
-        <div>ErrorPage Page will render here.</div>
-    )
-}
+  return <div>ErrorPage Page will render here.</div>;
+};
 
 export default ErrorPage;
