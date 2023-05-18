@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.scss";
+import "tailwindcss/tailwind.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddCab from './pages/AddCab';
 import Login from './pages/Login';
