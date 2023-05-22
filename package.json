@@ -1,0 +1,41 @@
+{
+  "name": "cbp3-react-rebels",
+  "version": "1.0.0",
+  "description": "This package is used to configure common dependencies",
+  "main": "index.js",
+  "scripts": {
+    "lint-frontend": "eslint frontend/hatch-a-cab/src/**/*.js",
+    "lint-frontend:fix": "eslint --fix frontend/hatch-a-cab/src/**/*.js",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UI-GGN/CBP3-React-Rebels.git"
+  },
+  "keywords": [
+    "HATCH",
+    "A",
+    "CAB"
+  ],
+  "author": "React Rebels",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UI-GGN/CBP3-React-Rebels/issues"
+  },
+  "homepage": "https://github.com/UI-GGN/CBP3-React-Rebels#readme",
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.8",
+    "husky": "^8.0.0"
+  },
+  "dependencies": {
+    "eslint-config-react-app": "^7.0.1"
+  }
+}
