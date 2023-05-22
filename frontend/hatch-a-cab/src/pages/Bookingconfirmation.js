@@ -5,15 +5,13 @@ import "./../styles/pages/BookingConfirmation.scss";
 const BookingConfirmation = ({ rides }) => {
   const convertDate = (date) => moment(date).format("ddd DD MMM, hh:mm A");
 
-  const [bookingId,setBookingId] = useState();
-
   const [selectedCab, setSelectedCab] = useState({
-    bookingId:1,
+    bookingId: 1,
     dropLocation: "address1",
     pickUpLocation: "address2",
-    city:'Chennai',
-    area:'T.Nagar',
-    time: '2022-04-22 10:34:23',
+    city: "Chennai",
+    area: "T.Nagar",
+    time: "2022-04-22 10:34:23",
     status: "confirmed",
   });
 
@@ -24,15 +22,20 @@ const BookingConfirmation = ({ rides }) => {
   };
 
   const selectCab = (bookingId) => {
-    const cab =rides.find(item => item.bookingId == bookingId)
+    const cab = rides.find((item) => item.bookingId === bookingId);
     setSelectedCab(cab);
-  }
+  };
   const showDetails = () => {
     return (
       <div>
         Details
-        <div><strong>Area :</strong> {selectedCab?.area}</div>
-        <div><strong>Date :</strong>{selectedCab?.time}</div>
+        <div>
+          <strong>Area :</strong> {selectedCab?.area}
+        </div>
+        <div>
+          <strong>Date :</strong>
+          {selectedCab?.time}
+        </div>
         <div>
           <strong>Pickup :</strong> {selectedCab?.pickUpLocation}
         </div>
@@ -44,37 +47,32 @@ const BookingConfirmation = ({ rides }) => {
           <strong>Time :</strong> {convertDate(selectedCab.time)}
         </div>
       </div>
-    )
-  }
+    );
+  };
   return (
     <div className="container text-center mt-5">
-    <div class="row">
-      <div class="col">
-        {rides.map(ride => (
-          <div className="row bg-light m-5 p-3" key={ride.bookingId}>
-            {checkStatus(ride)}
-            <div class="row m-2">
-              <div onClick={()=>selectCab(ride.bookingId)}>
-                <strong>Pickup :</strong> {ride.pickUpLocation}
-              </div>
-              <div>
-                <strong>Destination :</strong> {ride.pickUpLocation}
-              </div>
-              <hr />
-              <div>
-                <strong>Time :</strong> {convertDate(ride.time)}
+      <div class="row">
+        <div class="col">
+          {rides.map((ride) => (
+            <div className="row bg-light m-5 p-3" key={ride.bookingId}>
+              {checkStatus(ride)}
+              <div class="row m-2">
+                <div onClick={() => selectCab(ride.bookingId)}>
+                  <strong>Pickup :</strong> {ride.pickUpLocation}
+                </div>
+                <div>
+                  <strong>Destination :</strong> {ride.pickUpLocation}
+                </div>
+                <hr />
+                <div>
+                  <strong>Time :</strong> {convertDate(ride.time)}
+                </div>
               </div>
             </div>
-            
-          </div>
-        )
-
-        )}
+          ))}
+        </div>
+        <div class="col m-5 bg-light">{selectedCab !== undefined ? showDetails() : <></>}</div>
       </div>
-      <div class="col m-5 bg-light">
-      {selectedCab !== undefined ? showDetails() : <></>}
-      </div>
-    </div>
     </div>
   );
 };

@@ -13,16 +13,12 @@ describe("Booking Confirmation Test Suit", () => {
   test("Booking Confirmation renders on screen", () => {
     render(<BookingConfirmation ride={ride} />);
 
-    expect(screen.getByRole("heading")).toHaveTextContent(
-      "Ride Booked Successful"
-    );
+    expect(screen.getByRole("heading")).toHaveTextContent("Ride Booked Successful");
   });
 
   test("Ride Booking Failed renders on screen", () => {
     ride.status = "failed";
     render(<BookingConfirmation ride={ride} />);
-    expect(screen.getByRole("heading")).toHaveTextContent(
-      "Ride Booking Failed"
-    );
+    expect(screen.getByRole("heading")).toHaveTextContent("Ride Booking Failed");
   });
 });

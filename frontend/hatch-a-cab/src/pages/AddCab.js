@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/pages/AddCab.scss";
-import { useNavigate, useNavigation } from "react-router-dom"
+import { useNavigate, useNavigation } from "react-router-dom";
 
 function AddCab() {
   const initialValues = {
@@ -24,22 +24,30 @@ function AddCab() {
 
   const [cityIsTouched, setCityIsTouched] = useState(false);
   const [areaIsTouched, setAreaIsTouched] = useState(false);
-  const [line1IsTouched, setLine1IsTouched] = useState(false)
-  const [line2IsTouched, setLine2IsTouched] = useState(false)
+  const [line1IsTouched, setLine1IsTouched] = useState(false);
+  const [line2IsTouched, setLine2IsTouched] = useState(false);
   const [pincodeIsTouched, setPincodeIsTouched] = useState(false);
   const [pickupTimeIsTouched, setPickupTimeIsTouched] = useState(false);
   const [fromDateIsTouched, setFromDateIsTouched] = useState(false);
 
   const [isFormValid, setIsFormValid] = useState(false);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(cityError.length>0||areaError.length>0||line1Error.length>0||line2Error.length>0||pincodeError.length>0||pickupTimeError.length>0||fromDateError.length>0) {
-      setIsFormValid(true)
+  useEffect(() => {
+    if (
+      cityError.length > 0 ||
+      areaError.length > 0 ||
+      line1Error.length > 0 ||
+      line2Error.length > 0 ||
+      pincodeError.length > 0 ||
+      pickupTimeError.length > 0 ||
+      fromDateError.length > 0
+    ) {
+      setIsFormValid(true);
     } else {
-      setIsFormValid(false)
+      setIsFormValid(false);
     }
-  },[cityError,areaError,line1Error,line2Error,pincodeError,pickupTimeError,fromDateError])
+  }, [cityError, areaError, line1Error, line2Error, pincodeError, pickupTimeError, fromDateError]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +58,7 @@ function AddCab() {
   };
 
   const cityInputBlurHandler = () => {
-    setCityIsTouched(true)
+    setCityIsTouched(true);
     if (!values.city.trim().length > 0) {
       setCityError("City is mandatory.");
       return;
@@ -59,7 +67,7 @@ function AddCab() {
   };
 
   const areaInputBlurHandler = () => {
-    setAreaIsTouched(true)
+    setAreaIsTouched(true);
     if (!values.area.trim().length > 0) {
       setAreaError("Area is mandatory.");
       return;
@@ -68,7 +76,7 @@ function AddCab() {
   };
 
   const line1InputBlurHandler = () => {
-    setLine1IsTouched(true)
+    setLine1IsTouched(true);
     if (!values.line1.trim().length > 0) {
       setLine1Error("Line 1 is mandatory.");
       return;
@@ -77,20 +85,20 @@ function AddCab() {
   };
 
   const line2InputBlurHandler = () => {
-    setLine2IsTouched(true)
+    setLine2IsTouched(true);
   };
 
   const pincodeInputBlurHandler = () => {
-    setPincodeIsTouched(true)
+    setPincodeIsTouched(true);
     if (!values.pincode.trim().length > 0) {
       setPincodeError("Pincode is mandatory.");
       return;
     }
-    if(isNaN(values.pincode)) {
+    if (isNaN(values.pincode)) {
       setPincodeError("Pincode should contain integer only.");
       return;
     }
-    if(values.pincode.length !== 6) {
+    if (values.pincode.length !== 6) {
       setPincodeError("Pincode should contain 6 Digits.");
       return;
     }
@@ -103,9 +111,7 @@ function AddCab() {
       var today = new Date();
       var time = today.getHours() + 2 + ":" + today.getMinutes();
       if (values.pickupTime < time) {
-        setPickupTimeError(
-          "Pickup time atleast should be 2 hrs later from now."
-        );
+        setPickupTimeError("Pickup time atleast should be 2 hrs later from now.");
         return;
       }
     }
@@ -127,8 +133,6 @@ function AddCab() {
     }
     setFromDateError("");
   };
-
- 
 
   const onSubmit = (e) => {
     navigate('/booking-confirmation');

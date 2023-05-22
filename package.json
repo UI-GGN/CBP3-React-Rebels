@@ -1,21 +1,21 @@
 {
-  "name": "cbp3-react-rebels",
+  "name" : "cbp3-react-rebels",
   "version": "1.0.0",
   "description": "This package is used to configure common dependencies",
   "main": "index.js",
   "scripts": {
-    "lint-frontend": "eslint frontend/hatch-a-cab/src/**/*.js",
+    "lint-frontend": "eslint frontend/hatch-a-cab/src/**/*.js --max-warnings=0",
     "lint-frontend:fix": "eslint --fix frontend/hatch-a-cab/src/**/*.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "format:check": "prettier --check \"frontend/**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx)\"",
+    "format:fix": "prettier --write \"frontend/**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|mdx)\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/UI-GGN/CBP3-React-Rebels.git"
   },
   "keywords": [
-    "HATCH",
-    "A",
-    "CAB"
+    "HATCH A CAB"
   ],
   "author": "React Rebels",
   "license": "ISC",
