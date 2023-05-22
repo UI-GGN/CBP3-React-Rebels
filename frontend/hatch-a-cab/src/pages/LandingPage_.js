@@ -11,6 +11,13 @@ const LandingPage_ = (props) => {
             icon : "",
             subLabel : "Raise a request for a Cab.",
             redirectLink : "/booking"
+        },
+        {
+            id : 2,
+            label : "Cab Requests",
+            icon : "",
+            subLabel : "Check all previous cab request records.",
+            redirectLink : "/booking-confirmation"
         }
     ]
 
