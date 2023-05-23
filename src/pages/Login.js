@@ -8,7 +8,7 @@ import "../styles/components/Form.scss";
 
 const Login = props => {
   const [error, setError] = useState(null)
-  const navigate = useNavigate()
+          const navigate = useNavigate()
 
   const handleLogin = async (email, password) => {
     try {

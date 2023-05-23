@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
-import "./../styles/pages/BookingConfirmation.scss";
+import "../styles/pages/BookingConfirmation.scss";
 
 const BookingConfirmation = ({ rides }) => {
   const convertDate = (date) => moment(date).format("ddd DD MMM, hh:mm A");
