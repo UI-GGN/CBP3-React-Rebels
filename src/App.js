@@ -9,7 +9,7 @@ import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
 import ErrorPage from './pages/ErrorPage';
 import LandingPage_ from './pages/LandingPage_';
-import BookingHistory from './pages/BookingHistory.tsx';
+import BookingHistory from './pages/BookingHistory.js';
 import Navbar from './components/Navbar';
 
 function App() {

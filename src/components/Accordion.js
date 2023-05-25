@@ -4,7 +4,7 @@ import { GoDash, GoPlus } from 'react-icons/go';
 import { GrNorton } from 'react-icons/gr';
 import { GiCancel } from 'react-icons/gi';
 
-const Accordion = ({ list }) => {
+const Accordion = ({ list, dateFormatter }) => {
   const [expandIndex, setExpandIndex] = useState(-1);
   const bookingList = list.map((item, index) => {
     const expandedIndex = expandIndex === index;
@@ -17,11 +17,11 @@ const Accordion = ({ list }) => {
         <tr
           className={selectedRowStyle}
           onClick={() => {
-            setExpandIndex(index);
+            expandedIndex ? setExpandIndex(-1) : setExpandIndex(index);
           }}
         >
           <td className={expandedIndex ? 'border-0' : 'border-b-1'}>
-            {item.bookingDate}
+            {dateFormatter(item.bookingDate)}
           </td>
           <td className={expandedIndex ? 'border-0' : 'border-b-1'}>
             {item.cabFrom}
@@ -32,15 +32,23 @@ const Accordion = ({ list }) => {
           <td className={expandedIndex ? 'border-0' : 'border-b-1'}>
             {item.pickUpTime}
           </td>
-          <td className={expandedIndex ? 'border-0' : 'border-b-1'}>
+          <td className={expandedIndex ? 'border-0 ' : 'border-b-1'}>
             {item.status}
           </td>
-          <td className={expandedIndex ? 'border-0' : 'border-b-1'}>{icon}</td>
+          <td
+            className={
+              expandedIndex
+                ? 'border-0 hover:cursor-pointer'
+                : 'border-b-1 hover:cursor-pointer'
+            }
+          >
+            {icon}
+          </td>
         </tr>
         {expandedIndex && (
           <tr className="bg-tw_hover_light ">
             <td colSpan={6} className="border-b-1">
-              <div>{item.bookingTime}</div>
+              <div>Your Booking time is : {item.bookingTime}</div>
             </td>
           </tr>
         )}
@@ -49,7 +57,7 @@ const Accordion = ({ list }) => {
   });
 
   return (
-    <div className="p-5">
+    <div className="px-5 py-1">
       <table className="table">
         <thead>
           <tr className="bg-tw_primary text-light">
