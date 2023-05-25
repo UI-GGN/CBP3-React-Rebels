@@ -10,6 +10,7 @@ import SignUp from './pages/Signup';
 import ErrorPage from './pages/ErrorPage';
 import LandingPage_ from './pages/LandingPage_';
 import BookingHistory from './pages/BookingHistory.tsx';
+import Navbar from './components/Navbar';
 
 function App() {
   const rides = [
@@ -44,6 +45,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="login" element={<Login />} />
