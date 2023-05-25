@@ -3,7 +3,7 @@ import React from 'react';
 import { useEffect } from 'react';
 
 //@ts-ignore
-import Accordion from '../components/Accordion.tsx';
+import Accordion from '../components/Accordion.js';
 
 const bookingHistory = [
   {
