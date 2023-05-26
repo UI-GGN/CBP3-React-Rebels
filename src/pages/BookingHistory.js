@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { BsFillClockFill, BsFillCalendar2RangeFill } from 'react-icons/bs';
 import { GiSandsOfTime, GiRoad } from 'react-icons/gi';
 import { MdLocationOn, MdPanoramaFishEye } from 'react-icons/md';
-//@ts-ignore
-import Accordion from '../components/Accordion.js';
+
+import Accordion from '../components/Accordion';
 import Button from '../components/Button.js';
 
 const bookingHistory = [
