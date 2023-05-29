@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x, 20.x] # We will deploy with only one version of node  
+        node-version: [16.x, 18.x, 20.x] # We will deploy with only one version of node  
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -28,7 +28,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: npm ci, build and test
         run: |
-          npm ci
+          npm install
           npm run build --if-present
           npm test      
       - name: deploy to gh-pages
