@@ -5,7 +5,6 @@ import '../styles/pages/Login.scss';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import '../styles/components/Form.scss';
-import Logo from '../components/Logo';
 
 const Login = (props) => {
   const [error, setError] = useState(null);
@@ -30,7 +29,7 @@ const Login = (props) => {
 
   return (
     <div>
-      <Logo />
+      <h1 className="login-container">Hatch-A-Cab</h1>
       <div className="login-container">
         <h2>Employee Login</h2>
         <Form
