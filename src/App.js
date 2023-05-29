@@ -5,7 +5,7 @@ import AddCab from "./pages/AddCab";
 import Login from "./pages/Login";
 import BookingConfirmation from "./pages/Bookingconfirmation";
 import SignUp from "./pages/Signup";
-import LandingPage from "./pages/LandingPage.tsx";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const rides = [

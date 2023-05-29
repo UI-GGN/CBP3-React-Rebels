@@ -17,7 +17,9 @@ const Login = (props) => {
         email,
         password,
       });
-      navigate('/landing');
+
+      if (response.status === 200) navigate('/landing');
+      else setError('An error occurred while Login. Please try again later.');
     } catch (error) {
       setError('An error occurred while Login. Please try again later.');
     }
