@@ -5,7 +5,7 @@ import AddCab from './pages/AddCab';
 import Login from './pages/Login';
 import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
-import LandingPage_ from './pages/LandingPage_';
+import LandingPage from './pages/LandingPage';
 
 function App() {
   const rides = [
@@ -45,7 +45,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="booking" element={<AddCab />} />
-        <Route path="landing" element={<LandingPage_ />} />
+        <Route path="landing" element={<LandingPage />} />
         <Route
           path="booking-confirmation"
           element={<BookingConfirmation rides={rides} />}
