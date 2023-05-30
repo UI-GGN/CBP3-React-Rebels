@@ -44,8 +44,24 @@ const data = [
 
 const ViewRoutes = () => {
   return (
-    <div className="">
-      <div className="table-auto ">
+    <div>
+      <button class="bg-cyan text-white font-semibold flex py-2 px-4 mborder border-blue-500 rounded justify-end ml-auto mr-20 mb-2">
+        <svg
+          fill="none"
+          viewBox="0 0 30 24"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-6 h-6  stroke-white stroke-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        Add Route
+      </button>
+
+      <div className="table-auto">
         <div className="py-2 align-middle content-around min-w-fit sm:px-10 lg:px-20">
           <div className="border-b border-gray-200 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
