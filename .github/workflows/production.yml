@@ -27,7 +27,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       
-      - name: npm install, build and test
+      - name: 'Talisman Secret scanning'
+        run: |
+          git reset --soft HEAD~$(($(git rev-list --count --first-parent HEAD) - 1))
+          curl -L -O https://github.com/thoughtworks/talisman/releases/download/v1.23.0/talisman_linux_386
+          chmod +x talisman_linux_386
+          ./talisman_linux_386 --githook pre-commit || exit 1
+
+      - name: npm install, build
         run: |
           npm install
           npm run build --if-present
