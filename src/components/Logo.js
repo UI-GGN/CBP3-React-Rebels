@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './../logo.svg';
 const Logo = () => {
   return (
-    <div style={{ float: 'left' }}>
+    <div className="tw-container-style">
       <h1
         style={{
           fontWeight: '700',
