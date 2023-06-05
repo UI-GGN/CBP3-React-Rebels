@@ -190,11 +190,6 @@ function AddCab() {
               onChange={handleInputChange}
               onBlur={areaInputBlurHandler}
             />
-            <Input rounded secondary blue>
-              Test
-            </Input>
-            <Input>Rounded</Input>
-            <Input secondary>secondary</Input>
             {areaHasError && <div className="text-danger">{areaError}</div>}
           </div>
           <div className="form-group field py-2">

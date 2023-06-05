@@ -1,13 +1,8 @@
 import React from 'react';
+import Input from '../components/Input';
 
 const Booking = (props) => {
-  const input = ['blue'];
-  return (
-    <>
-      <div>Booking Page will render here.</div>
-      <Input blue></Input>
-    </>
-  );
+  return <div>Booking Page will render here.</div>;
 };
 
 export default Booking;

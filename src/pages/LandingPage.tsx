@@ -1,8 +1,8 @@
 import React from 'react';
 import '../styles/pages/LandingPage.scss';
-import { useNavigate } from 'react-router-dom';
+import { To, useNavigate } from 'react-router-dom';
 
-const LandingPage_ = (props) => {
+const LandingPage = (props: any) => {
   const navigate = useNavigate();
 
   const sectionCards = [
@@ -22,7 +22,7 @@ const LandingPage_ = (props) => {
     },
   ];
 
-  const handleCardClick = (section) => {
+  const handleCardClick = (section: { redirectLink: To }) => {
     navigate(section?.redirectLink);
   };
 
@@ -47,4 +47,4 @@ const LandingPage_ = (props) => {
   );
 };
 
-export default LandingPage_;
+export default LandingPage;
