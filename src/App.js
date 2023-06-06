@@ -48,7 +48,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="booking" element={<AddCab />} />
-        <Route path="landing" element={<LandingPage />} />
+        <Route path="home" element={<LandingPage />} />
         <Route
           path="booking-confirmation"
           element={<BookingConfirmation rides={rides} />}

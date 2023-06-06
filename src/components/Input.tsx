@@ -8,6 +8,7 @@ const propTypes = {
   id: PropTypes.string.isRequired,
   children: PropTypes.string,
   required: PropTypes.bool,
+  error: PropTypes.string,
   props: PropTypes.any,
 };
 
@@ -19,6 +20,7 @@ const Input = ({
   id,
   required = false,
   children,
+  error,
   ...props
 }: ComponentTypes) => {
   const inputStyles = className(
@@ -34,6 +36,9 @@ const Input = ({
         </label>
       )}
       <input {...props} type={type} id={id} className={inputStyles} />
+      {error && (
+        <div className="text-danger text-sm pb-2 capitalize">{error}</div>
+      )}
     </>
   );
 };
