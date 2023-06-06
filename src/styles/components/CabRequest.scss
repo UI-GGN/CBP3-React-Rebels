@@ -1,0 +1,49 @@
+.card {
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.card-content {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.text-gray-500 {
+  color: #888;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.border-gray-300 {
+  border: 1px solid #ccc;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+/* Additional styles for the container */
+.container {
+  display: flex;
+  justify-content: center;
+}
