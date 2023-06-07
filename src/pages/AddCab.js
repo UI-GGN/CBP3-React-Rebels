@@ -151,13 +151,13 @@ function AddCab() {
     e.preventDefault();
   };
 
-  const cityHasError = cityError.length > 1 && cityIsTouched;
-  const areaHasError = areaError.length > 1 && areaIsTouched;
-  const line1HasError = line1Error.length > 1 && line1IsTouched;
-  const line2HasError = line2Error.length > 1 && line2IsTouched;
-  const pincodeHasError = pincodeError.length > 1 && pincodeIsTouched;
-  const pickupTimeHasError = pickupTimeError.length > 1 && pickupTimeIsTouched;
-  const fromDateHasError = fromDateError.length > 1 && fromDateIsTouched;
+  const cityHasError = cityError.length > 0 && cityIsTouched;
+  const areaHasError = areaError.length > 0 && areaIsTouched;
+  const line1HasError = line1Error.length > 0 && line1IsTouched;
+  const line2HasError = line2Error.length > 0 && line2IsTouched;
+  const pincodeHasError = pincodeError.length > 0 && pincodeIsTouched;
+  const pickupTimeHasError = pickupTimeError.length > 0 && pickupTimeIsTouched;
+  const fromDateHasError = fromDateError.length > 0 && fromDateIsTouched;
   return (
     <div className="wrapper">
       <h3>Add A Cab</h3>
