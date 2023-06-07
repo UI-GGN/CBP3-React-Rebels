@@ -2,22 +2,34 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import CabRequest from './CabRequest';
 
-describe('CabRequest Component', () => {
-  test('Should render input fields correctly', () => {
-    const { container } = render(<CabRequest />);
-    const nameInput = screen.getByLabelText('Name');
-    const projectCodeInput = screen.getByLabelText('Project Code');
-    const pickupLocationInput = screen.getByLabelText('Pickup Location');
-    const dateInput = screen.getByLabelText('Date');
-    const timeInput = screen.getByLabelText('Time');
-    const dropLocationInput = screen.getByLabelText('Drop Location');
+const requests = [
+  {
+    bookingId: 1,
+    name: 'Joe',
+    date: '22-06-23',
+    projectCode: 'BP',
+    time: '10:30 AM',
+    pickupLocation: 'address1',
+    dropLocation: 'address2',
+  },
+];
 
-    expect(container).toBeInTheDocument();
-    expect(nameInput).toBeInTheDocument();
-    expect(projectCodeInput).toBeInTheDocument();
-    expect(pickupLocationInput).toBeInTheDocument();
-    expect(dateInput).toBeInTheDocument();
-    expect(timeInput).toBeInTheDocument();
-    expect(dropLocationInput).toBeInTheDocument();
+describe('CabRequest Component', () => {
+  test('renders the component with correct data', () => {
+    render(<CabRequest requests={requests} />);
+
+    const name = screen.getByText('Joe');
+    const date = screen.getByText('22-06-23');
+    const projectCode = screen.getByText('BP');
+    const time = screen.getByText('10:30 AM');
+    const pickupLocation = screen.getByText('address1');
+    const dropLocation = screen.getByText('address2');
+
+    expect(name).toBeInTheDocument();
+    expect(date).toBeInTheDocument();
+    expect(projectCode).toBeInTheDocument();
+    expect(time).toBeInTheDocument();
+    expect(pickupLocation).toBeInTheDocument();
+    expect(dropLocation).toBeInTheDocument();
   });
 });

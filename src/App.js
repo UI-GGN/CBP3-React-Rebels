@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
 import LandingPage from './pages/LandingPage';
+import CabRequest from './components/CabRequest/CabRequest.tsx';
 
 function App() {
   const rides = [
@@ -37,6 +38,71 @@ function App() {
       status: 'confirmed',
     },
   ];
+  const requests = [
+    {
+      bookingId: 1,
+      name: 'Joe',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+    },
+    {
+      bookingId: 4,
+      name: 'Joe',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+    },
+    {
+      bookingId: 5,
+      name: 'Joe',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+    },
+    {
+      bookingId: 6,
+      name: 'Joe',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+    },
+    {
+      bookingId: 2,
+      name: 'Rach',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'adress line 1 addresss line 2',
+      dropLocation: 'address2',
+    },
+    {
+      bookingId: 3,
+      name: 'Mon',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+    },
+    {
+      bookingId: 7,
+      name: 'Mon',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+    },
+  ];
 
   return (
     <BrowserRouter>
@@ -51,6 +117,7 @@ function App() {
           element={<BookingConfirmation rides={rides} />}
         />
         <Route path="*" element={<Login />} />
+        <Route path="/cab" element={<CabRequest requests={requests} />} />
       </Routes>
     </BrowserRouter>
   );
