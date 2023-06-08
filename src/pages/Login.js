@@ -5,6 +5,7 @@ import '../styles/pages/Login.scss';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import '../styles/components/Form.scss';
+import Layout from '../components/template/Layout';
 
 const Login = (props) => {
   const [error, setError] = useState(null);
@@ -26,23 +27,25 @@ const Login = (props) => {
   };
 
   return (
-    <div>
-      <h1 className="login-container">Hatch-A-Cab</h1>
-      <div className="login-container">
-        <h2>Employee Login</h2>
-        <Form
-          onFieldClick={handleError}
-          onSubmitForm={handleLogin}
-          buttonText="Login"
-          showSignUpFields={false}
-        />
-        {error && <p>{error}</p>}
-        <p>
-          New User?
-          <Link to="/signup"> Signup </Link>
-        </p>
+    <Layout>
+      <div>
+        <h1 className="login-container">Hatch-A-Cab</h1>
+        <div className="login-container">
+          <h2>Employee Login</h2>
+          <Form
+            onFieldClick={handleError}
+            onSubmitForm={handleLogin}
+            buttonText="Login"
+            showSignUpFields={false}
+          />
+          {error && <p>{error}</p>}
+          <p>
+            New User?
+            <Link to="/signup"> Signup </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
