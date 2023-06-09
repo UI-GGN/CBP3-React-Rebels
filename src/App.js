@@ -38,71 +38,6 @@ function App() {
       status: "confirmed"
     }
   ];
-  const requests = [
-    {
-      bookingId: 1,
-      name: "Joe",
-      date: "22-06-23",
-      projectCode: "BP",
-      time: "10:30 AM",
-      pickupLocation: "address1",
-      dropLocation: "address2"
-    },
-    {
-      bookingId: 4,
-      name: "Joe",
-      date: "22-06-23",
-      projectCode: "BP",
-      time: "10:30 AM",
-      pickupLocation: "address1",
-      dropLocation: "address2"
-    },
-    {
-      bookingId: 5,
-      name: "Joe",
-      date: "22-06-23",
-      projectCode: "BP",
-      time: "10:30 AM",
-      pickupLocation: "address1",
-      dropLocation: "address2"
-    },
-    {
-      bookingId: 6,
-      name: "Joe",
-      date: "22-06-23",
-      projectCode: "BP",
-      time: "10:30 AM",
-      pickupLocation: "address1",
-      dropLocation: "address2"
-    },
-    {
-      bookingId: 2,
-      name: "Rach",
-      date: "22-06-23",
-      projectCode: "BP",
-      time: "10:30 AM",
-      pickupLocation: "adress line 1 addresss line 2",
-      dropLocation: "address2"
-    },
-    {
-      bookingId: 3,
-      name: "Mon",
-      date: "22-06-23",
-      projectCode: "BP",
-      time: "10:30 AM",
-      pickupLocation: "address1",
-      dropLocation: "address2"
-    },
-    {
-      bookingId: 7,
-      name: "Mon",
-      date: "22-06-23",
-      projectCode: "BP",
-      time: "10:30 AM",
-      pickupLocation: "address1",
-      dropLocation: "address2"
-    }
-  ];
 
   return (
     <BrowserRouter>
@@ -114,7 +49,7 @@ function App() {
         <Route path="home" element={<LandingPage />} />
         <Route path="booking-confirmation" element={<BookingConfirmation rides={rides} />} />
         <Route path="*" element={<Login />} />
-        <Route path="/cab" element={<CabRequest requests={requests} />} />
+        <Route path="/cab" element={<CabRequest />} />
       </Routes>
     </BrowserRouter>
   );

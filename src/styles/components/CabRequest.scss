@@ -23,3 +23,14 @@ strong {
   height: 100vh;
   width: 100vw;
 }
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.truncate:hover {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}

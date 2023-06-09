@@ -6,29 +6,70 @@ const CabRequest = ({ requests }) => {
     <div className="cabRequest p-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         {requests.map((request) => (
-          <div className="card" key={request.bookingId}>
-            <div className="card-content">
+          <div className="card font-inter" key={request.bookingId}>
+            <div className="card-content  ">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <strong>Name </strong>
-                  <span>{request.name}</span>
+                  <span
+                    className="inline-block truncate w-full mb-2"
+                    title={request.name}
+                  >
+                    {request.name}
+                  </span>
                   <br />
-                  <strong>Project Code </strong>{' '}
-                  <span>{request.projectCode}</span>
+                  <strong>Project Code </strong>
+                  <span
+                    className="inline-block truncate w-full mb-2"
+                    title={request.projectCode}
+                  >
+                    {request.projectCode}
+                  </span>
                   <br />
-                  <strong>Pickup Location</strong>{' '}
-                  <span>{request.pickupLocation}</span>
+                  <strong>Pickup Location</strong>
+                  <span
+                    className="inline-block truncate w-full mb-2"
+                    title={request.pickupLocation}
+                  >
+                    {request.pickupLocation}
+                  </span>
                 </div>
+
                 <div>
                   <strong>Date </strong>
-                  <span>{request.date}</span>
+                  <span
+                    className="inline-block truncate w-full mb-2"
+                    title={request.date}
+                  >
+                    {request.date}
+                  </span>
                   <br />
-                  <strong>Time </strong> <span>{request.time}</span>
+                  <strong>Time </strong>
+                  <span
+                    className="inline-block truncate w-full mb-2"
+                    title={request.time}
+                  >
+                    {request.time}
+                  </span>
                   <br />
-                  <strong>Drop Location </strong>{' '}
-                  <span>{request.dropLocation}</span>
+                  <strong>Drop Location </strong>
+                  <span
+                    className="inline-block truncate w-full mb-2"
+                    title={request.dropLocation}
+                  >
+                    {request.dropLocation}
+                  </span>
                 </div>
               </div>
+            </div>
+
+            <div className="card-footer-1 mt-4 space-x-16 ">
+              <button className="btn-1 text-white px-4 py-2 rounded-md font-bold bg-tw_saphire_blue">
+                Approve
+              </button>
+              <button className="btn-2 text-white px-4 py-2 rounded-md font-bold bg-tw_pink">
+                Decline
+              </button>
             </div>
           </div>
         ))}
