@@ -2,8 +2,7 @@
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  min-height: 220px;
-  max-width: 400px;
+  width: 350px;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -19,9 +18,10 @@ strong {
 
 .cabRequest {
   background-image: url("../../../public/images/tw_illustration_106.jpg");
-  background-size: 100vw 100vh;
+  background-size: contain;
   height: 100vh;
   width: 100vw;
+  padding: 1.5rem;
 }
 .truncate {
   overflow: hidden;
@@ -29,8 +29,20 @@ strong {
   text-overflow: ellipsis;
 }
 
-.truncate:hover {
-  white-space: normal;
-  overflow: visible;
-  text-overflow: clip;
+.card:hover {
+  .truncate{
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+}
+
+@media (max-width: 767px) {
+  .cabRequest{
+    padding: 0.5rem;
+  }
+  .card{
+    width: 300px;
+    margin: auto;
+  }
 }

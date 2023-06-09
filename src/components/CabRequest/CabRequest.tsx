@@ -3,8 +3,8 @@ import '../../styles/components/CabRequest.scss';
 
 const CabRequest = ({ requests }) => {
   return (
-    <div className="cabRequest p-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+    <div className="cabRequest">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-6 2xl:gap-6">
         {requests.map((request) => (
           <div className="card font-inter" key={request.bookingId}>
             <div className="card-content  ">
@@ -63,7 +63,7 @@ const CabRequest = ({ requests }) => {
               </div>
             </div>
 
-            <div className="card-footer-1 mt-4 space-x-16 ">
+            <div className="card-footer-1 mt-4 space-x-4 sm:space-x-4 md:space-x-4 lg:space-x-4 xl:space-x-4 2xl:space-x-4">
               <button className="btn-1 text-white px-4 py-2 rounded-md font-bold bg-tw_saphire_blue">
                 Approve
               </button>
