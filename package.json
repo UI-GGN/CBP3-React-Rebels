@@ -1,5 +1,4 @@
 {
-  "homepage": "https://ui-ggn.github.io/CBP3-React-Rebels/",
   "name": "hatch-a-cab",
   "version": "0.1.0",
   "private": true,
@@ -70,7 +69,9 @@
     "tailwindcss": "^3.3.2"
   },
   "jest": {
-    "collectCoverageFrom": ["./src/**"],
+    "collectCoverageFrom": [
+      "./src/**"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 80,
