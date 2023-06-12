@@ -1,13 +1,15 @@
 import React from 'react';
 import '../../styles/components/CabRequest.scss';
+import { T_CabRequest } from '../../types/Interfaces';
 
-const CabRequest = ({ requests }) => {
+const CabRequest: React.FC<T_CabRequest> = ({ requests }) => {
   return (
     <div className="cabRequest">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-6 2xl:gap-6">
         {requests.map((request) => (
-          <div className="card font-inter" key={request.bookingId}>
-            <div className="card-content  ">
+          <div className="card font-inter relative" key={request.bookingId}>
+            <div className="ellipse-background"></div>
+            <div className="card-content">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <strong>Name </strong>
@@ -35,7 +37,7 @@ const CabRequest = ({ requests }) => {
                   </span>
                 </div>
 
-                <div>
+                <div className="tooltip-trigger">
                   <strong>Date </strong>
                   <span
                     className="inline-block truncate w-full mb-2"
@@ -64,7 +66,7 @@ const CabRequest = ({ requests }) => {
             </div>
 
             <div className="card-footer-1 mt-4 space-x-4 sm:space-x-4 md:space-x-4 lg:space-x-4 xl:space-x-4 2xl:space-x-4">
-              <button className="btn-1 text-white px-4 py-2 rounded-md font-bold bg-tw_saphire_blue">
+              <button className="btn-1 text-white px-4 py-2 rounded-md font-bold bg-tw_blue">
                 Approve
               </button>
               <button className="btn-2 text-white px-4 py-2 rounded-md font-bold bg-tw_pink">
