@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { mapRoutesToRoutesDashboard } from '../utils/mappers/routeMapper';
+import { Tooltip } from 'react-tooltip';
 
 const routes = mapRoutesToRoutesDashboard();
 
@@ -40,6 +41,13 @@ const ViewRoutes = () => {
       : currentExpandedRows.concat(routeId);
 
     setExpandedRows(newExpandedRows);
+  };
+
+  const getConcatenatedLocation = (location) => {
+    if (location.length > 10) {
+      return location.slice(0, 10) + '...';
+    }
+    return location;
   };
 
   return (
@@ -87,7 +95,7 @@ const ViewRoutes = () => {
                 </tr>
               </thead>
               <tbody>
-                {routes.map((route) => (
+                {routes.map((route, index) => (
                   <>
                     <tr
                       key={route.id}
@@ -97,10 +105,20 @@ const ViewRoutes = () => {
                         {route.routeName}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {route.pickupLocation}
+                        <span data-tooltip-id={`pick-up-${index}`}>
+                          {getConcatenatedLocation(route.pickupLocation)}
+                        </span>
+                        <Tooltip id={`pick-up-${index}`}>
+                          {route.pickupLocation}
+                        </Tooltip>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        {route.dropLocation}
+                        <span data-tooltip-id={`drop-${index}`}>
+                          {getConcatenatedLocation(route.dropLocation)}
+                        </span>
+                        <Tooltip id={`drop-${index}`}>
+                          {route.dropLocation}
+                        </Tooltip>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {route.startTime}
