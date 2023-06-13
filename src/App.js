@@ -4,11 +4,10 @@ import 'tailwindcss/tailwind.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AddCab from './pages/AddCab';
 import Login from './pages/Login';
-import Booking from './pages/Booking';
 import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
-import ErrorPage from './pages/ErrorPage';
-import LandingPage from './pages/LandingPage.tsx';
+import LandingPage from './pages/LandingPage';
+import CabRequest from './components/CabRequest/CabRequest.tsx';
 
 function App() {
   const rides = [
@@ -40,6 +39,78 @@ function App() {
       status: 'confirmed',
     },
   ];
+  const requests = [
+    {
+      bookingId: 1,
+      name: 'Joe',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+      status: 'PENDING',
+    },
+    {
+      bookingId: 2,
+      name: 'Rach',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'adress line 1 addresss line 2',
+      dropLocation: 'address2',
+      status: 'PENDING',
+    },
+    {
+      bookingId: 3,
+      name: 'Mon',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+      status: 'PENDING',
+    },
+    {
+      bookingId: 4,
+      name: 'Joe',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+      status: 'COMPLETED',
+    },
+    {
+      bookingId: 5,
+      name: 'Joe',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+      status: 'COMPLETED',
+    },
+    {
+      bookingId: 6,
+      name: 'Joe',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address2',
+      status: 'COMPLETED',
+    },
+    {
+      bookingId: 7,
+      name: 'Mon',
+      date: '22-06-23',
+      projectCode: 'BP',
+      time: '10:30 AM',
+      pickupLocation: 'address1',
+      dropLocation: 'address 2 line 1 adress line 2',
+      status: 'PENDING',
+    },
+  ];
 
   return (
     <BrowserRouter>
@@ -54,6 +125,7 @@ function App() {
           element={<BookingConfirmation rides={rides} />}
         />
         <Route path="*" element={<Login />} />
+        <Route path="/cab" element={<CabRequest requests={requests} />} />
       </Routes>
     </BrowserRouter>
   );

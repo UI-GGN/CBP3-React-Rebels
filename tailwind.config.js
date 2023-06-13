@@ -4,9 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        tw_dark: '#cc850a',
-        tw_primary: '#003d4f',
-        tw_secondary: '#f2617a',
+        tw_yellow: '#cc850a',
+        tw_blue: '#003d4f',
+        tw_pink: '#f2617a',
+        tw_saphire_blue: '#47a1ad',
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
