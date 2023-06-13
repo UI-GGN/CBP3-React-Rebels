@@ -74,6 +74,10 @@ const ViewRoutes = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-cyan text-white">
                 <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left font-medium  tracking-wider"
+                  ></th>
                   {data.map((title) => {
                     return (
                       <th
@@ -88,10 +92,6 @@ const ViewRoutes = () => {
                     scope="col"
                     className="px-6 py-3 text-left font-medium tracking-wider"
                   ></th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left font-medium  tracking-wider"
-                  ></th>
                 </tr>
               </thead>
               <tbody>
@@ -101,6 +101,42 @@ const ViewRoutes = () => {
                       key={route.id}
                       className="bg-light-grey divide-y divide-gray-200"
                     >
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <button
+                          variant="link"
+                          onClick={(event) => handleExpandRow(event, route.id)}
+                        >
+                          {expandState[route.id] ? (
+                            <svg
+                              data-accordion-icon
+                              class="w-6 h-6 rotate-180 shrink-0"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"
+                              ></path>
+                            </svg>
+                          ) : (
+                            <svg
+                              data-accordion-icon
+                              class="w-6 h-6 shrink-0"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"
+                              ></path>
+                            </svg>
+                          )}
+                        </button>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {route.routeName}
                       </td>
@@ -136,14 +172,6 @@ const ViewRoutes = () => {
                         {route.employees.length}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <button
-                          variant="link"
-                          onClick={(event) => handleExpandRow(event, route.id)}
-                        >
-                          {expandState[route.id] ? '-' : '+'}
-                        </button>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
                         <button>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -165,29 +193,42 @@ const ViewRoutes = () => {
                         <tr className="bg-light-grey divide-y divide-gray-200">
                           <td colspan="11">
                             <div>
-                              <h6 class="py-2 px-4 font-bold"> Employees </h6>
-                              <ul>
+                              <h6 class="py-2 px-10 font-bold">
+                                {' '}
+                                Employee Details :{' '}
+                              </h6>
+                              <table>
+                                <tr className="bg-light-grey">
+                                  <th className="px-6 py-2 whitespace-nowrap">
+                                    {' '}
+                                  </th>
+                                  <th className="px-6 py-2 whitespace-nowrap">
+                                    Employee ID{' '}
+                                  </th>
+                                  <th className="px-6 py-2 whitespace-nowrap">
+                                    Employee Name
+                                  </th>
+                                  <th className="px-6 py-2 whitespace-nowrap">
+                                    Project Code
+                                  </th>
+                                </tr>
                                 {route.employees.map((employee) => {
                                   return (
-                                    <li>
-                                      <span>
-                                        <b>Employee ID :</b>
-                                      </span>{' '}
-                                      <span> {employee.id} </span>
-                                      <span>{'     '}</span>
-                                      <span>
-                                        <b>Employee Name :</b>
-                                      </span>{' '}
-                                      <span> {employee.name} </span>
-                                      <span>{'     '}</span>
-                                      <span>
-                                        <b>Project Code :</b>
-                                      </span>{' '}
-                                      <span> {employee.projectCode} </span>
-                                    </li>
+                                    <tr className="bg-light-grey">
+                                      <td className="px-6 py-2 whitespace-nowrap"></td>
+                                      <td className="px-6 py-2 whitespace-nowrap">
+                                        {employee.id}
+                                      </td>
+                                      <td className="px-6 py-2 whitespace-nowrap">
+                                        {employee.name}
+                                      </td>
+                                      <td className="px-6 py-2 whitespace-nowrap">
+                                        {employee.projectCode}
+                                      </td>
+                                    </tr>
                                   );
                                 })}
-                              </ul>
+                              </table>
                             </div>
                           </td>
                         </tr>
