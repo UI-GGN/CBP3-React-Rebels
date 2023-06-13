@@ -51,193 +51,197 @@ const ViewRoutes = () => {
   };
 
   return (
-    <div>
-      <button class="bg-cyan text-white font-semibold flex py-2 px-4 mborder border-blue-500 rounded justify-end ml-auto mr-20 mb-2">
-        <svg
-          fill="none"
-          viewBox="0 0 30 24"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6  stroke-white stroke-2"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-          ></path>
-        </svg>
-        Add Route
-      </button>
+    <div className="routes-bg">
+      <div>
+        <button class="bg-tw_secondary text-white font-semibold flex py-2 px-4 mborder border-blue-500 rounded justify-end ml-auto mr-20 mb-2">
+          <svg
+            fill="none"
+            viewBox="0 0 30 24"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6  stroke-white stroke-2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          Add Route
+        </button>
 
-      <div className="table-auto">
-        <div className="py-2 align-middle content-around min-w-fit sm:px-10 lg:px-20">
-          <div className="border-b border-gray-200 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-cyan text-white">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left font-medium  tracking-wider"
-                  ></th>
-                  {data.map((title) => {
-                    return (
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-left font-medium tracking-wider"
-                      >
-                        {title}
-                      </th>
-                    );
-                  })}
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left font-medium tracking-wider"
-                  ></th>
-                </tr>
-              </thead>
-              <tbody>
-                {routes.map((route, index) => (
-                  <>
-                    <tr
-                      key={route.id}
-                      className="bg-light-grey divide-y divide-gray-200"
-                    >
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button
-                          variant="link"
-                          onClick={(event) => handleExpandRow(event, route.id)}
+        <div className="table-auto">
+          <div className="py-2 align-middle content-around min-w-fit sm:px-10 lg:px-20">
+            <div className="border-b border-gray-200 sm:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-tw_secondary text-white">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left font-medium  tracking-wider"
+                    ></th>
+                    {data.map((title) => {
+                      return (
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left font-medium tracking-wider"
                         >
-                          {expandState[route.id] ? (
-                            <svg
-                              data-accordion-icon
-                              class="w-6 h-6 rotate-180 shrink-0"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                              ></path>
-                            </svg>
-                          ) : (
-                            <svg
-                              data-accordion-icon
-                              class="w-6 h-6 shrink-0"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                              ></path>
-                            </svg>
-                          )}
-                        </button>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {route.routeName}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span data-tooltip-id={`pick-up-${index}`}>
-                          {getConcatenatedLocation(route.pickupLocation)}
-                        </span>
-                        <Tooltip id={`pick-up-${index}`}>
-                          {route.pickupLocation}
-                        </Tooltip>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span data-tooltip-id={`drop-${index}`}>
-                          {getConcatenatedLocation(route.dropLocation)}
-                        </span>
-                        <Tooltip id={`drop-${index}`}>
-                          {route.dropLocation}
-                        </Tooltip>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {route.startTime}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {route.vendor}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {route.driver}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {route.driverContact}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {route.employees.length}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <button>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            className="w-6 h-6  stroke-cyan"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                            />
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
+                          {title}
+                        </th>
+                      );
+                    })}
+                    <th
+                      scope="col"
+                      className="px-6 py-3 text-left font-medium tracking-wider"
+                    ></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {routes.map((route, index) => (
                     <>
-                      {expandedRows.includes(route.id) ? (
-                        <tr className="bg-light-grey divide-y divide-gray-200">
-                          <td colspan="11">
-                            <div>
-                              <h6 class="py-2 px-10 font-bold">
-                                {' '}
-                                Employee Details :{' '}
-                              </h6>
-                              <table>
-                                <tr className="bg-light-grey">
-                                  <th className="px-6 py-2 whitespace-nowrap">
-                                    {' '}
-                                  </th>
-                                  <th className="px-6 py-2 whitespace-nowrap">
-                                    Employee ID{' '}
-                                  </th>
-                                  <th className="px-6 py-2 whitespace-nowrap">
-                                    Employee Name
-                                  </th>
-                                  <th className="px-6 py-2 whitespace-nowrap">
-                                    Project Code
-                                  </th>
-                                </tr>
-                                {route.employees.map((employee) => {
-                                  return (
-                                    <tr className="bg-light-grey">
-                                      <td className="px-6 py-2 whitespace-nowrap"></td>
-                                      <td className="px-6 py-2 whitespace-nowrap">
-                                        {employee.id}
-                                      </td>
-                                      <td className="px-6 py-2 whitespace-nowrap">
-                                        {employee.name}
-                                      </td>
-                                      <td className="px-6 py-2 whitespace-nowrap">
-                                        {employee.projectCode}
-                                      </td>
-                                    </tr>
-                                  );
-                                })}
-                              </table>
-                            </div>
-                          </td>
-                        </tr>
-                      ) : null}
+                      <tr
+                        key={route.id}
+                        className="bg-light-grey divide-y divide-gray-200"
+                      >
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <button
+                            variant="link"
+                            onClick={(event) =>
+                              handleExpandRow(event, route.id)
+                            }
+                          >
+                            {expandState[route.id] ? (
+                              <svg
+                                data-accordion-icon
+                                class="w-6 h-6 rotate-180 shrink-0"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"
+                                ></path>
+                              </svg>
+                            ) : (
+                              <svg
+                                data-accordion-icon
+                                class="w-6 h-6 shrink-0"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"
+                                ></path>
+                              </svg>
+                            )}
+                          </button>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {route.routeName}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span data-tooltip-id={`pick-up-${index}`}>
+                            {getConcatenatedLocation(route.pickupLocation)}
+                          </span>
+                          <Tooltip id={`pick-up-${index}`}>
+                            {route.pickupLocation}
+                          </Tooltip>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span data-tooltip-id={`drop-${index}`}>
+                            {getConcatenatedLocation(route.dropLocation)}
+                          </span>
+                          <Tooltip id={`drop-${index}`}>
+                            {route.dropLocation}
+                          </Tooltip>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {route.startTime}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {route.vendor}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {route.driver}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {route.driverContact}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {route.employees.length}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              className="w-6 h-6  stroke-cyan"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                              />
+                            </svg>
+                          </button>
+                        </td>
+                      </tr>
+                      <>
+                        {expandedRows.includes(route.id) ? (
+                          <tr className="bg-light-grey divide-y divide-gray-200">
+                            <td colspan="11">
+                              <div>
+                                <h6 class="py-2 px-10 font-bold">
+                                  {' '}
+                                  Employee Details :{' '}
+                                </h6>
+                                <table>
+                                  <tr className="bg-light-grey">
+                                    <th className="px-6 py-2 whitespace-nowrap">
+                                      {' '}
+                                    </th>
+                                    <th className="px-6 py-2 whitespace-nowrap">
+                                      Employee ID{' '}
+                                    </th>
+                                    <th className="px-6 py-2 whitespace-nowrap">
+                                      Employee Name
+                                    </th>
+                                    <th className="px-6 py-2 whitespace-nowrap">
+                                      Project Code
+                                    </th>
+                                  </tr>
+                                  {route.employees.map((employee) => {
+                                    return (
+                                      <tr className="bg-light-grey">
+                                        <td className="px-6 py-2 whitespace-nowrap"></td>
+                                        <td className="px-6 py-2 whitespace-nowrap">
+                                          {employee.id}
+                                        </td>
+                                        <td className="px-6 py-2 whitespace-nowrap">
+                                          {employee.name}
+                                        </td>
+                                        <td className="px-6 py-2 whitespace-nowrap">
+                                          {employee.projectCode}
+                                        </td>
+                                      </tr>
+                                    );
+                                  })}
+                                </table>
+                              </div>
+                            </td>
+                          </tr>
+                        ) : null}
+                      </>
                     </>
-                  </>
-                ))}
-              </tbody>
-            </table>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
