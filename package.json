@@ -30,12 +30,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint '**/*.{js,ts,tsx}'",
+    "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "npm run lint -- --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "check-types": "tsc --noemit",
+    "lint:ts": "npm run lint && npm run check-types",
+    "coverage": "react-scripts test --env=jsdom --watchAll=false --coverage"
   },
   "lint-staged": {
-    "*.{js,ts,tsx}": [
+    "*.{js,jsx,ts,tsx}": [
       "prettier --single-quote --write"
     ]
   },
