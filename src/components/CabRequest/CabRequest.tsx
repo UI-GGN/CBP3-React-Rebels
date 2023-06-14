@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../styles/components/CabRequest.scss';
-import { T_CabRequest } from '../../types/Interfaces';
+import type { T_CabRequest } from '../../types/Interfaces';
 
-const CabRequest: React.FC<T_CabRequest> = ({ requests }) => {
+const CabRequest: React.FC<{ requests: T_CabRequest[] }> = ({ requests }) => {
   return (
     <div className="cabRequest">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-6 2xl:gap-6">
@@ -10,6 +10,13 @@ const CabRequest: React.FC<T_CabRequest> = ({ requests }) => {
           <div className="card font-inter relative" key={request.bookingId}>
             <div className="ellipse-background"></div>
             <div className="card-content">
+              <span className="inline-flex items-center rounded-full bg-green-100 px-6 py-1 mb-4 text-s font-medium text-green-700 ring-1 ring-inset ring-green-500">
+                Adhoc
+              </span>
+              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+              <span className="inline-flex items-center rounded-full bg-indigo-100 px-6 py-1 mb-4 text-s font-medium text-indigo-700 ring-1 ring-inset ring-indigo-500">
+                Recurring
+              </span>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <strong>Name </strong>

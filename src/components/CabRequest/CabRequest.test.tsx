@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import CabRequest from './CabRequest';
+import { T_CabRequest } from '../../types/Interfaces';
 
-const requests = [
+const requests: T_CabRequest[] = [
   {
     bookingId: 1,
     name: 'Joe',
@@ -11,6 +12,7 @@ const requests = [
     time: '10:30 AM',
     pickupLocation: 'address1',
     dropLocation: 'address2',
+    status: 'PENDING',
   },
 ];
 
