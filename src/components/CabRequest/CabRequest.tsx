@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/components/CabRequest.scss';
 import type { T_CabRequest } from '../../types/Interfaces';
+import CabRequestService from '../../services/CabRequestService';
 
-const CabRequest: React.FC<{ requests: T_CabRequest[] }> = ({ requests }) => {
+const CabRequest = () => {
+  const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
+
+  useEffect(() => {
+    async function getData() {
+      setCabRequests(await CabRequestService.fetchInfo());
+    }
+    getData();
+  }, []);
+
   return (
     <div className="cabRequest">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4 sm:gap-2 md:gap-4 lg:gap-6 xl:gap-6 2xl:gap-6">
-        {requests.map((request) => (
-          <div className="card font-inter relative" key={request.bookingId}>
+        {cabRequests.map((cabRequest) => (
+          <div className="card font-inter relative" key={cabRequest.id}>
             <div className="ellipse-background"></div>
             <div className="card-content">
               <span className="inline-flex items-center rounded-full bg-green-100 px-6 py-1 mb-4 text-s font-medium text-green-700 ring-1 ring-inset ring-green-500">
@@ -22,25 +32,25 @@ const CabRequest: React.FC<{ requests: T_CabRequest[] }> = ({ requests }) => {
                   <strong>Name </strong>
                   <span
                     className="inline-block truncate w-full mb-2"
-                    title={request.name}
+                    title={cabRequest.employeeName}
                   >
-                    {request.name}
+                    {cabRequest.employeeName}
                   </span>
                   <br />
                   <strong>Project Code </strong>
                   <span
                     className="inline-block truncate w-full mb-2"
-                    title={request.projectCode}
+                    title={cabRequest.projectCode}
                   >
-                    {request.projectCode}
+                    {cabRequest.projectCode}
                   </span>
                   <br />
                   <strong>Pickup Location</strong>
                   <span
                     className="inline-block truncate w-full mb-2"
-                    title={request.pickupLocation}
+                    title={cabRequest.pickupLocation}
                   >
-                    {request.pickupLocation}
+                    {cabRequest.pickupLocation}
                   </span>
                 </div>
 
@@ -48,25 +58,28 @@ const CabRequest: React.FC<{ requests: T_CabRequest[] }> = ({ requests }) => {
                   <strong>Date </strong>
                   <span
                     className="inline-block truncate w-full mb-2"
-                    title={request.date}
+                    title={cabRequest.pickupTime}
                   >
-                    {request.date}
+                    {new Date(cabRequest.pickupTime).toLocaleDateString()}
                   </span>
                   <br />
                   <strong>Time </strong>
                   <span
                     className="inline-block truncate w-full mb-2"
-                    title={request.time}
+                    title={cabRequest.pickupTime}
                   >
-                    {request.time}
+                    {new Date(cabRequest.pickupTime).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
                   </span>
                   <br />
                   <strong>Drop Location </strong>
                   <span
                     className="inline-block truncate w-full mb-2"
-                    title={request.dropLocation}
+                    title={cabRequest.dropLocation}
                   >
-                    {request.dropLocation}
+                    {cabRequest.dropLocation}
                   </span>
                 </div>
               </div>

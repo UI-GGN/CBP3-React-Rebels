@@ -1,37 +1,49 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import CabRequest from './CabRequest';
-import { T_CabRequest } from '../../types/Interfaces';
+import CabRequestService from 'src/services/CabRequestService';
+import React from 'react';
 
-const requests: T_CabRequest[] = [
-  {
-    bookingId: 1,
-    name: 'Joe',
-    date: '22-06-23',
-    projectCode: 'BP',
-    time: '10:30 AM',
-    pickupLocation: 'address1',
-    dropLocation: 'address2',
-    status: 'PENDING',
-  },
-];
+jest.mock('../../services/CabRequestService.ts', () => ({
+  fetchInfo: jest.fn(),
+}));
 
-describe('CabRequest Component', () => {
-  test('renders the component with correct data', () => {
-    render(<CabRequest requests={requests} />);
+describe('CabRequest', () => {
+  beforeEach(() => {
+    (CabRequestService.fetchInfo as jest.Mock).mockReset();
+  });
 
-    const name = screen.getByText('Joe');
-    const date = screen.getByText('22-06-23');
-    const projectCode = screen.getByText('BP');
-    const time = screen.getByText('10:30 AM');
-    const pickupLocation = screen.getByText('address1');
-    const dropLocation = screen.getByText('address2');
+  test('renders cab requests', async () => {
+    const mockCabRequests = [
+      {
+        id: 1,
+        employeeName: 'John Doe',
+        projectCode: 'ABC123',
+        pickupLocation: 'Location 1',
+        pickupTime: '2023-06-15T09:00:00Z',
+        dropLocation: 'Location 2',
+      },
+    ];
+    (CabRequestService.fetchInfo as jest.Mock).mockResolvedValue(
+      mockCabRequests
+    );
 
-    expect(name).toBeInTheDocument();
-    expect(date).toBeInTheDocument();
-    expect(projectCode).toBeInTheDocument();
-    expect(time).toBeInTheDocument();
-    expect(pickupLocation).toBeInTheDocument();
-    expect(dropLocation).toBeInTheDocument();
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      render(<CabRequest />);
+    });
+
+    expect(CabRequestService.fetchInfo).toHaveBeenCalledTimes(1);
+
+    const name = screen.getByText('John Doe');
+    const projectCode = screen.getByText('ABC123');
+    const pickupLocation = screen.getByText('Location 1');
+    const dropLocation = screen.getByText('Location 2');
+
+    expect(name).toBeTruthy();
+
+    expect(projectCode).toBeTruthy();
+
+    expect(pickupLocation).toBeTruthy();
+    expect(dropLocation).toBeTruthy();
   });
 });
