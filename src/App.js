@@ -9,6 +9,7 @@ import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
 import ErrorPage from './pages/ErrorPage';
 import LandingPage from './pages/LandingPage.tsx';
+import ViewRoutes from './pages/ViewRoutes';
 
 function App() {
   const rides = [
@@ -49,6 +50,7 @@ function App() {
         <Route path="signup" element={<SignUp />} />
         <Route path="booking" element={<AddCab />} />
         <Route path="home" element={<LandingPage />} />
+        <Route path="routes" element={<ViewRoutes />} />
         <Route
           path="booking-confirmation"
           element={<BookingConfirmation rides={rides} />}
