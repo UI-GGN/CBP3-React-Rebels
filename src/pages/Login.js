@@ -5,6 +5,7 @@ import '../styles/pages/Login.scss';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import '../styles/components/Form.scss';
+import Logo from '../components/Logo';
 
 const Login = (props) => {
   const [error, setError] = useState(null);
@@ -16,7 +17,9 @@ const Login = (props) => {
         email,
         password,
       });
-      navigate('/landing');
+
+      if (response.status === 200) navigate('/landing');
+      else setError('An error occurred while Login. Please try again later.');
     } catch (error) {
       setError('An error occurred while Login. Please try again later.');
     }
@@ -26,10 +29,10 @@ const Login = (props) => {
   };
 
   return (
-    <div>
-      <h1 className="login-container">Hatch-A-Cab</h1>
-      <div className="login-container">
-        <h2>Employee Login</h2>
+    <div className="login-background">
+      <Logo />
+      <div className="tw-container-style form">
+        <h2 className="form-header">Employee Login</h2>
         <Form
           onFieldClick={handleError}
           onSubmitForm={handleLogin}
@@ -39,7 +42,7 @@ const Login = (props) => {
         {error && <p>{error}</p>}
         <p>
           New User?
-          <Link to="/signup"> Signup </Link>
+          <Link to="/signup"> Create Account </Link>
         </p>
       </div>
     </div>

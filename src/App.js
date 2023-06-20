@@ -1,14 +1,12 @@
-import logo from './logo.svg';
 import './App.scss';
 import 'tailwindcss/tailwind.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AddCab from './pages/AddCab';
 import Login from './pages/Login';
-import Booking from './pages/Booking';
 import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
-import ErrorPage from './pages/ErrorPage';
-import LandingPage from './pages/LandingPage.tsx';
+import LandingPage from './pages/LandingPage';
+import CabRequest from './components/CabRequest/CabRequest.tsx';
 
 function App() {
   const rides = [
@@ -54,6 +52,7 @@ function App() {
           element={<BookingConfirmation rides={rides} />}
         />
         <Route path="*" element={<Login />} />
+        <Route path="/cab-request" element={<CabRequest />} />
       </Routes>
     </BrowserRouter>
   );
