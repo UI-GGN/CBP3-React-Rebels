@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.html', './src/**/*.js', './src/**/*.tsx'],
+  content: ["./src/**/*.html", "./src/**/*.js", "./src/**/*.tsx"],
   theme: {
     extend: {
       colors: {
@@ -10,13 +10,17 @@ module.exports = {
         tw_hover_light: '#f8f8ff',
         tw_placeholder: '#6c757d',
         tw_disable_input: '#e7e8ea',
+        tw_yellow: "#cc850a",
+        tw_blue: "#003d4f",
+        tw_pink: "#f2617a",
+        tw_saphire_blue: "#47a1ad"
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
-        bitter: ['Bitter', 'sans-serif'],
-      },
-    },
+        inter: ["Inter", "sans-serif"],
+        bitter: ["Bitter", "sans-serif"]
+      }
+    }
   },
   variants: {},
-  plugins: [],
+  plugins: []
 };
