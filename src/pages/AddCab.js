@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/pages/AddCab.scss';
-import { useNavigate, useNavigation } from 'react-router-dom';
-import Input from '../components/Input';
+import { useNavigate } from 'react-router-dom';
 
 function AddCab() {
   const initialValues = {
@@ -18,6 +17,7 @@ function AddCab() {
   const [cityError, setCityError] = useState('City is mandatory.');
   const [areaError, setAreaError] = useState('Area is mandatory.');
   const [line1Error, setLine1Error] = useState('Line 1 is mandatory.');
+  // eslint-disable-next-line no-unused-vars
   const [line2Error, setLine2Error] = useState('');
   const [pincodeError, setPincodeError] = useState('Pincode is mandatory.');
   const [pickupTimeError, setPickupTimeError] = useState('');
@@ -65,7 +65,6 @@ function AddCab() {
       return { ...prevState, [name]: trimedValue };
     });
   };
-  const inputs = ['blue', ''];
 
   const cityInputBlurHandler = () => {
     setCityIsTouched(true);
