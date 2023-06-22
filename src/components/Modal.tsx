@@ -1,5 +1,5 @@
-import React, { Children } from 'react';
-import { ModalProps, Props } from 'src/types/Interfaces';
+import React from 'react';
+import { ModalProps } from 'src/types/Interfaces';
 
 import { RxCross2 } from 'react-icons/rx';
 
@@ -7,7 +7,7 @@ export const Modal = ({ showModal, children, onClose }: ModalProps) => {
   return (
     <div className={showModal ? 'visible ' : 'invisible'}>
       <div className="fixed inset-0 bg-gray-700 opacity-80"></div>
-      <div className="fixed inset-40 w-[60rem] p-10 bg-white overflow-hidden">
+      <div className="fixed mx-auto inset-40 w-[60rem] p-10 bg-white overflow-hidden">
         <div className="p-2">
           <div className="flex flex-row-reverse">
             <RxCross2
