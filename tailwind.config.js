@@ -11,6 +11,9 @@ module.exports = {
         tw_blue: '#003d4f',
         tw_pink: '#f2617a',
         tw_saphire_blue: '#47a1ad',
+        tw_hover_light: '#f8f8ff',
+        tw_placeholder: '#6c757d',
+        tw_disable_input: '#e7e8ea',
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
