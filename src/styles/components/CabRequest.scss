@@ -1,0 +1,56 @@
+.card {
+  position: relative;
+  z-index: 1;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 350px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.ellipse-background {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  height: 100%;
+  width: 100px;
+  background-color: #47a1ad;
+  border-radius: 0 50% 50% 0;
+  overflow: hidden;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.truncate {
+  cursor: pointer;
+}
+
+strong {
+  display: block;
+  font-weight: bold;
+}
+
+.text-gray-500 {
+  color: #888;
+}
+
+.cabRequest {
+  background-image: url("../../../public/images/tw_illustration_106.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100vw;
+  padding: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .cabRequest {
+    padding: 0.5rem;
+  }
+  .card {
+    width: 300px;
+    margin: auto;
+  }
+}

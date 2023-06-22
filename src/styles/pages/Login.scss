@@ -1,12 +1,23 @@
-.login-container {
+.login-background {
+  background-image: url("../../../public/images/tw_illustration_12.jpg");
+  background-size: 100vw 100vh;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.tw-container-style {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin: auto;
 }
 
-h2 {
-  margin-bottom: 20px;
+.form-header {
+  margin-top: 15px;
+  color: white;
 }
 
 h1 {
@@ -17,7 +28,10 @@ h1 {
   color: darkcyan;
 }
 
-form {
-  background-color: #fdb8b8;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+.form {
+  background-color: #003d4f;
+  opacity: 0.91;
+  // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;s
+  overflow: hidden;
 }
+
