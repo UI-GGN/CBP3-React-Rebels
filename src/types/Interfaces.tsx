@@ -26,3 +26,9 @@ export type T_CabRequest = {
   dropLocation: string;
   status: string;
 };
+
+export type ModalProps = {
+  showModal: boolean;
+  children: JSX.Element;
+  onClose: (params: any) => any;
+};
