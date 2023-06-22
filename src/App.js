@@ -7,6 +7,7 @@ import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
 import LandingPage from './pages/LandingPage';
 import CabRequest from './components/CabRequest/CabRequest.tsx';
+import CabRequestForm from './pages/CabRequestForm/CabRequestForm';
 
 function App() {
   const rides = [
@@ -53,6 +54,7 @@ function App() {
         />
         <Route path="*" element={<Login />} />
         <Route path="/cab-request" element={<CabRequest />} />
+        <Route path="/cab-request-form" element={<CabRequestForm />} />
       </Routes>
     </BrowserRouter>
   );
