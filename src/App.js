@@ -5,7 +5,8 @@ import AddCab from './pages/AddCab';
 import Login from './pages/Login';
 import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
-import LandingPage from './pages/LandingPage';
+import LandingPage from './pages/LandingPage.tsx';
+import AddRoute from './pages/AddRoute';
 import CabRequest from './components/CabRequest/CabRequest.tsx';
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           path="booking-confirmation"
           element={<BookingConfirmation rides={rides} />}
         />
+        <Route path="add-route" element={<AddRoute />} />
         <Route path="*" element={<Login />} />
         <Route path="/cab-request" element={<CabRequest />} />
       </Routes>

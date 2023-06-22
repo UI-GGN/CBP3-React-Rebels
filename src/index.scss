@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.add-route-banner{
+  background-image: url(assets/add-route-banner1.jpg);
+  object-fit: contain;
+  background-size:100% 100%;
+}
+
+.map-banner{
+  background-image: url(assets/map.jpg);
+  object-fit: fill;
+  background-size:200% 350%;
+}
