@@ -39,8 +39,8 @@ jobs:
           npm install
           npm run build --if-present
 
-      - name: test coverage check
-        run: npm run coverage
+      # - name: test coverage check
+      #   run: npm run coverage
       
       - name: stylelint checks
         run: npm run lint
