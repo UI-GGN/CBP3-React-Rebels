@@ -6,12 +6,11 @@ import CabRequestService from 'src/services/CabRequestService';
 import { useNavigate } from 'react-router-dom';
 
 const CabRequestForm: React.FC<FormProps> = () => {
+  const navigate = useNavigate();
   const onSubmit = (formData: FormProps) => {
     CabRequestService.createRequest(formData)
       .then((response) => {
         console.log('Request created:', response);
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const navigate = useNavigate();
         navigate('/cab-request');
       })
       .catch((error) => {
@@ -60,7 +59,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       },
       {
         title: 'Start Date',
-        type: 'text',
+        type: 'date',
         name: 'startDate',
         validationProps: {
           required: true,
@@ -69,7 +68,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       },
       {
         title: 'End Date (optional)',
-        type: 'text',
+        type: 'date',
         name: 'endDate',
         validationProps: {
           required: false,
@@ -78,7 +77,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       },
       {
         title: 'Time',
-        type: 'text',
+        type: 'time',
         name: 'time',
         validationProps: {
           required: true,
@@ -110,8 +109,8 @@ const CabRequestForm: React.FC<FormProps> = () => {
     <div className="cabRequestForm">
       <div className="leftWindow"></div>
       <div className="rightWindow">
-        <div className="formContainer mt-4">
-          <FormComponent template={formTemplate} />
+        <div className="formContainer mt-4 px-4 mr-8 ml-8">
+          <FormComponent template={formTemplate} onSubmit={onSubmit} />
         </div>
       </div>
     </div>

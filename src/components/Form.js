@@ -175,32 +175,29 @@ function Form({ buttonText, onSubmitForm, showSignUpFields, onFieldClick }) {
         </>
       )}
       <div className="form-control">
-        <label>
-          Email{' '}
-          <input
-            type="email"
-            required
-            value={email}
-            onClick={handleFieldClick}
-            onBlur={handleEmailBlur}
-            onChange={handleEmailChange}
-          />
-          {emailError && <div className="error">{emailError}</div>}
-        </label>
+        <label>Email</label> <br />
+        <input
+          type="email"
+          required
+          value={email}
+          onClick={handleFieldClick}
+          onBlur={handleEmailBlur}
+          onChange={handleEmailChange}
+        />
+        {emailError && <div className="error">{emailError}</div>}
       </div>
       <div className="form-control">
-        <label>
-          Password{' '}
-          <input
-            type="password"
-            required
-            value={password}
-            onClick={handleFieldClick}
-            onBlur={handlePasswordBlur}
-            onChange={handlePasswordChange}
-          />
-          {passwordError && <div className="error">{passwordError}</div>}
-        </label>
+        <label>Password </label>
+        <br />
+        <input
+          type="password"
+          required
+          value={password}
+          onClick={handleFieldClick}
+          onBlur={handlePasswordBlur}
+          onChange={handlePasswordChange}
+        />
+        {passwordError && <div className="error">{passwordError}</div>}
       </div>
       <Button text={buttonText} />
     </form>

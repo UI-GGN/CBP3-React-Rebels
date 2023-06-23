@@ -31,16 +31,16 @@ const Login = (props) => {
   return (
     <div className="login-background">
       <Logo />
-      <div className="tw-container-style form">
+      <div className="tw-container-style form px-4 py-2">
         <h2 className="form-header">Employee Login</h2>
         <Form
           onFieldClick={handleError}
           onSubmitForm={handleLogin}
-          buttonText="Login"
+          buttonText="LOGIN"
           showSignUpFields={false}
         />
         {error && <p>{error}</p>}
-        <p>
+        <p className="text-white">
           New User?
           <Link to="/signup"> Create Account </Link>
         </p>
