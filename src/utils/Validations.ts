@@ -8,5 +8,5 @@ export const hasMinLength = (value: String, minLength: number) => {
 
 export const exectLength = (value: String, length: number) => {
   console.log(value.length);
-  return value.length == length;
+  return value.length === length;
 };

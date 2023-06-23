@@ -1,30 +1,30 @@
 import React from 'react';
 import '../styles/pages/LandingPage.scss';
-import { To, useNavigate } from 'react-router-dom';
+// import { To, useNavigate } from 'react-router-dom';
 
 const LandingPage = (props: any) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const sectionCards = [
-    {
-      id: 1,
-      label: 'Add a Cab',
-      icon: '',
-      subLabel: 'Raise a request for a Cab.',
-      redirectLink: '/booking',
-    },
-    {
-      id: 2,
-      label: 'Cab Requests',
-      icon: '',
-      subLabel: 'Check all previous cab request records.',
-      redirectLink: '/booking-confirmation',
-    },
-  ];
+  // const sectionCards = [
+  //   {
+  //     id: 1,
+  //     label: 'Add a Cab',
+  //     icon: '',
+  //     subLabel: 'Raise a request for a Cab.',
+  //     redirectLink: '/booking',
+  //   },
+  //   {
+  //     id: 2,
+  //     label: 'Cab Requests',
+  //     icon: '',
+  //     subLabel: 'Check all previous cab request records.',
+  //     redirectLink: '/booking-confirmation',
+  //   },
+  // ];
 
-  const handleCardClick = (section: { redirectLink: To }) => {
-    navigate(section?.redirectLink);
-  };
+  // const handleCardClick = (section: { redirectLink: To }) => {
+  //   navigate(section?.redirectLink);
+  // };
 
   return (
     <div className="flex justify-end">
