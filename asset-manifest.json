@@ -1,15 +1,20 @@
 {
   "files": {
-    "main.css": "/CBP3-React-Rebels/static/css/main.2ca6d65b.css",
-    "main.js": "/CBP3-React-Rebels/static/js/main.3ad855b7.js",
+    "main.css": "/CBP3-React-Rebels/static/css/main.8b4f8a72.css",
+    "main.js": "/CBP3-React-Rebels/static/js/main.782742a4.js",
     "static/js/787.14fbb29a.chunk.js": "/CBP3-React-Rebels/static/js/787.14fbb29a.chunk.js",
+    "static/media/map.jpg": "/CBP3-React-Rebels/static/media/map.803eefc02e10382d1b2a.jpg",
+    "static/media/tw_illustration_106.jpg": "/CBP3-React-Rebels/static/media/tw_illustration_106.b96e0d142568a4893874.jpg",
+    "static/media/add-route-banner1.jpg": "/CBP3-React-Rebels/static/media/add-route-banner1.068f5d00beec53997693.jpg",
+    "static/media/tw_illustration_12.jpg": "/CBP3-React-Rebels/static/media/tw_illustration_12.8fcee4763cecabd9ce4b.jpg",
+    "static/media/logo.svg": "/CBP3-React-Rebels/static/media/logo.289a0e0f77e7a28257cf2eb00d8228ef.svg",
     "index.html": "/CBP3-React-Rebels/index.html",
-    "main.2ca6d65b.css.map": "/CBP3-React-Rebels/static/css/main.2ca6d65b.css.map",
-    "main.3ad855b7.js.map": "/CBP3-React-Rebels/static/js/main.3ad855b7.js.map",
+    "main.8b4f8a72.css.map": "/CBP3-React-Rebels/static/css/main.8b4f8a72.css.map",
+    "main.782742a4.js.map": "/CBP3-React-Rebels/static/js/main.782742a4.js.map",
     "787.14fbb29a.chunk.js.map": "/CBP3-React-Rebels/static/js/787.14fbb29a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2ca6d65b.css",
-    "static/js/main.3ad855b7.js"
+    "static/css/main.8b4f8a72.css",
+    "static/js/main.782742a4.js"
   ]
 }
