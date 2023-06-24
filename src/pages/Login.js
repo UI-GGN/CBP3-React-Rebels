@@ -30,25 +30,23 @@ const Login = (props) => {
   };
 
   return (
-    <Layout>
-      <div className="login-background">
-        <Logo />
-        <div className="tw-container-style form">
-          <h2 className="form-header">Employee Login</h2>
-          <Form
-            onFieldClick={handleError}
-            onSubmitForm={handleLogin}
-            buttonText="Login"
-            showSignUpFields={false}
-          />
-          {error && <p>{error}</p>}
-          <p>
-            New User?
-            <Link to="/signup"> Create Account </Link>
-          </p>
-        </div>
+    <div className="login-background">
+      <Logo />
+      <div className="tw-container-style form">
+        <h2 className="form-header">Employee Login</h2>
+        <Form
+          onFieldClick={handleError}
+          onSubmitForm={handleLogin}
+          buttonText="Login"
+          showSignUpFields={false}
+        />
+        {error && <p>{error}</p>}
+        <p>
+          New User?
+          <Link to="/signup"> Create Account </Link>
+        </p>
       </div>
-    </Layout>
+    </div>
   );
 };
 
