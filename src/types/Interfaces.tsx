@@ -24,5 +24,17 @@ export type T_CabRequest = {
   projectCode: string;
   pickupLocation: string;
   dropLocation: string;
+  expireDate: string;
   status: string;
+};
+
+export type T_NavBarElement = {
+  key: string;
+  link: string;
+  label: string;
+};
+
+export type T_SelectOptions = {
+  id: string;
+  value: string;
 };
