@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { T_NavBarElement } from 'src/types/Interfaces';
+import '../styles/components/Navabr1.scss';
 
 const Navbar1 = () => {
   const isAuthenticated: boolean = true;
@@ -18,7 +19,7 @@ const Navbar1 = () => {
     {
       key: '2',
       link: '/cab-request',
-      label: 'Cab Request',
+      label: 'Cab Requests',
     },
     {
       key: '3',
@@ -29,8 +30,9 @@ const Navbar1 = () => {
   return (
     <nav className="bg-white-800 w-full my-2 pt-1 pr-4 pl-2">
       <div className="flex flex-row justify-between items-center">
-        <div>
-          <span className="font-bitter text-tw_primary text-2xl font-extrabold tracking-wide">
+        <div className="flex h-12 flex-row">
+          <div className="logo mx-2"></div>
+          <span className="font-bitter text-tw_primary text-3xl font-extrabold tracking-wide mt-auto">
             Hatch-A-Cab
           </span>
         </div>
