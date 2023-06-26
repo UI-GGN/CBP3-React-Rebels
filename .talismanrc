@@ -1,4 +1,26 @@
 fileignoreconfig:
-- filename: package-lock.json
-  checksum: 06ea796b018f1d7131ba789427637054a28374d628cd78be0a71a6f1d90056aa
+- filename: coverage/coverage-final.json
+  checksum: 44e503b26bccd3532f3a77e7a14775cc0e9a52252135178d8c5cecd9a084a767
+- filename: coverage/base.css
+  checksum: 64592f03e04df34642b487c90a6fca4a31c43a971fae213b6968b821c68e4fcb
+- filename: coverage/prettify.js
+  checksum: a7208a8cc1aac624269707481f5ecab34cfad867184c3b796629299fc142809c
+- filename: coverage/sorter.js
+  checksum: e4a76a696db8036b36d94953dd26333896c679f76c265181d6f29e31d9965e6d
+- filename: coverage/src/pages/Bookingconfirmation.js.html
+  checksum: ca2efd1b6d293dcaa2deb208f86c7bf5af9c8ba2f703068f1bf9e2af9c23436c
+- filename: coverage/src/components/Form.js.html
+  checksum: 7e5c1e8f0e845c74b36c6ba568b09aeb0c4dd282962c7a273fa6508d2dfdce59
+- filename: coverage/src/components/FormComponent.tsx.html
+  checksum: 3d9133f4bd51c6cd9ff393d0b019e2960e0d2e18651f23e6eff41ac8abf06fc8
+- filename: coverage/src/components/CabRequest/CabRequest.tsx.html
+  checksum: 118d9e8e2698ccc43307f0d9b3ad0928b6ca2c3ad03bea72c687816530edf606
+- filename: coverage/src/components/Navbar1.tsx.html
+  checksum: 7cd123938d4048374a42d5f2b32438854dbf78f882ca0f6dbaa9a06272ac882b
+- filename: coverage/src/components/Select.tsx.html
+  checksum: 6154ff14ec90404937ddbee187af6e999d9456a3c5b8875c42de05ce6f9725d9
+- filename: coverage/src/pages/LandingPage.js.html
+  checksum: 7dec34d7bc7ad78d9c72a3921c59d177e16a4c752c5af4e272757edb7df36a93
+- filename: coverage/src/pages/LandingPage.tsx.html
+  checksum: e4e96cd9e18bc8dfef8e3612aa438ac00fdd8380734459fe69a4d4b8495aba82
 version: ""
