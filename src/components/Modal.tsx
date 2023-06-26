@@ -16,7 +16,7 @@ export const Modal = ({ showModal, children, onClose }: ModalProps) => {
     <div className={showModal ? 'visible' : 'invisible'}>
       <div className="fixed inset-0 bg-gray-700 opacity-80"></div>
       <div className="fixed inset-40 flex items-start justify-center">
-        <div className="bg-white w-[60rem] h-[80vh] p-10 overflow-hidden">
+        <div className="bg-white w-[60rem] h-[75vh] p-10 overflow-hidden rounded">
           <div className="flex justify-end mb-4">
             <RxCross2
               className="cursor-pointer text-lg"
@@ -25,7 +25,7 @@ export const Modal = ({ showModal, children, onClose }: ModalProps) => {
             />
           </div>
 
-          <div className="h-[40rem] max-h-[40rem] overflow-y-auto">
+          <div className="h-[40rem] max-h-[40rem] overflow-y-auto pb-2">
             {children}
           </div>
         </div>
