@@ -1,0 +1,15 @@
+.cabRequestForm {
+  display: flex;
+}
+.leftWindow {
+  background-image: url("../../../public/images/tw_illustration_91.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  flex: 30%;
+}
+.rightWindow {
+  flex: 70%;
+}
+.formContainer {
+}

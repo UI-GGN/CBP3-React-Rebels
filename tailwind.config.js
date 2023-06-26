@@ -14,6 +14,7 @@ module.exports = {
         tw_hover_light: '#f8f8ff',
         tw_placeholder: '#6c757d',
         tw_disable_input: '#e7e8ea',
+        tw_yellow_light: '#d1cbc1',
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],

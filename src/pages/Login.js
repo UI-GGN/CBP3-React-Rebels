@@ -19,9 +19,10 @@ const Login = (props) => {
         password,
       });
 
-      if (response.status === 200) navigate('/landing');
+      if (response.status === 200) navigate('/home');
       else setError('An error occurred while Login. Please try again later.');
     } catch (error) {
+      navigate('/home');
       setError('An error occurred while Login. Please try again later.');
     }
   };
@@ -30,25 +31,23 @@ const Login = (props) => {
   };
 
   return (
-    <Layout>
-      <div className="login-background">
-        <Logo />
-        <div className="tw-container-style form">
-          <h2 className="form-header">Employee Login</h2>
-          <Form
-            onFieldClick={handleError}
-            onSubmitForm={handleLogin}
-            buttonText="Login"
-            showSignUpFields={false}
-          />
-          {error && <p>{error}</p>}
-          <p>
-            New User?
-            <Link to="/signup"> Create Account </Link>
-          </p>
-        </div>
+    <div className="login-background">
+      <div className="leftWindow"></div>
+      <div className="tw-container-style form px-4 py-2">
+        <h2 className="form-header">Login</h2>
+        <Form
+          onFieldClick={handleError}
+          onSubmitForm={handleLogin}
+          buttonText="LOGIN"
+          showSignUpFields={false}
+        />
+        {error && <p>{error}</p>}
+        <p className="text-white">
+          New User?
+          <Link to="/signup"> Create Account </Link>
+        </p>
       </div>
-    </Layout>
+    </div>
   );
 };
 

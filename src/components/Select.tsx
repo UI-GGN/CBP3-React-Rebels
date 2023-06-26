@@ -1,20 +1,24 @@
 import React from 'react';
 import className from 'classnames';
-import PropTypes, { InferProps } from 'prop-types';
+import PropTypes from 'prop-types';
 
-const propTypes = {
-  value: PropTypes.any,
-  id: PropTypes.string.isRequired,
-  children: PropTypes.string,
-  required: PropTypes.bool,
-  error: PropTypes.string,
-  options: PropTypes.array.isRequired,
-  props: PropTypes.any,
-};
+interface Option {
+  id: string;
+  value: string;
+}
 
-type ComponentTypes = InferProps<typeof propTypes>;
+interface SelectProps {
+  value: any;
+  id: string;
+  children?: string;
+  required?: boolean;
+  error?: string;
+  options: Option[];
+  props?: any;
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}
 
-const Select = ({
+const Select: React.FC<SelectProps> = ({
   value,
   id,
   required = false,
@@ -22,11 +26,12 @@ const Select = ({
   error,
   options,
   ...props
-}: ComponentTypes) => {
+}) => {
   const inputStyles = className(
-    'border-x-0 border-top-0 rounded-0 border-b border-gray-300 text-tw_placeholder text-sm focus:outline-none focus:border-b-tw_dark focus:border-b-[0.12rem]  block w-full p-1 transparent disabled:bg-tw_disable_input disabled:cursor-not-allowed',
+    'border-x-0 border-top-0 rounded-0 border-b border-gray-300 text-tw_placeholder text-sm focus:outline-none focus:border-b-tw_dark focus:border-b-[0.12rem] block w-full p-1 transparent disabled:bg-tw_disable_input disabled:cursor-not-allowed',
     {}
   );
+
   return (
     <>
       {children && (
@@ -49,11 +54,14 @@ const Select = ({
   );
 };
 
-Select.propTypes = propTypes;
+Select.propTypes = {
+  value: PropTypes.any,
+  id: PropTypes.string.isRequired,
+  children: PropTypes.string,
+  required: PropTypes.bool,
+  error: PropTypes.string,
+  options: PropTypes.array.isRequired,
+  props: PropTypes.any,
+};
 
 export default Select;
-
-/**
- * e.g. -->  <Input required={true} type='text' id="test">Test</Input>
- * e.g. -->  <Input type='text' id="test">Test</Input>
- */
