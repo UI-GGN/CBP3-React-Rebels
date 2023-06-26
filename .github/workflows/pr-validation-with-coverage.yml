@@ -15,11 +15,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        id: coverage
-        with:
-          coverage-file: ./coverage/coverage-final.json
-          output: report-markdown
-      - uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          message: ${{ steps.coverage.outputs.report }}
+
+      - name: Install dependencies
+        run: |
+          yarn install
+
+      - name: Run tests
+        run: |
+          yarn test --coverage
+
+      - name: Add coverage comment
+        if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+        run: |
+          echo "Coverage: ${{ steps.test.outputs.coverage }}" | tee coverage.txt
+          gh pr comment ${{ github.event.pull_request.number }} --body "Coverage report: https://codecov.io/gh/${{ github.repository }}/commit/${{ github.sha }}"
+        
