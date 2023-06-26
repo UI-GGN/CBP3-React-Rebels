@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import "../styles/pages/AddCab.scss";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import '../styles/pages/AddCab.scss';
+import { useNavigate } from 'react-router-dom';
 
 function AddCab() {
   const initialValues = {
-    city: "",
-    area: "",
-    line1: "",
-    line2: "",
-    pincode: "",
-    pickupTime: "",
-    fromDate: ""
+    city: '',
+    area: '',
+    line1: '',
+    line2: '',
+    pincode: '',
+    pickupTime: '',
+    fromDate: '',
   };
 
   const [values, setValues] = useState(initialValues);
-  const [cityError, setCityError] = useState("City is mandatory.");
-  const [areaError, setAreaError] = useState("Area is mandatory.");
-  const [line1Error, setLine1Error] = useState("Line 1 is mandatory.");
+  const [cityError, setCityError] = useState('City is mandatory.');
+  const [areaError, setAreaError] = useState('Area is mandatory.');
+  const [line1Error, setLine1Error] = useState('Line 1 is mandatory.');
   // eslint-disable-next-line no-unused-vars
-  const [line2Error, setLine2Error] = useState("");
-  const [pincodeError, setPincodeError] = useState("Pincode is mandatory.");
-  const [pickupTimeError, setPickupTimeError] = useState("");
-  const [fromDateError, setFromDateError] = useState("");
+  const [line2Error, setLine2Error] = useState('');
+  const [pincodeError, setPincodeError] = useState('Pincode is mandatory.');
+  const [pickupTimeError, setPickupTimeError] = useState('');
+  const [fromDateError, setFromDateError] = useState('');
 
   const [cityIsTouched, setCityIsTouched] = useState(false);
   const [areaIsTouched, setAreaIsTouched] = useState(false);
@@ -35,17 +35,33 @@ function AddCab() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (cityError.length > 0 || areaError.length > 0 || line1Error.length > 0 || line2Error.length > 0 || pincodeError.length > 0 || pickupTimeError.length > 0 || fromDateError.length > 0) {
+    if (
+      cityError.length > 0 ||
+      areaError.length > 0 ||
+      line1Error.length > 0 ||
+      line2Error.length > 0 ||
+      pincodeError.length > 0 ||
+      pickupTimeError.length > 0 ||
+      fromDateError.length > 0
+    ) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
     }
-  }, [cityError, areaError, line1Error, line2Error, pincodeError, pickupTimeError, fromDateError]);
+  }, [
+    cityError,
+    areaError,
+    line1Error,
+    line2Error,
+    pincodeError,
+    pickupTimeError,
+    fromDateError,
+  ]);
 
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     const trimedValue = value.trim();
-    setValues(prevState => {
+    setValues((prevState) => {
       return { ...prevState, [name]: trimedValue };
     });
   };
@@ -53,28 +69,28 @@ function AddCab() {
   const cityInputBlurHandler = () => {
     setCityIsTouched(true);
     if (!values.city.trim().length > 0) {
-      setCityError("City is mandatory.");
+      setCityError('City is mandatory.');
       return;
     }
-    setCityError("");
+    setCityError('');
   };
 
   const areaInputBlurHandler = () => {
     setAreaIsTouched(true);
     if (!values.area.trim().length > 0) {
-      setAreaError("Area is mandatory.");
+      setAreaError('Area is mandatory.');
       return;
     }
-    setAreaError("");
+    setAreaError('');
   };
 
   const line1InputBlurHandler = () => {
     setLine1IsTouched(true);
     if (!values.line1.trim().length > 0) {
-      setLine1Error("Line 1 is mandatory.");
+      setLine1Error('Line 1 is mandatory.');
       return;
     }
-    setLine1Error("");
+    setLine1Error('');
   };
 
   const line2InputBlurHandler = () => {
@@ -84,49 +100,53 @@ function AddCab() {
   const pincodeInputBlurHandler = () => {
     setPincodeIsTouched(true);
     if (!values.pincode.trim().length > 0) {
-      setPincodeError("Pincode is mandatory.");
+      setPincodeError('Pincode is mandatory.');
       return;
     }
     if (isNaN(values.pincode)) {
-      setPincodeError("Pincode should contain integer only.");
+      setPincodeError('Pincode should contain integer only.');
       return;
     }
     if (values.pincode.length !== 6) {
-      setPincodeError("Pincode should contain 6 Digits.");
+      setPincodeError('Pincode should contain 6 Digits.');
       return;
     }
-    setPincodeError("");
+    setPincodeError('');
   };
 
   const pickupTimeInputBlurHandler = () => {
     setPickupTimeIsTouched(true);
     if (values.pickupTime) {
       var today = new Date();
-      var time = today.getHours() + 2 + ":" + today.getMinutes();
+      var time = today.getHours() + 2 + ':' + today.getMinutes();
       if (values.pickupTime < time) {
-        setPickupTimeError("Pickup time atleast should be 2 hrs later from now.");
+        setPickupTimeError(
+          'Pickup time atleast should be 2 hrs later from now.'
+        );
         return;
       }
     }
-    setPickupTimeError("");
+    setPickupTimeError('');
   };
 
   const fromDateInputBlurHandler = () => {
     setFromDateIsTouched(true);
     if (values.fromDate) {
       var today = new Date();
-      var formDate = values.fromDate.split("-").reduce((total = 0, num) => parseInt(total) + parseInt(num));
+      var formDate = values.fromDate
+        .split('-')
+        .reduce((total = 0, num) => parseInt(total) + parseInt(num));
       var date = today.getFullYear() + (today.getMonth() + 1) + today.getDate();
       if (formDate < date) {
-        setFromDateError("From date should be in future.");
+        setFromDateError('From date should be in future.');
         return;
       }
     }
-    setFromDateError("");
+    setFromDateError('');
   };
 
-  const onSubmit = e => {
-    navigate("/booking-confirmation");
+  const onSubmit = (e) => {
+    navigate('/booking-confirmation');
     e.preventDefault();
   };
 
@@ -144,7 +164,15 @@ function AddCab() {
         <form className="form" onSubmit={onSubmit}>
           <div className="form-group field">
             <label className="label">City</label>
-            <select name="city" className={`form-control form-select ${cityHasError ? "is-invalid" : ""}`} value={values.city} onChange={handleInputChange} onBlur={cityInputBlurHandler}>
+            <select
+              name="city"
+              className={`form-control form-select ${
+                cityHasError ? 'is-invalid' : ''
+              }`}
+              value={values.city}
+              onChange={handleInputChange}
+              onBlur={cityInputBlurHandler}
+            >
               <option selected>Select City</option>
               <option value="Gurugram">Gurugram</option>
               <option value="Delhi">Delhi</option>
@@ -153,34 +181,95 @@ function AddCab() {
           </div>
           <div className="form-group field">
             <label className="label">Sector/Area</label>
-            <input type="text" name="area" className={`form-control ${areaHasError ? "is-invalid" : ""}`} value={values.area} onChange={handleInputChange} onBlur={areaInputBlurHandler} />
+            <input
+              type="text"
+              name="area"
+              className={`form-control ${areaHasError ? 'is-invalid' : ''}`}
+              value={values.area}
+              onChange={handleInputChange}
+              onBlur={areaInputBlurHandler}
+            />
             {areaHasError && <div className="text-danger">{areaError}</div>}
           </div>
           <div className="form-group field py-2">
             <label>Address</label>
             <div>
               <label className="sub-label">Line 1</label>
-              <input type="text" name="line1" className={`form-control ${line1HasError ? "is-invalid" : ""}`} value={values.line1} placeholder="Enter Line 1" onChange={handleInputChange} onBlur={line1InputBlurHandler} />
+              <input
+                type="text"
+                name="line1"
+                className={`form-control ${line1HasError ? 'is-invalid' : ''}`}
+                value={values.line1}
+                placeholder="Enter Line 1"
+                onChange={handleInputChange}
+                onBlur={line1InputBlurHandler}
+              />
               {line1HasError && <div className="text-danger">{line1Error}</div>}
               <label className="sub-label">Line 2</label>
-              <input type="text" name="line2" className={`form-control ${line2HasError ? "is-invalid" : ""}`} value={values.line2} placeholder="Enter Line 2" onChange={handleInputChange} onBlur={line2InputBlurHandler} />
+              <input
+                type="text"
+                name="line2"
+                className={`form-control ${line2HasError ? 'is-invalid' : ''}`}
+                value={values.line2}
+                placeholder="Enter Line 2"
+                onChange={handleInputChange}
+                onBlur={line2InputBlurHandler}
+              />
               {line2HasError && <div className="text-danger">{line2Error}</div>}
               <label className="sub-label">Pincode</label>
-              <input type="text" name="pincode" className={`form-control ${pincodeHasError ? "is-invalid" : ""}`} value={values.pincode} placeholder="Enter Pincode" onChange={handleInputChange} onBlur={pincodeInputBlurHandler} />
-              {pincodeHasError && <div className="text-danger">{pincodeError}</div>}
+              <input
+                type="text"
+                name="pincode"
+                className={`form-control ${
+                  pincodeHasError ? 'is-invalid' : ''
+                }`}
+                value={values.pincode}
+                placeholder="Enter Pincode"
+                onChange={handleInputChange}
+                onBlur={pincodeInputBlurHandler}
+              />
+              {pincodeHasError && (
+                <div className="text-danger">{pincodeError}</div>
+              )}
             </div>
           </div>
           <div className="form-group field">
             <label className="label">Pick Up Time</label>
-            <input type="time" name="pickupTime" className={`form-control ${pickupTimeHasError ? "is-invalid" : ""}`} value={values.pickupTime} onChange={handleInputChange} onBlur={pickupTimeInputBlurHandler} />
-            {pickupTimeHasError ? <div className="text-danger">{pickupTimeError}</div> : <p>Pickup time atleast should be 2 hrs later from now.</p>}
+            <input
+              type="time"
+              name="pickupTime"
+              className={`form-control ${
+                pickupTimeHasError ? 'is-invalid' : ''
+              }`}
+              value={values.pickupTime}
+              onChange={handleInputChange}
+              onBlur={pickupTimeInputBlurHandler}
+            />
+            {pickupTimeHasError ? (
+              <div className="text-danger">{pickupTimeError}</div>
+            ) : (
+              <p>Pickup time atleast should be 2 hrs later from now.</p>
+            )}
           </div>
           <div className="form-group field">
             <label className="label">Starting From</label>
-            <input type="date" name="fromDate" className={`form-control ${fromDateHasError ? "is-invalid" : ""}`} value={values.fromDate} onChange={handleInputChange} onBlur={fromDateInputBlurHandler} />
-            {fromDateHasError && <div className="text-danger">{fromDateError}</div>}
+            <input
+              type="date"
+              name="fromDate"
+              className={`form-control ${fromDateHasError ? 'is-invalid' : ''}`}
+              value={values.fromDate}
+              onChange={handleInputChange}
+              onBlur={fromDateInputBlurHandler}
+            />
+            {fromDateHasError && (
+              <div className="text-danger">{fromDateError}</div>
+            )}
           </div>
-          <button disabled={isFormValid} className="btn btn-primary submit-button" type="submit">
+          <button
+            disabled={isFormValid}
+            className="btn btn-primary submit-button"
+            type="submit"
+          >
             Raise Request
           </button>
         </form>

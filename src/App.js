@@ -5,9 +5,11 @@ import AddCab from './pages/AddCab';
 import Login from './pages/Login';
 import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
-import LandingPage from './pages/LandingPage';
+import LandingPage from './pages/LandingPage.tsx';
+import AddRoute from './pages/AddRoute';
 import CabRequest from './components/CabRequest/CabRequest.tsx';
 import CabRequestForm from './pages/CabRequestForm/CabRequestForm';
+import Layout from './components/template/Layout';
 
 function App() {
   const rides = [
@@ -42,20 +44,23 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<SignUp />} />
-        <Route path="booking" element={<AddCab />} />
-        <Route path="home" element={<LandingPage />} />
-        <Route
-          path="booking-confirmation"
-          element={<BookingConfirmation rides={rides} />}
-        />
-        <Route path="*" element={<Login />} />
-        <Route path="/cab-request" element={<CabRequest />} />
-        <Route path="/cab-request-form" element={<CabRequestForm />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="booking" element={<AddCab />} />
+          <Route path="home" element={<LandingPage />} />
+          <Route
+            path="booking-confirmation"
+            element={<BookingConfirmation rides={rides} />}
+          />
+          <Route path="add-route" element={<AddRoute />} />
+          <Route path="*" element={<Login />} />
+          <Route path="/cab-request" element={<CabRequest />} />
+          <Route path="/cab-request-form" element={<CabRequestForm />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 }

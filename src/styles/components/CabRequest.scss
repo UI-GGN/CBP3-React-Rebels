@@ -4,7 +4,6 @@
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 350px;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -40,17 +39,20 @@ strong {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
-  width: 100vw;
-  padding: 1.5rem;
+  min-height: 100vh;
+  max-height: fit-content;
+  width: 100%;
 }
 
-@media (max-width: 767px) {
-  .cabRequest {
-    padding: 0.5rem;
-  }
-  .card {
-    width: 300px;
-    margin: auto;
-  }
+// @media (max-width: 767px) {
+//   .cabRequest {
+//     padding: 0.5rem;
+//   }
+//   .card {
+//     width: 300px;
+//     margin: auto;
+//   }
+// }
+.inner-container {
+  background-color: rgba(0,0,0,0.3);
 }

@@ -4,7 +4,7 @@ import PropTypes, { InferProps } from 'prop-types';
 
 const propTypes = {
   type: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   children: PropTypes.string,
   required: PropTypes.bool,
@@ -32,10 +32,16 @@ const Input = ({
       {children && (
         <label className="block text-xs mt-2 mb-1 text-muted" htmlFor={id}>
           {children}
-          {required && <span className="text-danger text-bold text-lg">*</span>}
+          {required && <span className="text-danger text-bold">*</span>}
         </label>
       )}
-      <input {...props} type={type} id={id} className={inputStyles} />
+      <input
+        {...props}
+        type={type}
+        value={value}
+        id={id}
+        className={inputStyles}
+      />
       {error && (
         <div className="text-danger text-sm pb-2 capitalize">{error}</div>
       )}
