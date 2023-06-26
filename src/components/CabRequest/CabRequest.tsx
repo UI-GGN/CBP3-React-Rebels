@@ -14,10 +14,223 @@ import Select from '../Select';
 import { convertToReadabelDate } from 'src/utils/Date';
 import Pagination from '../Pagination/Pagination';
 
-const filterOptions = [
+const CAB_REQUEST: T_CabRequest[] = [
+  {
+    id: 1,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-08-22T10:00:00.000Z',
+    status: 'PENDING',
+  },
+  {
+    id: 2,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'APPROVED',
+  },
+  {
+    id: 3,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 4,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-08-23T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 5,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 6,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 7,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 8,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 9,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 10,
+    employeeName: 'Dhruva Ji',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 11,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 12,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 13,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 14,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 15,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 16,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 17,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 18,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 19,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 20,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+  {
+    id: 21,
+    employeeName: 'Dhruva',
+    pickupTime: '2023-06-22T10:00:00.000Z',
+    projectCode: '123456',
+    pickupLocation: 'ABC ABC ABC',
+    dropLocation: 'Thoughtworks Gurgram',
+    expireDate: '2023-06-22T10:00:00.000Z',
+    status: 'DECLINED',
+  },
+];
+
+const requestTypeFilterOptions = [
   {
     id: '0',
-    value: 'Adhoc & Recurring',
+    value: 'All',
   },
   {
     id: '1',
@@ -28,9 +241,30 @@ const filterOptions = [
     value: 'Recurring',
   },
 ];
+
+const requestStatusFilterOptions = [
+  {
+    id: '0',
+    value: 'Pending',
+  },
+  {
+    id: '1',
+    value: 'Approved',
+  },
+  {
+    id: '2',
+    value: 'Declined',
+  },
+];
+
 const CabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
-  const [filter, setFilter] = useState(filterOptions[0]);
+  const [requestTypeFilter, setRquestTypeFilter] = useState(
+    requestTypeFilterOptions[0]
+  );
+  const [requestStatusFilter, setRquestStatusFilter] = useState(
+    requestStatusFilterOptions[0]
+  );
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
   );
@@ -45,26 +279,29 @@ const CabRequest = () => {
 
   useEffect(() => {
     async function getData() {
-      setCabRequests(await CabRequestService.fetchInfo());
+      // setCabRequests(await CabRequestService.fetchInfo());
+      setCabRequests(CAB_REQUEST);
     }
     getData();
   }, []);
 
   useEffect(() => {
-    if (filter.value === 'Adhoc') {
+    if (requestTypeFilter.value === 'Adhoc') {
       setFilteredCabRequest(
         cabRequests.filter(
           (cabRequest) => cabRequest.pickupTime === cabRequest.expireDate
         )
       );
-    } else if (filter.value === 'Recurring') {
+    } else if (requestTypeFilter.value === 'Recurring') {
       setFilteredCabRequest(
         cabRequests.filter(
           (cabRequest) => cabRequest.pickupTime !== cabRequest.expireDate
         )
       );
     } else setFilteredCabRequest(cabRequests);
-  }, [filter, cabRequests]);
+  }, [requestTypeFilter, cabRequests, requestStatusFilter]);
+
+  useEffect(() => {}, [requestStatusFilter]);
 
   useEffect(() => {
     const currentRecords = filteredCabRequest.slice(
@@ -74,29 +311,47 @@ const CabRequest = () => {
     setPageDetails(currentRecords);
   }, [currentPage, filteredCabRequest]);
 
-  const filterChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(Number(event.target.value));
-    setFilter(filterOptions[Number(event.target.value)]);
+  const requestTypeFilterChangeHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setRquestTypeFilter(requestTypeFilterOptions[Number(event.target.value)]);
   };
+
+  const requestStatusFilterChangeHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setRquestStatusFilter(
+      requestStatusFilterOptions[Number(event.target.value)]
+    );
+  };
+
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto">
         <div className="text-light text-3xl mb-4">Cab Requests</div>
         <div className="inner-container pb-4">
           <div className="bg-light rounded flex flex-col md:flex-row justify-between mb-3">
-            <div className="flex items-center p-2">
-              <div className="pr-1">Request Status</div>
-              <AiFillCaretRight size={'1.2rem'} /> <div>PENDING</div>
+            <div className="flex flex-row p-2">
+              <div className="pr-2">Request Status</div>
+              <div className="inline min-w-max sm:mr-[.5rem]">
+                <Select
+                  id="request_status_filter"
+                  value={requestStatusFilter.id}
+                  options={requestStatusFilterOptions}
+                  required={false}
+                  onChange={requestStatusFilterChangeHandler}
+                ></Select>
+              </div>
             </div>
             <div className="flex flex-row p-2">
               <div className="px-2">Request Type</div>
               <div className="inline min-w-max sm:mr-[.5rem]">
                 <Select
-                  id="driver_name"
-                  value={filter.id}
-                  options={filterOptions}
+                  id="request_type_filter"
+                  value={requestTypeFilter.id}
+                  options={requestTypeFilterOptions}
                   required={false}
-                  onChange={filterChangeHandler}
+                  onChange={requestTypeFilterChangeHandler}
                 ></Select>
               </div>
             </div>
