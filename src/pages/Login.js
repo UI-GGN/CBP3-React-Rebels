@@ -32,9 +32,9 @@ const Login = (props) => {
 
   return (
     <div className="login-background">
-      <Logo />
+      <div className="leftWindow"></div>
       <div className="tw-container-style form px-4 py-2">
-        <h2 className="form-header">Employee Login</h2>
+        <h2 className="form-header">Login</h2>
         <Form
           onFieldClick={handleError}
           onSubmitForm={handleLogin}
