@@ -5,8 +5,6 @@ import '../styles/pages/Login.scss';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import '../styles/components/Form.scss';
-import Layout from '../components/template/Layout';
-import Logo from '../components/Logo';
 
 const Login = (props) => {
   const [error, setError] = useState(null);

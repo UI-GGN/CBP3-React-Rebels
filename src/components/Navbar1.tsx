@@ -4,7 +4,6 @@ import { T_NavBarElement } from 'src/types/Interfaces';
 import '../styles/components/Navabr1.scss';
 
 const Navbar1 = () => {
-  const isAuthenticated: boolean = true;
   const [istoggle, setIsToggle] = useState(false);
 
   const toggleState = () => setIsToggle((prevState) => !prevState);

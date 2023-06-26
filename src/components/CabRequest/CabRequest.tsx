@@ -72,7 +72,7 @@ const CabRequest = () => {
       indexOfLastRecord
     );
     setPageDetails(currentRecords);
-  }, [currentPage, filteredCabRequest]);
+  }, [currentPage, filteredCabRequest, indexOfFirstRecord, indexOfLastRecord]);
 
   const filterChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(Number(event.target.value));
