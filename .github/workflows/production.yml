@@ -24,13 +24,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      
-      - name: 'Talisman Secret scanning'
-        run: |
-          git reset --soft HEAD~$(($(git rev-list --count --first-parent HEAD) - 1))
-          curl -L -O https://github.com/thoughtworks/talisman/releases/download/v1.23.0/talisman_linux_386
-          chmod +x talisman_linux_386
-          ./talisman_linux_386 --githook pre-commit || exit 1
 
       - name: npm install, build
         run: |
@@ -43,6 +36,23 @@ jobs:
       - name: stylelint checks
         run: npm run lint
 
+  secret-scanning: 
+    runs-on: ubuntu-latest
+    steps: 
+      - name: 'Talisman Secret scanning'
+        run: |
+          git reset --soft HEAD~$(($(git rev-list --count --first-parent HEAD) - 1))
+          curl -L -O https://github.com/thoughtworks/talisman/releases/download/v1.23.0/talisman_linux_386
+          chmod +x talisman_linux_386
+          ./talisman_linux_386 --githook pre-commit || exit 1
+
+
+
+  deploy-prod:
+    runs-on: 'ubuntu-latest'
+    environment: 'prod'
+    needs: [build_test, secret-scanning]
+    steps:
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
         with:
