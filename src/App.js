@@ -8,6 +8,7 @@ import SignUp from './pages/Signup';
 import LandingPage from './pages/LandingPage.tsx';
 import AddRoute from './pages/AddRoute';
 import CabRequest from './components/CabRequest/CabRequest.tsx';
+import CabRequestForm from './pages/CabRequestForm/CabRequestForm';
 import Layout from './components/template/Layout';
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
           <Route path="add-route" element={<AddRoute />} />
           <Route path="*" element={<Login />} />
           <Route path="/cab-request" element={<CabRequest />} />
+          <Route path="/cab-request-form" element={<CabRequestForm />} />
         </Routes>
       </Layout>
     </BrowserRouter>
