@@ -57,8 +57,8 @@ function App() {
           />
           <Route path="add-route" element={<AddRoute />} />
           <Route path="*" element={<Login />} />
-          <Route path="/cab-request" element={<CabRequest />} />
-          <Route path="/cab-request-form" element={<CabRequestForm />} />
+          <Route path="/dashboard-admin" element={<CabRequest />} />
+          <Route path="/cab-request" element={<CabRequestForm />} />
         </Routes>
       </Layout>
     </BrowserRouter>

@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.global-wrapper{
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 4rem 1fr 5rem;
+}
+
+.global-header {
+    background: #f2f2f2;
+}

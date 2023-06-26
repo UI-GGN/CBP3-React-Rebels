@@ -26,9 +26,16 @@ const LandingPage = (props: any) => {
     navigate(section?.redirectLink);
   };
 
+  const handleBookCab = () => {
+    navigate('/cab-request');
+  };
+
   return (
-    <div className="flex justify-end">
-      <button className="bg-tw_primary hover:bg-primary text-white font-inter font-bold py-2 px-4 rounded">
+    <div className="flex justify-end p-4  ">
+      <button
+        className="bg-tw_primary hover:bg-primary text-white font-inter font-bold py-2 px-4 rounded"
+        onClick={handleBookCab}
+      >
         Book a cab
       </button>
     </div>

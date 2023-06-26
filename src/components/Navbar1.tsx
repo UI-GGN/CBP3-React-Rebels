@@ -18,7 +18,7 @@ const Navbar1 = () => {
     },
     {
       key: '2',
-      link: '/cab-request',
+      link: '/dashboard-admin',
       label: 'Cab Requests',
     },
     {
@@ -28,11 +28,10 @@ const Navbar1 = () => {
     },
   ];
   return (
-    <nav className="bg-white-800 w-full my-2 pt-1 pr-4 pl-2">
+    <nav className="p-2">
       <div className="flex flex-row justify-between items-center">
         <div className="flex h-12 flex-row">
-          <div className="logo mx-2"></div>
-          <span className="font-bitter text-tw_primary text-3xl font-extrabold tracking-wide mt-auto">
+          <span className="font-bitter text-tw_primary text-2xl font-extrabold tracking-wide mt-auto ml-2">
             Hatch-A-Cab
           </span>
         </div>
