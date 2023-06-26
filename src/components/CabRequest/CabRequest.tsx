@@ -286,22 +286,37 @@ const CabRequest = () => {
   }, []);
 
   useEffect(() => {
+    let filteredRequest = cabRequests;
+    console.log(filteredCabRequest);
     if (requestTypeFilter.value === 'Adhoc') {
-      setFilteredCabRequest(
-        cabRequests.filter(
-          (cabRequest) => cabRequest.pickupTime === cabRequest.expireDate
-        )
+      console.log(1);
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.pickupTime === cabRequest.expireDate
       );
     } else if (requestTypeFilter.value === 'Recurring') {
-      setFilteredCabRequest(
-        cabRequests.filter(
-          (cabRequest) => cabRequest.pickupTime !== cabRequest.expireDate
-        )
+      console.log(2);
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.pickupTime !== cabRequest.expireDate
       );
-    } else setFilteredCabRequest(cabRequests);
+    }
+    if (requestStatusFilter.value === 'Pending') {
+      console.log(3);
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.status === 'PENDING'
+      );
+    } else if (requestStatusFilter.value === 'Approved') {
+      console.log(4);
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.status === 'APPROVED'
+      );
+    } else if (requestStatusFilter.value === 'Declined') {
+      console.log(5);
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.status === 'DECLINED'
+      );
+    }
+    setFilteredCabRequest(filteredRequest);
   }, [requestTypeFilter, cabRequests, requestStatusFilter]);
-
-  useEffect(() => {}, [requestStatusFilter]);
 
   useEffect(() => {
     const currentRecords = filteredCabRequest.slice(
@@ -330,9 +345,9 @@ const CabRequest = () => {
       <div className="w-11/12 mx-auto">
         <div className="text-light text-3xl mb-4">Cab Requests</div>
         <div className="inner-container pb-4">
-          <div className="bg-light rounded flex flex-col md:flex-row justify-between mb-3">
-            <div className="flex flex-row p-2">
-              <div className="pr-2">Request Status</div>
+          <div className="bg-light rounded flex flex-col md:flex-row justify-end mb-3">
+            <div className="flex flex-row items-center p-2">
+              <div className="pr-2 text-sm text-muted">Request Status</div>
               <div className="inline min-w-max sm:mr-[.5rem]">
                 <Select
                   id="request_status_filter"
@@ -343,8 +358,8 @@ const CabRequest = () => {
                 ></Select>
               </div>
             </div>
-            <div className="flex flex-row p-2">
-              <div className="px-2">Request Type</div>
+            <div className="flex items-center flex-row p-2">
+              <div className="px-2 text-sm text-muted">Request Type</div>
               <div className="inline min-w-max sm:mr-[.5rem]">
                 <Select
                   id="request_type_filter"
