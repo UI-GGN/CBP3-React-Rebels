@@ -14,219 +14,6 @@ import Select from '../Select';
 import { convertToReadabelDate } from 'src/utils/Date';
 import Pagination from '../Pagination/Pagination';
 
-const CAB_REQUEST: T_CabRequest[] = [
-  {
-    id: 1,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-08-22T10:00:00.000Z',
-    status: 'PENDING',
-  },
-  {
-    id: 2,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'APPROVED',
-  },
-  {
-    id: 3,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 4,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-08-23T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 5,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 6,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 7,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 8,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 9,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 10,
-    employeeName: 'Dhruva Ji',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 11,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 12,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 13,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 14,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 15,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 16,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 17,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 18,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 19,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 20,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-  {
-    id: 21,
-    employeeName: 'Dhruva',
-    pickupTime: '2023-06-22T10:00:00.000Z',
-    projectCode: '123456',
-    pickupLocation: 'ABC ABC ABC',
-    dropLocation: 'Thoughtworks Gurgram',
-    expireDate: '2023-06-22T10:00:00.000Z',
-    status: 'DECLINED',
-  },
-];
-
 const requestTypeFilterOptions = [
   {
     id: '0',
@@ -279,38 +66,32 @@ const CabRequest = () => {
 
   useEffect(() => {
     async function getData() {
-      // setCabRequests(await CabRequestService.fetchInfo());
-      setCabRequests(CAB_REQUEST);
+      setCabRequests(await CabRequestService.fetchInfo());
+      // setCabRequests(CAB_REQUEST);
     }
     getData();
   }, []);
 
   useEffect(() => {
     let filteredRequest = cabRequests;
-    console.log(filteredCabRequest);
     if (requestTypeFilter.value === 'Adhoc') {
-      console.log(1);
       filteredRequest = filteredRequest.filter(
         (cabRequest) => cabRequest.pickupTime === cabRequest.expireDate
       );
     } else if (requestTypeFilter.value === 'Recurring') {
-      console.log(2);
       filteredRequest = filteredRequest.filter(
         (cabRequest) => cabRequest.pickupTime !== cabRequest.expireDate
       );
     }
     if (requestStatusFilter.value === 'Pending') {
-      console.log(3);
       filteredRequest = filteredRequest.filter(
         (cabRequest) => cabRequest.status === 'PENDING'
       );
     } else if (requestStatusFilter.value === 'Approved') {
-      console.log(4);
       filteredRequest = filteredRequest.filter(
         (cabRequest) => cabRequest.status === 'APPROVED'
       );
     } else if (requestStatusFilter.value === 'Declined') {
-      console.log(5);
       filteredRequest = filteredRequest.filter(
         (cabRequest) => cabRequest.status === 'DECLINED'
       );
@@ -344,10 +125,10 @@ const CabRequest = () => {
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto">
         <div className="text-light text-3xl mb-4">Cab Requests</div>
-        <div className="inner-container pb-4">
-          <div className="bg-light rounded flex flex-col md:flex-row justify-end mb-3">
+        <div className="inner-container rounded-b-xl pb-4">
+          <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
             <div className="flex flex-row items-center p-2">
-              <div className="pr-2 text-sm text-muted">Request Status</div>
+              <div className="pr-2 text-sm">Request Status</div>
               <div className="inline min-w-max sm:mr-[.5rem]">
                 <Select
                   id="request_status_filter"
@@ -359,7 +140,7 @@ const CabRequest = () => {
               </div>
             </div>
             <div className="flex items-center flex-row p-2">
-              <div className="px-2 text-sm text-muted">Request Type</div>
+              <div className="px-2 text-sm">Request Type</div>
               <div className="inline min-w-max sm:mr-[.5rem]">
                 <Select
                   id="request_type_filter"
@@ -489,11 +270,13 @@ const CabRequest = () => {
               </div>
             </div>
           )}
-          <Pagination
-            nPages={nPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <div className="pt-2">
+            <Pagination
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
         </div>
       </div>
     </div>
