@@ -73,6 +73,14 @@ const UserRequestDashboard = () => {
     console.log(Number(event.target.value));
     setFilter(filterOptions[Number(event.target.value)]);
   };
+
+  const actionButtons = [
+    {
+      name: 'Request Status',
+      color: 'bg-tw_saphire_blue',
+    },
+  ];
+
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto">
@@ -100,7 +108,10 @@ const UserRequestDashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 sm:gap-1 md:gap-2">
               {pageDeatils.map((cabRequest) => {
                 return (
-                  <DashboardCard cabRequest={cabRequest} isAdmin={false} />
+                  <DashboardCard
+                    cabRequest={cabRequest}
+                    actionButtons={actionButtons}
+                  />
                 );
               })}
             </div>

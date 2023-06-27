@@ -30,7 +30,7 @@ const AdminRequestDashboard = () => {
     []
   );
 
-  const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
+  const [pageDetails, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(8);
 
@@ -73,6 +73,18 @@ const AdminRequestDashboard = () => {
     console.log(Number(event.target.value));
     setFilter(filterOptions[Number(event.target.value)]);
   };
+
+  const actionButtons = [
+    {
+      name: 'Approve',
+      color: 'bg-tw_blue',
+    },
+    {
+      name: 'Decline',
+      color: 'bg-tw_pink',
+    },
+  ];
+
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto">
@@ -96,14 +108,19 @@ const AdminRequestDashboard = () => {
               </div>
             </div>
           </div>
-          {pageDeatils.length > 0 && (
+          {pageDetails.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 sm:gap-1 md:gap-2">
-              {pageDeatils.map((cabRequest) => {
-                return <DashboardCard cabRequest={cabRequest} isAdmin={true} />;
+              {pageDetails.map((cabRequest) => {
+                return (
+                  <DashboardCard
+                    cabRequest={cabRequest}
+                    actionButtons={actionButtons}
+                  />
+                );
               })}
             </div>
           )}
-          {pageDeatils.length === 0 && (
+          {pageDetails.length === 0 && (
             <div className="bg-tw_disable_input rounded h-60 w-11/12 mx-auto px-4 my-2">
               <div className="flex h-full text-muted flex-col items-center justify-center">
                 <div>

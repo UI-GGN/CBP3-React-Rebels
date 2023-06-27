@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/components/CabRequest.scss';
-import type { T_CabRequest } from '../../types/Interfaces';
+import type { T_CabRequest, ActionButton } from '../../types/Interfaces';
 import {
   AiOutlineClockCircle,
   AiOutlineCalendar,
@@ -11,10 +11,10 @@ import { convertToReadabelDate } from 'src/utils/Date';
 
 interface CardProps {
   cabRequest: T_CabRequest;
-  isAdmin?: boolean;
+  actionButtons: ActionButton[];
 }
 
-const DashboardCard: React.FC<CardProps> = ({ cabRequest, isAdmin }) => {
+const DashboardCard: React.FC<CardProps> = ({ cabRequest, actionButtons }) => {
   const isAdhocRequest = cabRequest.pickupTime === cabRequest.expireDate;
   return (
     <div
@@ -94,23 +94,17 @@ const DashboardCard: React.FC<CardProps> = ({ cabRequest, isAdmin }) => {
           </div>
         </div>
       </div>
-      {isAdmin && (
-        <div className="mt-2 flex flex-row justify-center">
-          <button className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue">
-            Approve
-          </button>
-          <button className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink">
-            Decline
-          </button>
-        </div>
-      )}
-      {!isAdmin && (
-        <div className="mt-2 flex flex-row justify-center">
-          <button className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue">
-            Request Status
-          </button>
-        </div>
-      )}
+      <div className="mt-2 flex flex-row justify-center">
+        {actionButtons.map((action) => {
+          return (
+            <button
+              className={`btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold ${action.color}`}
+            >
+              {action.name}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };
