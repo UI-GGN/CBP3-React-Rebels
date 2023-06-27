@@ -44,6 +44,17 @@ const requestStatusFilterOptions = [
   },
 ];
 
+const sortingOptions = [
+  {
+    id: '0',
+    value: 'Pickup Date & Time latest',
+  },
+  {
+    id: '1',
+    value: 'Pickup Date & Time oldest',
+  },
+];
+
 const CabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
   const [requestTypeFilter, setRquestTypeFilter] = useState(
@@ -55,6 +66,8 @@ const CabRequest = () => {
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
   );
+
+  const [sortingFilter, setSortingFilter] = useState(sortingOptions[0]);
 
   const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -96,8 +109,13 @@ const CabRequest = () => {
         (cabRequest) => cabRequest.status === 'DECLINED'
       );
     }
+    filteredRequest = filteredRequest.sort(
+      (a, b) =>
+        new Date(a.pickupTime).getTime() - new Date(b.pickupTime).getTime()
+    );
+    if (sortingFilter.id !== '0') filteredRequest = filteredRequest.reverse();
     setFilteredCabRequest(filteredRequest);
-  }, [requestTypeFilter, cabRequests, requestStatusFilter]);
+  }, [requestTypeFilter, cabRequests, requestStatusFilter, sortingFilter]);
 
   useEffect(() => {
     const currentRecords = filteredCabRequest.slice(
@@ -113,6 +131,11 @@ const CabRequest = () => {
     setRquestTypeFilter(requestTypeFilterOptions[Number(event.target.value)]);
   };
 
+  const sortingChangeHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSortingFilter(sortingOptions[Number(event.target.value)]);
+  };
   const requestStatusFilterChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -148,6 +171,18 @@ const CabRequest = () => {
                   options={requestTypeFilterOptions}
                   required={false}
                   onChange={requestTypeFilterChangeHandler}
+                ></Select>
+              </div>
+            </div>
+            <div className="flex items-center flex-row p-2">
+              <div className="px-2 text-sm">Sort By</div>
+              <div className="inline min-w-max sm:mr-[.5rem]">
+                <Select
+                  id="sort_by"
+                  value={sortingFilter.id}
+                  options={sortingOptions}
+                  required={false}
+                  onChange={sortingChangeHandler}
                 ></Select>
               </div>
             </div>
