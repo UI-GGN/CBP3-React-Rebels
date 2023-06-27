@@ -4,23 +4,24 @@ import { ModalProps } from 'src/types/Interfaces';
 import { RxCross2 } from 'react-icons/rx';
 import { useEffect } from 'react';
 
-export const Modal = ({ showModal, children, onClose }: ModalProps) => {
-  useEffect(() => {
-    document.body.classList.add('overflow-hidden');
-    return () => {
-      document.body.classList.remove('overflow-hidden');
-    };
-  }, []);
-
+export const Modal = ({
+  showModal,
+  children,
+  onClose,
+  iconSize,
+  styles,
+}: ModalProps) => {
   return (
     <div className={showModal ? 'visible' : 'invisible'}>
       <div className="fixed inset-0 bg-gray-700 opacity-80"></div>
       <div className="fixed inset-40 flex items-start justify-center">
-        <div className="bg-white w-[60rem] h-[75vh] p-10 overflow-hidden rounded">
+        <div
+          className={`bg-white w-[60rem] h-[75vh] p-10 overflow-hidden ${styles}`}
+        >
           <div className="flex justify-end mb-4">
             <RxCross2
               className="cursor-pointer text-lg"
-              size="1.4rem"
+              size={iconSize}
               onClick={onClose}
             />
           </div>

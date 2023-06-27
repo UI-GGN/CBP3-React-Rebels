@@ -31,4 +31,6 @@ export type ModalProps = {
   showModal: boolean;
   children: JSX.Element;
   onClose: (params: any) => any;
+  iconSize: string;
+  styles: string;
 };

@@ -8,6 +8,7 @@ import SignUp from './pages/Signup';
 import LandingPage from './pages/LandingPage.tsx';
 import AddRoute from './pages/AddRoute';
 import CabRequest from './components/CabRequest/CabRequest.tsx';
+import ModalExample from './components/Example/ModalExample';
 
 function App() {
   const rides = [
@@ -55,6 +56,7 @@ function App() {
         <Route path="add-route" element={<AddRoute />} />
         <Route path="*" element={<Login />} />
         <Route path="/cab-request" element={<CabRequest />} />
+        <Route path="/modal-example" element={<ModalExample />} />
       </Routes>
     </BrowserRouter>
   );
