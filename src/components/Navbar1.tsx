@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { T_NavBarElement } from 'src/types/Interfaces';
 import '../styles/components/Navabr1.scss';
-import { AuthenticationContext } from '../Context/AuthenticationContext';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
 const Navbar1 = () => {
