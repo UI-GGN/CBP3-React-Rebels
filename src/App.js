@@ -12,6 +12,7 @@ import AdminRequestDashboard from './pages/RequestDashboard/AdminRequestDashboar
 import UserRequestDashboard from './pages/RequestDashboard/UserRequestDashboard.tsx';
 import CabRequestForm from './pages/CabRequestForm/CabRequestForm';
 import Layout from './components/template/Layout';
+import ErrorPage from '../src/pages/ErrorPage';
 
 function App() {
   const rides = [
@@ -58,7 +59,7 @@ function App() {
             element={<BookingConfirmation rides={rides} />}
           />
           <Route path="add-route" element={<AddRoute />} />
-          <Route path="*" element={<Login />} />
+          <Route path="*" element={<ErrorPage />} />
           {/* <Route path="/dashboard-admin" element={<CabRequest />} /> */}
           <Route path="/dashboard-admin" element={<AdminRequestDashboard />} />
           <Route
