@@ -31,8 +31,10 @@ const Login = (props) => {
   };
 
   return (
-    <div className="login-background">
-      <div className="leftWindow"></div>
+    <div className="login flex items-center justify-center">
+      <div className="left-section">
+        <span className="ride-svg"></span>
+      </div>
       <div className="tw-container-style form px-4 py-2">
         <h2 className="form-header">Login</h2>
         <Form
