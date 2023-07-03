@@ -56,11 +56,9 @@ const Navbar1 = () => {
                 .map((element) => {
                   const isActive = location.pathname === element.link;
                   let classes =
-                    'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_primary hover:border-b-[3px] hover:border-tw_primary';
+                    'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_secondary transition duration-300';
                   if (isActive)
-                    classes =
-                      classes +
-                      ' border-b-[3px] border-tw_secondary font-semibold';
+                    classes += ' border-b-[3px] border-tw_secondary';
                   return (
                     <Link
                       key={element.key}
@@ -71,16 +69,16 @@ const Navbar1 = () => {
                     </Link>
                   );
                 })}
+
             {!isLoggedIn &&
               navigationBarElement
                 .filter((element) => !element.isSecured)
                 .map((element) => {
                   const isActive = location.pathname === element.link;
                   let classes =
-                    'no-underline text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_primary hover:border-b-4 hover:border-tw_primary';
+                    'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_secondary transition duration-300';
                   if (isActive)
-                    classes =
-                      classes + ' border-b-4 border-tw_secondary font-semibold';
+                    classes = classes + ' border-b-4 border-tw_secondary';
                   return (
                     <Link
                       key={element.key}
@@ -94,7 +92,7 @@ const Navbar1 = () => {
             {isLoggedIn && (
               <Link
                 to="/login"
-                className="no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_primary hover:border-b-4 hover:border-tw_primary"
+                className="no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_secondary"
                 onClick={handleLogout}
               >
                 Log Out
