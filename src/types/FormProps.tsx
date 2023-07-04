@@ -9,5 +9,6 @@ export type FormProps = {
       validationProps: Record<string, any>;
     }[];
   };
+  initialState: {};
   onSubmit?: (formData: FormProps) => void;
 };

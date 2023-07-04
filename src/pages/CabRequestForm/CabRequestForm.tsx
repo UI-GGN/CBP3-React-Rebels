@@ -18,6 +18,79 @@ const CabRequestForm: React.FC<FormProps> = () => {
       });
   };
 
+  const getCurrentDate = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString();
+    const day = currentDate.getDate().toString();
+    return `${year}-${month}-${day}`;
+  };
+
+  const initialState = {
+    name: {
+      value: '',
+      error: 'Name is mandatory.',
+      isTouched: false,
+      validations: ['required', 'minLength-3'],
+      label: 'Name',
+    },
+    employeeId: {
+      value: '',
+      error: 'Employee Id is mandatory.',
+      isTouched: false,
+      validations: ['required'],
+      label: 'Employee Id',
+    },
+    projectCode: {
+      value: '',
+      error: 'Project code is mandatory',
+      isTouched: false,
+      validations: ['required', 'minLength-3'],
+      label: 'Project code',
+    },
+    endLocation: {
+      value: '',
+      error: 'Drop Point is mandatory.',
+      isTouched: false,
+      validations: ['required', 'minLength-3'],
+      label: 'Drop Point',
+    },
+    startDate: {
+      value: getCurrentDate(),
+      error: undefined,
+      isTouched: true,
+      validations: [],
+      label: 'Start Date',
+    },
+    endDate: {
+      value: '',
+      error: 'End Date is mandatory.',
+      isTouched: false,
+      validations: [],
+      label: 'End Date',
+    },
+    Time: {
+      value: '',
+      error: 'Time is mandatory.',
+      isTouched: false,
+      validations: ['required'],
+      label: 'Time',
+    },
+    pickUpLocation: {
+      value: '',
+      error: 'Pick up location is mandatory',
+      isTouched: false,
+      validations: ['required'],
+      label: 'Pick up location',
+    },
+    dropLocation: {
+      value: '',
+      error: 'Drop location is mandatory',
+      isTouched: false,
+      validations: ['required'],
+      label: 'Drop location',
+    },
+  };
   let formTemplate = {
     title: 'Request a Cab',
     fields: [
@@ -110,7 +183,11 @@ const CabRequestForm: React.FC<FormProps> = () => {
       <div className="leftWindow"></div>
       <div className="rightWindow">
         <div className="formContainer mt-4 px-4 mr-8 ml-8">
-          <FormComponent template={formTemplate} onSubmit={onSubmit} />
+          <FormComponent
+            template={formTemplate}
+            initialState={initialState}
+            onSubmit={onSubmit}
+          />
         </div>
       </div>
     </div>

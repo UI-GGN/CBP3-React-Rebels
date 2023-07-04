@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from './Input';
 import type { FormProps } from '../types/FormProps';
 
@@ -6,6 +6,22 @@ const FormComponent: React.FC<FormProps> = ({ template, onSubmit }) => {
   const renderFields = (fields: FormProps['template']['fields']) => {
     return fields.map((field) => {
       let { title, type, name, value, validationProps } = field;
+
+      const [formState, setFormState] = useState(initialState);
+
+      const handleInputChange = (event: any) => {
+        const { name, value } = event.target;
+        setFormState((prevState) => ({
+          ...prevState,
+          [name]: {
+            ...prevState[name],
+            value: value,
+            error: prevState[name].isTouched
+              ? validateInput(prevState[name], value)
+              : prevState[name].error,
+          },
+        }));
+      };
 
       return (
         <div key={name}>
@@ -15,6 +31,7 @@ const FormComponent: React.FC<FormProps> = ({ template, onSubmit }) => {
             id={name}
             required={validationProps.required}
             value={value}
+            handleInputChange={handleInputChange}
           />
           {/* {errors[name] && <span className="red-text">{errors[name]["message"]}</span>} */}
           <br />
@@ -26,6 +43,7 @@ const FormComponent: React.FC<FormProps> = ({ template, onSubmit }) => {
     event.preventDefault();
     const formData: FormProps = {
       template: template,
+      initialState: initi,
     };
     if (onSubmit) {
       onSubmit(formData);
