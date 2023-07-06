@@ -32,6 +32,7 @@ export type T_NavBarElement = {
   key: string;
   link: string;
   label: string;
+  isSecured: Boolean;
 };
 
 export type T_SelectOptions = {
