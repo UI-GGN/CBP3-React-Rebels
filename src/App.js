@@ -7,9 +7,12 @@ import BookingConfirmation from './pages/Bookingconfirmation';
 import SignUp from './pages/Signup';
 import Home from './pages/Home/Home';
 import AddRoute from './pages/AddRoute';
-import CabRequest from './components/CabRequest/CabRequest.tsx';
+//import CabRequest from './components/CabRequest/CabRequest.tsx';
+import AdminRequestDashboard from './pages/RequestDashboard/AdminRequestDashboard.tsx';
+import UserRequestDashboard from './pages/RequestDashboard/UserRequestDashboard.tsx';
 import CabRequestForm from './pages/CabRequestForm/CabRequestForm';
 import Layout from './components/template/Layout';
+import ErrorPage from '../src/pages/ErrorPage';
 
 function App() {
   const rides = [
@@ -56,8 +59,13 @@ function App() {
             element={<BookingConfirmation rides={rides} />}
           />
           <Route path="add-route" element={<AddRoute />} />
-          <Route path="*" element={<Login />} />
-          <Route path="/dashboard-admin" element={<CabRequest />} />
+          <Route path="*" element={<ErrorPage />} />
+          {/* <Route path="/dashboard-admin" element={<CabRequest />} /> */}
+          <Route path="/dashboard-admin" element={<AdminRequestDashboard />} />
+          <Route
+            path="/dashboard-employee"
+            element={<UserRequestDashboard />}
+          />
           <Route path="/cab-request" element={<CabRequestForm />} />
         </Routes>
       </Layout>

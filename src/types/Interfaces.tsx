@@ -39,3 +39,8 @@ export type T_SelectOptions = {
   id: string;
   value: string;
 };
+
+export type ActionButton = {
+  name: string;
+  color: string;
+};
