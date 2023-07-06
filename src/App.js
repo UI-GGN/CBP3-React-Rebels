@@ -8,6 +8,7 @@ import CabRequest from './components/CabRequest/CabRequest.tsx';
 import CabRequestForm from './pages/CabRequestForm/CabRequestForm';
 import Layout from './components/template/Layout';
 import ErrorPage from '../src/pages/ErrorPage';
+import EmployeeCabRequest from './components/CabRequest/CabRequest.tsx';
 
 function App() {
   return (
@@ -26,11 +27,7 @@ function App() {
           {/* <Route path="add-route" element={<AddRoute />} /> */}
           <Route path="*" element={<ErrorPage />} />
           <Route path="/dashboard-admin" element={<CabRequest />} />
-          {/* <Route path="/dashboard-admin" element={<AdminRequestDashboard />} /> */}
-          {/* <Route
-            path="/dashboard-employee"
-            element={<UserRequestDashboard />}
-          /> */}
+          <Route path="/dashboard-employee" element={<EmployeeCabRequest />} />
           <Route path="/cab-request" element={<CabRequestForm />} />
         </Routes>
       </Layout>
