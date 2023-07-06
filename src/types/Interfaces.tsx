@@ -32,9 +32,15 @@ export type T_NavBarElement = {
   key: string;
   link: string;
   label: string;
+  isSecured: Boolean;
 };
 
 export type T_SelectOptions = {
   id: string;
   value: string;
+};
+
+export type ActionButton = {
+  name: string;
+  color: string;
 };
