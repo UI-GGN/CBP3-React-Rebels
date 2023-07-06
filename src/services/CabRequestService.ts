@@ -3,15 +3,24 @@ import { T_CabRequest } from '../types/Interfaces';
 import { FormProps } from 'src/types/FormProps';
 
 class CabRequestService {
-  static fetchInfo = (): Promise<T_CabRequest[]> => {
+  static fetchInfo = async (): Promise<T_CabRequest[]> => {
     const url = 'https://cab-schedule-serverless.vercel.app/api/v1/cab-request';
 
-    return axios.get(url).then((response) => response.data);
+    const response = await axios.get(url);
+    return response.data;
   };
 
-  static createRequest = (requestData: FormProps): Promise<any> => {
+  static createRequest = async (requestData: FormProps): Promise<any> => {
     const url = 'https://cab-schedule-serverless.vercel.app/api/v1/cab-request';
-    return axios.post(url, requestData).then((response) => response.data);
+    const response = await axios.post(url, requestData);
+    return response.data;
+  };
+
+  static fetchUserRequest = async (empid: String): Promise<T_CabRequest[]> => {
+    const url = `https://cab-schedule-serverless.vercel.app/api/v1/cab-request/${empid}`;
+
+    const response = await axios.get(url);
+    return response.data;
   };
 }
 
