@@ -44,3 +44,7 @@ export type ActionButton = {
   name: string;
   color: string;
 };
+
+export type SpinnerProps = {
+  showSpinner: boolean;
+};
