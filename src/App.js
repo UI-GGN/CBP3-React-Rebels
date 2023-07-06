@@ -10,7 +10,7 @@ import AddRoute from './pages/AddRoute';
 import CabRequest from './components/CabRequest/CabRequest.tsx';
 import CabRequestForm from './pages/CabRequestForm/CabRequestForm';
 import Layout from './components/template/Layout';
-
+import CabRequestTest from './components/CabRequest/CabRequest copy';
 function App() {
   const rides = [
     {
@@ -58,6 +58,7 @@ function App() {
           <Route path="add-route" element={<AddRoute />} />
           <Route path="*" element={<Login />} />
           <Route path="/dashboard-admin" element={<CabRequest />} />
+          <Route path="/dashboard-test" element={<CabRequestTest />} />
           <Route path="/cab-request" element={<CabRequestForm />} />
         </Routes>
       </Layout>
