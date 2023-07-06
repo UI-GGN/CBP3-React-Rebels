@@ -6,68 +6,31 @@ import {
   AiOutlineClockCircle,
   AiOutlineCalendar,
   AiOutlineUser,
-  AiFillCaretRight,
 } from 'react-icons/ai';
 import { LuMailX } from 'react-icons/lu';
 import { ImLocation, ImLocation2 } from 'react-icons/im';
 import Select from '../Select';
 import { convertToReadabelDate } from 'src/utils/Date';
 import Pagination from '../Pagination/Pagination';
+import {
+  REQUEST_TYPE_FILETR_OPTIONS,
+  SORTING_OPTIONS,
+  REQUEST_STATUS_FILETR_OPTIONS,
+} from '../../utils/Constants';
 
-const requestTypeFilterOptions = [
-  {
-    id: '0',
-    value: 'All',
-  },
-  {
-    id: '1',
-    value: 'Adhoc',
-  },
-  {
-    id: '2',
-    value: 'Recurring',
-  },
-];
-
-const requestStatusFilterOptions = [
-  {
-    id: '0',
-    value: 'Pending',
-  },
-  {
-    id: '1',
-    value: 'Approved',
-  },
-  {
-    id: '2',
-    value: 'Declined',
-  },
-];
-
-const sortingOptions = [
-  {
-    id: '0',
-    value: 'Pickup Date & Time latest',
-  },
-  {
-    id: '1',
-    value: 'Pickup Date & Time oldest',
-  },
-];
-
-const CabRequest = () => {
+const EmployeeCabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
   const [requestTypeFilter, setRquestTypeFilter] = useState(
-    requestTypeFilterOptions[0]
+    REQUEST_TYPE_FILETR_OPTIONS[0]
   );
   const [requestStatusFilter, setRquestStatusFilter] = useState(
-    requestStatusFilterOptions[0]
+    REQUEST_STATUS_FILETR_OPTIONS[0]
   );
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
   );
 
-  const [sortingFilter, setSortingFilter] = useState(sortingOptions[0]);
+  const [sortingFilter, setSortingFilter] = useState(SORTING_OPTIONS[0]);
 
   const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -128,19 +91,21 @@ const CabRequest = () => {
   const requestTypeFilterChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setRquestTypeFilter(requestTypeFilterOptions[Number(event.target.value)]);
+    setRquestTypeFilter(
+      REQUEST_TYPE_FILETR_OPTIONS[Number(event.target.value)]
+    );
   };
 
   const sortingChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setSortingFilter(sortingOptions[Number(event.target.value)]);
+    setSortingFilter(SORTING_OPTIONS[Number(event.target.value)]);
   };
   const requestStatusFilterChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setRquestStatusFilter(
-      requestStatusFilterOptions[Number(event.target.value)]
+      REQUEST_STATUS_FILETR_OPTIONS[Number(event.target.value)]
     );
   };
 
@@ -156,7 +121,7 @@ const CabRequest = () => {
                 <Select
                   id="request_status_filter"
                   value={requestStatusFilter.id}
-                  options={requestStatusFilterOptions}
+                  options={REQUEST_STATUS_FILETR_OPTIONS}
                   required={false}
                   onChange={requestStatusFilterChangeHandler}
                 ></Select>
@@ -168,7 +133,7 @@ const CabRequest = () => {
                 <Select
                   id="request_type_filter"
                   value={requestTypeFilter.id}
-                  options={requestTypeFilterOptions}
+                  options={REQUEST_TYPE_FILETR_OPTIONS}
                   required={false}
                   onChange={requestTypeFilterChangeHandler}
                 ></Select>
@@ -180,7 +145,7 @@ const CabRequest = () => {
                 <Select
                   id="sort_by"
                   value={sortingFilter.id}
-                  options={sortingOptions}
+                  options={SORTING_OPTIONS}
                   required={false}
                   onChange={sortingChangeHandler}
                 ></Select>
@@ -318,4 +283,4 @@ const CabRequest = () => {
   );
 };
 
-export default CabRequest;
+export default EmployeeCabRequest;

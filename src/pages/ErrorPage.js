@@ -20,7 +20,7 @@ const ErrorPage = () => {
             The Page you are looking for does not exist. How you got here is a
             mystery. You can click on the button below to go back to homepage.
           </p>
-          <NavLink to="/">
+          <NavLink to="/home">
             <button
               className={`btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue`}
             >

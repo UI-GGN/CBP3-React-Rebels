@@ -25,7 +25,7 @@ const Navbar1 = () => {
     },
     {
       key: '3',
-      link: '/log-in',
+      link: '/login',
       label: 'Login',
       isSecured: false,
     },
