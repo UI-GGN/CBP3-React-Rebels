@@ -14,10 +14,10 @@ import Select from '../Select';
 import { convertToReadabelDate } from 'src/utils/Date';
 import Pagination from '../Pagination/Pagination';
 
-const filterOptions = [
+const requestTypeFilterOptions = [
   {
     id: '0',
-    value: 'Adhoc & Recurring',
+    value: 'All',
   },
   {
     id: '1',
@@ -28,12 +28,46 @@ const filterOptions = [
     value: 'Recurring',
   },
 ];
+
+const requestStatusFilterOptions = [
+  {
+    id: '0',
+    value: 'Pending',
+  },
+  {
+    id: '1',
+    value: 'Approved',
+  },
+  {
+    id: '2',
+    value: 'Declined',
+  },
+];
+
+const sortingOptions = [
+  {
+    id: '0',
+    value: 'Pickup Date & Time latest',
+  },
+  {
+    id: '1',
+    value: 'Pickup Date & Time oldest',
+  },
+];
+
 const CabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
-  const [filter, setFilter] = useState(filterOptions[0]);
+  const [requestTypeFilter, setRquestTypeFilter] = useState(
+    requestTypeFilterOptions[0]
+  );
+  const [requestStatusFilter, setRquestStatusFilter] = useState(
+    requestStatusFilterOptions[0]
+  );
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
   );
+
+  const [sortingFilter, setSortingFilter] = useState(sortingOptions[0]);
 
   const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,25 +80,42 @@ const CabRequest = () => {
   useEffect(() => {
     async function getData() {
       setCabRequests(await CabRequestService.fetchInfo());
+      // setCabRequests(CAB_REQUEST);
     }
     getData();
   }, []);
 
   useEffect(() => {
-    if (filter.value === 'Adhoc') {
-      setFilteredCabRequest(
-        cabRequests.filter(
-          (cabRequest) => cabRequest.pickupTime === cabRequest.expireDate
-        )
+    let filteredRequest = cabRequests;
+    if (requestTypeFilter.value === 'Adhoc') {
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.pickupTime === cabRequest.expireDate
       );
-    } else if (filter.value === 'Recurring') {
-      setFilteredCabRequest(
-        cabRequests.filter(
-          (cabRequest) => cabRequest.pickupTime !== cabRequest.expireDate
-        )
+    } else if (requestTypeFilter.value === 'Recurring') {
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.pickupTime !== cabRequest.expireDate
       );
-    } else setFilteredCabRequest(cabRequests);
-  }, [filter, cabRequests]);
+    }
+    if (requestStatusFilter.value === 'Pending') {
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.status === 'PENDING'
+      );
+    } else if (requestStatusFilter.value === 'Approved') {
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.status === 'APPROVED'
+      );
+    } else if (requestStatusFilter.value === 'Declined') {
+      filteredRequest = filteredRequest.filter(
+        (cabRequest) => cabRequest.status === 'DECLINED'
+      );
+    }
+    filteredRequest = filteredRequest.sort(
+      (a, b) =>
+        new Date(a.pickupTime).getTime() - new Date(b.pickupTime).getTime()
+    );
+    if (sortingFilter.id !== '0') filteredRequest = filteredRequest.reverse();
+    setFilteredCabRequest(filteredRequest);
+  }, [requestTypeFilter, cabRequests, requestStatusFilter, sortingFilter]);
 
   useEffect(() => {
     const currentRecords = filteredCabRequest.slice(
@@ -74,29 +125,64 @@ const CabRequest = () => {
     setPageDetails(currentRecords);
   }, [currentPage, filteredCabRequest]);
 
-  const filterChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(Number(event.target.value));
-    setFilter(filterOptions[Number(event.target.value)]);
+  const requestTypeFilterChangeHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setRquestTypeFilter(requestTypeFilterOptions[Number(event.target.value)]);
   };
+
+  const sortingChangeHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSortingFilter(sortingOptions[Number(event.target.value)]);
+  };
+  const requestStatusFilterChangeHandler = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setRquestStatusFilter(
+      requestStatusFilterOptions[Number(event.target.value)]
+    );
+  };
+
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto">
         <div className="text-light text-3xl mb-4">Cab Requests</div>
-        <div className="inner-container pb-4">
-          <div className="bg-light rounded flex flex-col md:flex-row justify-between mb-3">
-            <div className="flex items-center p-2">
-              <div className="pr-1">Request Status</div>
-              <AiFillCaretRight size={'1.2rem'} /> <div>PENDING</div>
-            </div>
-            <div className="flex flex-row p-2">
-              <div className="px-2">Request Type</div>
+        <div className="inner-container rounded-b-xl pb-4">
+          <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
+            <div className="flex flex-row items-center p-2">
+              <div className="pr-2 text-sm">Request Status</div>
               <div className="inline min-w-max sm:mr-[.5rem]">
                 <Select
-                  id="driver_name"
-                  value={filter.id}
-                  options={filterOptions}
+                  id="request_status_filter"
+                  value={requestStatusFilter.id}
+                  options={requestStatusFilterOptions}
                   required={false}
-                  onChange={filterChangeHandler}
+                  onChange={requestStatusFilterChangeHandler}
+                ></Select>
+              </div>
+            </div>
+            <div className="flex items-center flex-row p-2">
+              <div className="px-2 text-sm">Request Type</div>
+              <div className="inline min-w-max sm:mr-[.5rem]">
+                <Select
+                  id="request_type_filter"
+                  value={requestTypeFilter.id}
+                  options={requestTypeFilterOptions}
+                  required={false}
+                  onChange={requestTypeFilterChangeHandler}
+                ></Select>
+              </div>
+            </div>
+            <div className="flex items-center flex-row p-2">
+              <div className="px-2 text-sm">Sort By</div>
+              <div className="inline min-w-max sm:mr-[.5rem]">
+                <Select
+                  id="sort_by"
+                  value={sortingFilter.id}
+                  options={sortingOptions}
+                  required={false}
+                  onChange={sortingChangeHandler}
                 ></Select>
               </div>
             </div>
@@ -219,11 +305,13 @@ const CabRequest = () => {
               </div>
             </div>
           )}
-          <Pagination
-            nPages={nPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <div className="pt-2">
+            <Pagination
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          </div>
         </div>
       </div>
     </div>
