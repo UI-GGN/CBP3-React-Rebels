@@ -42,7 +42,7 @@ const EmployeeCabRequest = () => {
 
   useEffect(() => {
     async function getData() {
-      setCabRequests(await CabRequestService.fetchInfo());
+      setCabRequests(await CabRequestService.fetchUserRequest('1'));
       // setCabRequests(CAB_REQUEST);
     }
     getData();
