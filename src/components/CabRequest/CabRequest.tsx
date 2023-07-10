@@ -17,6 +17,7 @@ import {
   SORTING_OPTIONS,
   REQUEST_STATUS_FILETR_OPTIONS,
 } from '../../utils/Constants';
+import DashboardLoader from '../DashboardLoader/DashboardLoader';
 
 const EmployeeCabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
@@ -35,6 +36,7 @@ const EmployeeCabRequest = () => {
   const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(8);
+  const [isLoading, setIsLoading] = useState(false);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -42,7 +44,9 @@ const EmployeeCabRequest = () => {
 
   useEffect(() => {
     async function getData() {
+      setIsLoading(true);
       setCabRequests(await CabRequestService.fetchInfo());
+      setIsLoading(false);
       // setCabRequests(CAB_REQUEST);
     }
     getData();
@@ -258,7 +262,8 @@ const EmployeeCabRequest = () => {
               })}
             </div>
           )}
-          {pageDeatils.length === 0 && (
+          {isLoading && <DashboardLoader />}
+          {pageDeatils.length === 0 && !isLoading && (
             <div className="bg-tw_disable_input rounded h-60 w-11/12 mx-auto px-4 my-2">
               <div className="flex h-full text-muted flex-col items-center justify-center">
                 <div>

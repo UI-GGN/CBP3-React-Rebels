@@ -44,3 +44,10 @@ export type ActionButton = {
   name: string;
   color: string;
 };
+
+export type User = {
+  id: string;
+  username: string;
+  password: string;
+  profile: string;
+};
