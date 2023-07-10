@@ -17,7 +17,7 @@ class CabRequestService {
   };
 
   static fetchUserRequest = async (empid: String): Promise<T_CabRequest[]> => {
-    const url = `https://cab-schedule-serverless.vercel.app/api/v1/cab-request/${empid}`;
+    const url = `https://cab-schedule-serverless.vercel.app/api/v1/cab-request/employee/${empid}`;
 
     const response = await axios.get(url);
     return response.data;
