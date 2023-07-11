@@ -24,7 +24,7 @@ const Navbar1 = () => {
     } else {
       setIsLoggedIn(false);
     }
-  }, [loggedInUser]);
+  }, [loggedInUser, login]);
 
   let navigationBarElement: T_NavBarElement[] = [];
 
@@ -129,6 +129,7 @@ const Navbar1 = () => {
 };
 
 export default Navbar1;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function User(this: any, key: string, value: any) {
   throw new Error('Function not implemented.');
 }

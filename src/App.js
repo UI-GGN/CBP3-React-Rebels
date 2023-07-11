@@ -1,6 +1,6 @@
 import './App.scss';
 import 'tailwindcss/tailwind.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Layout from './components/template/Layout';
 import { AuthProvider } from './context/AuthContext';
 import CustomRoutes from './components/CustomRoutes/CustomRoutes';

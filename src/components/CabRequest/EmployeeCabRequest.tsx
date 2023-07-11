@@ -53,7 +53,7 @@ const EmployeeCabRequest = () => {
       // setCabRequests(CAB_REQUEST);
     }
     getData();
-  }, []);
+  }, [loggedInUser]);
 
   useEffect(() => {
     let filteredRequest = cabRequests;
@@ -93,7 +93,7 @@ const EmployeeCabRequest = () => {
       indexOfLastRecord
     );
     setPageDetails(currentRecords);
-  }, [currentPage, filteredCabRequest]);
+  }, [currentPage, filteredCabRequest, indexOfLastRecord, indexOfFirstRecord]);
 
   const requestTypeFilterChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
