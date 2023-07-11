@@ -116,3 +116,5 @@ Running Ports
 1. UI - 3000
 2. Backend - 3001
 
+Deployed on Netlify.
+
