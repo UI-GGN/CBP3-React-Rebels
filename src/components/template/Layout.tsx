@@ -1,6 +1,7 @@
 import React from 'react';
 import { Props } from '../../types/Interfaces';
 import Navbar1 from '../Navbar1';
+import { AiOutlineCopyrightCircle } from 'react-icons/ai';
 
 const Layout = ({ children }: Props) => {
   return (
@@ -9,9 +10,12 @@ const Layout = ({ children }: Props) => {
         <Navbar1 />
       </header>
       <main>{children}</main>
-      <footer className="text-center">
-        <br />© {new Date().getFullYear()}, Built by
-        <a href="https://www.thoughtworks.com">Thoughtworks</a>
+      <footer className="text-tw_primary text-xs sm:text-lg flex flex-row items-center justify-center font-inter sm:tracking-widest p-1">
+        <span>Copyright </span>
+        <span className="px-1">
+          <AiOutlineCopyrightCircle />
+        </span>{' '}
+        <span> 2023 - Thoughtworks Inc. All rights reserverd.</span>
       </footer>
     </div>
   );

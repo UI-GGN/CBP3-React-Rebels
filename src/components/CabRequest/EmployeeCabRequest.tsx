@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/components/CabRequest.scss';
 import type { T_CabRequest } from '../../types/Interfaces';
 import CabRequestService from '../../services/CabRequestService';
@@ -19,7 +19,10 @@ import {
 } from '../../utils/Constants';
 import DashboardLoader from '../DashboardLoader/DashboardLoader';
 
+import { AuthContext } from 'src/context/AuthContext';
+
 const EmployeeCabRequest = () => {
+  const { loggedInUser } = useContext(AuthContext);
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
   const [requestTypeFilter, setRquestTypeFilter] = useState(
     REQUEST_TYPE_FILETR_OPTIONS[0]
@@ -36,16 +39,16 @@ const EmployeeCabRequest = () => {
   const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(8);
-  const [isLoading, setIsLoading] = useState(false);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const nPages = Math.ceil(filteredCabRequest.length / recordsPerPage);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getData() {
       setIsLoading(true);
-      setCabRequests(await CabRequestService.fetchInfo());
+      setCabRequests(await CabRequestService.fetchUserRequest(loggedInUser));
       setIsLoading(false);
       // setCabRequests(CAB_REQUEST);
     }
@@ -90,7 +93,7 @@ const EmployeeCabRequest = () => {
       indexOfLastRecord
     );
     setPageDetails(currentRecords);
-  }, [currentPage, filteredCabRequest, indexOfFirstRecord, indexOfLastRecord]);
+  }, [currentPage, filteredCabRequest]);
 
   const requestTypeFilterChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -116,7 +119,12 @@ const EmployeeCabRequest = () => {
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto">
-        <div className="text-light text-3xl mb-4">Cab Requests</div>
+        <div className="flex flex-row justify-between items-center">
+          <div className="text-light text-3xl mb-4">Cab Requests</div>
+          <button className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4">
+            Book a cab
+          </button>
+        </div>
         <div className="inner-container rounded-b-xl pb-4">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
             <div className="flex flex-row items-center p-2">
