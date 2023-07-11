@@ -4,9 +4,9 @@ name: Deploy Hatch-A-Cab Application
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ ci/cd ]
-  pull_request:
-    branches: [ cd/cd ]
+    branches:
+      - ci/cd
+      - main
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -44,12 +44,6 @@ jobs:
       
       # - name: stylelint checks
       #   run: npm run lint
-
-      # - name: deploy to gh-pages
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./build
 
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
