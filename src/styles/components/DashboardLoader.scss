@@ -1,81 +1,31 @@
+.cards {
+  position: relative;
+  z-index: 1;
+  border-radius: 5px;
+  height: 300px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(225, 225, 225, 0.2),
+    transparent
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(transparent),
+    color-stop(rgba(255, 255, 255, 0.2)),
+    to(transparent)
+  );
+  background-size: 200%;
+  background-position: 100% 0;
+  animation: waves 0.8s linear infinite;
+}
 
-  
-  .cabRequest {
-    background-image: url("../../../public/images/tw_illustration_106.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    max-height: fit-content;
-    width: 100%;
+@keyframes waves {
+  100% {
+    background-position: -100% 0;
   }
-
-
-  
-  .truncate {
-    cursor: pointer;
-  }
-  
-  strong {
-    display: block;
-    font-weight: bold;
-  }
-  
-  .text-gray-500 {
-    color: #888;
-  }
-
-  .inner-container {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-
-  
-  .cards {
-    position: relative;
-    z-index: 1;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 5px;
-    background-color: rgba(255, 255, 255, 0.1);
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-  .cover {
-    background: #808080;
-    border-radius: 5px;
-    height: 300px;
-    width: 100%;
-    margin-left: 290px;
-  }
-  
-  .cover,
-  .square {
-    z-index: 99;
-    transform: translateX(-100%);
-    background: -webkit-gradient(
-      linear,
-      left top,
-      right top,
-      from(transparent),
-      color-stop(rgba(255, 255, 255, 0.2)),
-      to(transparent)
-    );
-  
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
-    background-size: 200%;
-    background-position: 100% 0;
-    animation: waves 0.8s linear infinite;
-  }
-  
-  @keyframes waves {
-    100% {
-      background-position: -100% 0;
-    }
-  }
-
-  
+}
