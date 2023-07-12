@@ -91,7 +91,7 @@ const EmployeeCabRequest = () => {
       indexOfLastRecord
     );
     setPageDetails(currentRecords);
-  }, [currentPage, filteredCabRequest]);
+  }, [currentPage, filteredCabRequest, indexOfFirstRecord, indexOfLastRecord]);
 
   const requestTypeFilterChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>

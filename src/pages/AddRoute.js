@@ -3,7 +3,6 @@ import axios from 'axios';
 import { hasValue, hasMinLength, exectLength } from '../utils/Validations.ts';
 import Input from '../components/Input';
 import Select from '../components/Select';
-import map from '../assets/map.jpg';
 
 const exisitingRoutes = ['shaitan gali', 'Royal Circus'];
 
@@ -116,7 +115,7 @@ const AddRoute = (props) => {
       setVendors(initialVendorState.concat(vendorList.data));
     })();
     return () => {};
-  }, []);
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => {

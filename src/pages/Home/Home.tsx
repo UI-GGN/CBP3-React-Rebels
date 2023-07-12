@@ -5,6 +5,7 @@ import { BsArrowRight } from 'react-icons/bs';
 
 const Home = (props: any) => {
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleCardClick = (section: { redirectLink: To }) => {
     navigate(section?.redirectLink);
   };
