@@ -53,6 +53,7 @@ const EmployeeCabRequest = () => {
   }, []);
 
   useEffect(() => {
+    setCurrentPage(1);
     let filteredRequest = cabRequests;
     if (requestTypeFilter.value === 'Adhoc') {
       filteredRequest = filteredRequest.filter(
@@ -115,7 +116,7 @@ const EmployeeCabRequest = () => {
 
   return (
     <div className="cabRequest pt-12">
-      <div className="w-11/12 mx-auto">
+      <div className="w-11/12 mx-auto mb-8">
         <div className="text-light text-3xl mb-4">Cab Requests</div>
         <div className="inner-container rounded-b-xl pb-4">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">

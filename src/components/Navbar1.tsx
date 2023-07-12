@@ -95,7 +95,7 @@ const Navbar1 = () => {
                 className="no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_secondary"
                 onClick={handleLogout}
               >
-                Log Out
+                Log Out?
               </Link>
             )}
           </div>
