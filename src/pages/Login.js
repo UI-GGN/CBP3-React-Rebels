@@ -21,7 +21,7 @@ const Login = (props) => {
       value: '',
       error: 'Password is mandatory.',
       isTouched: false,
-      validations: ['required'],
+      validations: ['required', 'minLength-8'],
       label: 'Password',
     },
   };
@@ -38,9 +38,7 @@ const Login = (props) => {
       [name]: {
         ...prevState[name],
         value: value,
-        error: prevState[name].isTouched
-          ? validateInput(prevState[name], value)
-          : prevState[name].error,
+        error: validateInput(prevState[name], value),
       },
     }));
   };
@@ -96,7 +94,6 @@ const Login = (props) => {
           navigate('/home', { replace: true });
         }
       }
-
       setServerError(true);
     }
   };
@@ -110,8 +107,8 @@ const Login = (props) => {
           <div className="w-6/12 mx-auto shadow-md rounded">
             <h2 className="text-tw_primary text-center">LOGIN</h2>
             {serverError && (
-              <div className="mx-2 my-1 pb-2 text-danger text-center">
-                You have entered an invalid username or password
+              <div className="mx-2 my-1 py-3 text-danger text-center">
+                You have entered an invalid username or password!!
               </div>
             )}
             <form onSubmit={handleSubmit}>
