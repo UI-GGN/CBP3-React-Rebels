@@ -5,7 +5,7 @@ import ErrorPage from '../../pages/ErrorPage';
 import CabRequest from '../CabRequest/CabRequest';
 import EmployeeCabRequest from '../CabRequest/EmployeeCabRequest';
 import CabRequestForm from '../../pages/CabRequestForm/CabRequestForm';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext } from 'react';
 
@@ -14,7 +14,7 @@ function CustomRoutes() {
   let routes = (
     <Routes>
       <Route path="login" element={<Login />} />
-      <Route path="*" element={<Login />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
       <Route path="/" element={<Login />} />
     </Routes>
   );
