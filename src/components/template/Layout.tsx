@@ -1,13 +1,13 @@
 import React from 'react';
 import { Props } from '../../types/Interfaces';
-import Navbar1 from '../Navbar1';
+import Navbar from '../Navbar';
 import { AiOutlineCopyrightCircle } from 'react-icons/ai';
 
 const Layout = ({ children }: Props) => {
   return (
     <div className="global-wrapper">
       <header className="global-header">
-        <Navbar1 />
+        <Navbar />
       </header>
       <main>{children}</main>
       <footer className="text-tw_primary text-xs sm:text-lg flex flex-row items-center justify-center font-inter sm:tracking-widest p-1">
