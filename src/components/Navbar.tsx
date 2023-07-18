@@ -6,14 +6,14 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
-  const { logout, loggedInUser, login, profile } = useContext(AuthContext);
+  const { logout, loggedInUser, login } = useContext(AuthContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [istoggle, setIsToggle] = useState(false);
   const location = useLocation();
   let navigationBarElement: T_NavBarElement[] = [];
 
   const classes =
-    'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_secondary transition duration-300';
+    'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 hover:text-tw_secondary transition duration-300';
 
   const activeClasses = classes + '  border-b-[3px] border-tw_secondary';
 
@@ -22,14 +22,14 @@ const Navbar = () => {
       const loggedInUser = JSON.parse(
         localStorage.getItem('loggedInUser') || '{}'
       );
-      login(loggedInUser.id, loggedInUser.profile);
+      login(loggedInUser);
     }
-    if (loggedInUser !== '-1') {
+    if (loggedInUser.id !== '-1') {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
-  }, [loggedInUser]);
+  }, [loggedInUser.id]);
 
   const toggleState = () => setIsToggle((prevState: boolean) => !prevState);
 
@@ -39,7 +39,7 @@ const Navbar = () => {
     setIsLoggedIn(false);
   };
 
-  if (profile === 'admin') {
+  if (loggedInUser.profile === 'admin') {
     navigationBarElement = [
       {
         key: '1',
@@ -59,7 +59,7 @@ const Navbar = () => {
       },
     ];
   }
-  if (profile === 'user') {
+  if (loggedInUser.profile === 'user') {
     navigationBarElement = [
       {
         key: '1',
@@ -75,22 +75,29 @@ const Navbar = () => {
     ];
   }
 
+  const splitedName = loggedInUser.name.split(' ');
+  let nameInitials = splitedName[0].charAt(0).toUpperCase();
+  if (splitedName.length > 1)
+    nameInitials += splitedName[splitedName.length - 1].charAt(0).toUpperCase();
   return (
     <nav className="p-[1rem] shadow-md">
       <div className="flex flex-row justify-between items-center">
+        <div className="block sm:hidden">
+          <button onClick={toggleState}>
+            <RxHamburgerMenu size={'1.2rem'} />
+          </button>
+        </div>
         <div className="flex flex-row">
           <span className="font-bitter text-tw_primary text-2xl font-extrabold tracking-wide my-auto ml-4">
             Hatch-A-Cab
           </span>
         </div>
         <div className="hidden sm:block">
-          <div>
+          <div className="flex flex-row items-center">
             {isLoggedIn &&
               navigationBarElement.map((element) => {
                 const isActive = location.pathname === element.link;
-                if (element.childrens) {
-                  return;
-                } else if (element.onClick) {
+                if (element.onClick) {
                   return (
                     <Link
                       to={element.link}
@@ -113,13 +120,26 @@ const Navbar = () => {
                   );
                 }
               })}
+            {loggedInUser.profile !== 'guest' && (
+              <div
+                title={loggedInUser.name}
+                className="flex flex-row items-center justify-center bg-tw_secondary w-9 h-9 rounded-full text-light font-bold cursor-pointer"
+              >
+                {nameInitials}
+              </div>
+            )}
           </div>
         </div>
-        <div className="block sm:hidden">
-          <button onClick={toggleState}>
-            <RxHamburgerMenu size={'1.2rem'} />
-          </button>
-        </div>
+        {loggedInUser.profile !== 'guest' && (
+          <div className="block sm:hidden">
+            <div
+              title={loggedInUser.name}
+              className="bg-tw_secondary w-8 h-8 rounded-full text-light font-bold flex flex-row items-center justify-center"
+            >
+              {nameInitials}
+            </div>
+          </div>
+        )}
       </div>
       {istoggle && (
         <div className="block sm:hidden">

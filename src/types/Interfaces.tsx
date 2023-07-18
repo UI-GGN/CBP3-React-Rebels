@@ -52,4 +52,5 @@ export type User = {
   username: string;
   password: string;
   profile: string;
+  name: string;
 };

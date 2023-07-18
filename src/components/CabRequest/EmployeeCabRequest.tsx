@@ -48,7 +48,7 @@ const EmployeeCabRequest = () => {
   useEffect(() => {
     async function getData() {
       setIsLoading(true);
-      setCabRequests(await CabRequestService.fetchUserRequest(loggedInUser));
+      setCabRequests(await CabRequestService.fetchUserRequest(loggedInUser.id));
       setIsLoading(false);
       // setCabRequests(CAB_REQUEST);
     }
