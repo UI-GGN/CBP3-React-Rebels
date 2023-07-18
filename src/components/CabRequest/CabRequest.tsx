@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Modal from '../Modal';
 import '../../styles/components/CabRequest.scss';
-import type { T_CabRequest } from '../../types/Interfaces';
+import type { T_CabRequest, Vendor } from '../../types/Interfaces';
 import CabRequestService from '../../services/CabRequestService';
 import {
   AiOutlineClockCircle,
@@ -66,6 +67,11 @@ const CabRequest = () => {
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
   );
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
+  const [selectedCabRequest, setSelectedCabRequest] =
+    useState<T_CabRequest | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [sortingFilter, setSortingFilter] = useState(sortingOptions[0]);
 
@@ -144,6 +150,37 @@ const CabRequest = () => {
     );
   };
 
+  const handleDeleteConfirmation = () => {
+    setIsConfirmationOpen(false);
+  };
+  const assignModalContent =
+    vendors.length > 0 ? (
+      <div>
+        <div className="flex flex-col p-2">
+          {vendors.map((vendor) => (
+            <button
+              key={vendor.id}
+              className="w-full bg-tw_disable_input hover:bg-tw_primary hover:text-white tracking-wide font-semibold my-1 p-2 rounded-lg"
+            >
+              {vendor.name}
+            </button>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div>Loading vendors...</div>
+    );
+  const actionableItems = (
+    <div className="flex flex-row p-2 justify-center">
+      <div className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center">
+        Cancel
+      </div>
+      <div className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center">
+        Save
+      </div>
+    </div>
+  );
+
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto">
@@ -192,6 +229,33 @@ const CabRequest = () => {
               {pageDeatils.map((cabRequest) => {
                 const isAdhocRequest =
                   cabRequest.pickupTime === cabRequest.expireDate;
+
+                const handleApprove = (
+                  event: React.MouseEvent<HTMLButtonElement>
+                ) => {
+                  setSelectedCabRequest(cabRequest);
+                  setIsModalOpen(true);
+                  fetchVendors();
+                };
+
+                const handleDecline = (
+                  event: React.MouseEvent<HTMLButtonElement>
+                ) => {
+                  setSelectedCabRequest(cabRequest);
+                  setIsConfirmationOpen(true);
+                };
+                const fetchVendors = async () => {
+                  try {
+                    const response = await fetch(
+                      'https://cab-schedule-serverless.vercel.app/api/v1/vendor'
+                    );
+                    const data = await response.json();
+                    setVendors(data);
+                  } catch (error) {
+                    console.error('Error fetching vendors:', error);
+                  }
+                };
+
                 return (
                   <div
                     className="card w-80 font-inter relative my-2 mx-auto"
@@ -281,10 +345,16 @@ const CabRequest = () => {
                       </div>
                     </div>
                     <div className="mt-2 flex flex-row justify-center">
-                      <button className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue">
+                      <button
+                        onClick={handleApprove}
+                        className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
+                      >
                         Approve
                       </button>
-                      <button className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink">
+                      <button
+                        onClick={handleDecline}
+                        className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink"
+                      >
                         Decline
                       </button>
                     </div>
@@ -305,6 +375,7 @@ const CabRequest = () => {
               </div>
             </div>
           )}
+
           <div className="pt-2">
             <Pagination
               nPages={nPages}
@@ -312,6 +383,24 @@ const CabRequest = () => {
               setCurrentPage={setCurrentPage}
             />
           </div>
+          {isModalOpen && selectedCabRequest && (
+            <Modal
+              title="Assign a vendor"
+              shouldShow={isModalOpen}
+              onRequestClose={() => setIsModalOpen(false)}
+              content={assignModalContent}
+              action={actionableItems}
+            />
+          )}
+
+          {isConfirmationOpen && selectedCabRequest && (
+            <Modal
+              title="Are you sure you want to delete the request?"
+              shouldShow={isConfirmationOpen}
+              onRequestClose={() => setIsConfirmationOpen(false)}
+              action={actionableItems}
+            ></Modal>
+          )}
         </div>
       </div>
     </div>

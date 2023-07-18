@@ -39,3 +39,17 @@ export type T_SelectOptions = {
   id: string;
   value: string;
 };
+
+export type ModalProps = {
+  shouldShow: boolean;
+  onRequestClose: () => void;
+  title: String;
+  content?: JSX.Element;
+  action?: JSX.Element;
+};
+export type Vendor = {
+  id: number;
+  name: string;
+  phoneNumber: string;
+  deleted: boolean;
+};
