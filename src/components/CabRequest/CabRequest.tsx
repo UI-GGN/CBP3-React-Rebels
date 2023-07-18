@@ -72,6 +72,7 @@ const CabRequest = () => {
   const [selectedCabRequest, setSelectedCabRequest] =
     useState<T_CabRequest | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
 
   const [sortingFilter, setSortingFilter] = useState(sortingOptions[0]);
 
@@ -86,7 +87,6 @@ const CabRequest = () => {
   useEffect(() => {
     async function getData() {
       setCabRequests(await CabRequestService.fetchInfo());
-      // setCabRequests(CAB_REQUEST);
     }
     getData();
   }, []);
@@ -153,12 +153,24 @@ const CabRequest = () => {
   const handleDeleteConfirmation = () => {
     setIsConfirmationOpen(false);
   };
+
+  const handleApproveRequest = () => {
+    console.log('1. ');
+    if (selectedCabRequest != null && selectedVendor != null) {
+      CabRequestService.assignVendor(
+        selectedVendor?.id,
+        selectedCabRequest?.id
+      ).then(() => setIsModalOpen(false));
+      console.log('2. ');
+    }
+  };
   const assignModalContent =
     vendors.length > 0 ? (
       <div>
         <div className="flex flex-col p-2">
           {vendors.map((vendor) => (
             <button
+              onClick={() => setSelectedVendor(vendor)}
               key={vendor.id}
               className="w-full bg-tw_disable_input hover:bg-tw_primary hover:text-white tracking-wide font-semibold my-1 p-2 rounded-lg"
             >
@@ -170,17 +182,35 @@ const CabRequest = () => {
     ) : (
       <div>Loading vendors...</div>
     );
-  const actionableItems = (
+  const actionableItemsForApprove = (
     <div className="flex flex-row p-2 justify-center">
-      <div className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center">
+      <button
+        onClick={() => setIsModalOpen(false)}
+        className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center"
+      >
         Cancel
-      </div>
-      <div className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center">
+      </button>
+      <button
+        onClick={handleApproveRequest}
+        className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center"
+      >
         Save
-      </div>
+      </button>
     </div>
   );
-
+  const actionableItemsForDecline = (
+    <div className="flex flex-row p-2 justify-center">
+      <button
+        onClick={() => setIsModalOpen(false)}
+        className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center"
+      >
+        No
+      </button>
+      <button className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center">
+        Yes
+      </button>
+    </div>
+  );
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto">
@@ -389,7 +419,7 @@ const CabRequest = () => {
               shouldShow={isModalOpen}
               onRequestClose={() => setIsModalOpen(false)}
               content={assignModalContent}
-              action={actionableItems}
+              action={actionableItemsForApprove}
             />
           )}
 
@@ -398,7 +428,7 @@ const CabRequest = () => {
               title="Are you sure you want to delete the request?"
               shouldShow={isConfirmationOpen}
               onRequestClose={() => setIsConfirmationOpen(false)}
-              action={actionableItems}
+              action={actionableItemsForDecline}
             ></Modal>
           )}
         </div>
