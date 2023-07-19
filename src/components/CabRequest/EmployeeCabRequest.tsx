@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import Modal from '../Modal';
+import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/components/CabRequest.scss';
-import type { T_CabRequest, Vendor } from '../../types/Interfaces';
+import type { T_CabRequest } from '../../types/Interfaces';
 import CabRequestService from '../../services/CabRequestService';
 import {
   AiOutlineClockCircle,
@@ -20,7 +19,10 @@ import {
 } from '../../utils/Constants';
 import DashboardLoader from '../DashboardLoader/DashboardLoader';
 
+import { AuthContext } from 'src/context/AuthContext';
+
 const EmployeeCabRequest = () => {
+  const { loggedInUser } = useContext(AuthContext);
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
   const [requestTypeFilter, setRquestTypeFilter] = useState(
     REQUEST_TYPE_FILETR_OPTIONS[0]
@@ -31,28 +33,24 @@ const EmployeeCabRequest = () => {
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
   );
-  const [vendors, setVendors] = useState<Vendor[]>([]);
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [selectedCabRequest, setSelectedCabRequest] =
-    useState<T_CabRequest | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
 
   const [sortingFilter, setSortingFilter] = useState(SORTING_OPTIONS[0]);
 
   const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(8);
-  const [isLoading, setIsLoading] = useState(false);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const nPages = Math.ceil(filteredCabRequest.length / recordsPerPage);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getData() {
       setIsLoading(true);
-      setCabRequests(await CabRequestService.fetchInfo());
+      setCabRequests(await CabRequestService.fetchUserRequest(loggedInUser));
+      setIsLoading(false);
+      // setCabRequests(CAB_REQUEST);
     }
     getData();
   }, []);
@@ -119,71 +117,15 @@ const EmployeeCabRequest = () => {
     );
   };
 
-  const handleDeleteConfirmation = () => {
-    setIsConfirmationOpen(false);
-  };
-
-  const handleApproveRequest = () => {
-    console.log('1. ');
-    if (selectedCabRequest != null && selectedVendor != null) {
-      CabRequestService.assignVendor(
-        selectedVendor?.id,
-        selectedCabRequest?.id
-      ).then(() => setIsModalOpen(false));
-      console.log('2. ');
-    }
-  };
-  const assignModalContent =
-    vendors.length > 0 ? (
-      <div>
-        <div className="flex flex-col p-2">
-          {vendors.map((vendor) => (
-            <button
-              onClick={() => setSelectedVendor(vendor)}
-              key={vendor.id}
-              className="w-full bg-tw_disable_input hover:bg-tw_primary hover:text-white tracking-wide font-semibold my-1 p-2 rounded-lg"
-            >
-              {vendor.name}
-            </button>
-          ))}
-        </div>
-      </div>
-    ) : (
-      <div>Loading vendors...</div>
-    );
-  const actionableItemsForApprove = (
-    <div className="flex flex-row p-2 justify-center">
-      <button
-        onClick={() => setIsModalOpen(false)}
-        className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center"
-      >
-        Cancel
-      </button>
-      <button
-        onClick={handleApproveRequest}
-        className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center"
-      >
-        Save
-      </button>
-    </div>
-  );
-  const actionableItemsForDecline = (
-    <div className="flex flex-row p-2 justify-center">
-      <button
-        onClick={() => setIsModalOpen(false)}
-        className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center"
-      >
-        No
-      </button>
-      <button className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center">
-        Yes
-      </button>
-    </div>
-  );
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto mb-8">
-        <div className="text-light text-3xl mb-4">Cab Requests</div>
+        <div className="flex flex-row justify-between items-center">
+          <div className="text-light text-3xl mb-4">Cab Requests</div>
+          <button className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4">
+            Book a cab
+          </button>
+        </div>
         <div className="inner-container rounded-b-xl pb-4">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
             <div className="flex flex-row items-center p-2">
@@ -228,33 +170,6 @@ const EmployeeCabRequest = () => {
               {pageDeatils.map((cabRequest) => {
                 const isAdhocRequest =
                   cabRequest.pickupTime === cabRequest.expireDate;
-
-                const handleApprove = (
-                  event: React.MouseEvent<HTMLButtonElement>
-                ) => {
-                  setSelectedCabRequest(cabRequest);
-                  setIsModalOpen(true);
-                  fetchVendors();
-                };
-
-                const handleDecline = (
-                  event: React.MouseEvent<HTMLButtonElement>
-                ) => {
-                  setSelectedCabRequest(cabRequest);
-                  setIsConfirmationOpen(true);
-                };
-                const fetchVendors = async () => {
-                  try {
-                    const response = await fetch(
-                      'https://cab-schedule-serverless.vercel.app/api/v1/vendor'
-                    );
-                    const data = await response.json();
-                    setVendors(data);
-                  } catch (error) {
-                    console.error('Error fetching vendors:', error);
-                  }
-                };
-
                 return (
                   <div
                     className="card w-80 font-inter relative my-2 mx-auto"
@@ -344,16 +259,10 @@ const EmployeeCabRequest = () => {
                       </div>
                     </div>
                     <div className="mt-2 flex flex-row justify-center">
-                      <button
-                        onClick={handleApprove}
-                        className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
-                      >
+                      <button className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue">
                         Approve
                       </button>
-                      <button
-                        onClick={handleDecline}
-                        className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink"
-                      >
+                      <button className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink">
                         Decline
                       </button>
                     </div>
@@ -375,7 +284,6 @@ const EmployeeCabRequest = () => {
               </div>
             </div>
           )}
-
           <div className="pt-2">
             <Pagination
               nPages={nPages}
@@ -383,24 +291,6 @@ const EmployeeCabRequest = () => {
               setCurrentPage={setCurrentPage}
             />
           </div>
-          {isModalOpen && selectedCabRequest && (
-            <Modal
-              title="Assign a vendor"
-              shouldShow={isModalOpen}
-              onRequestClose={() => setIsModalOpen(false)}
-              content={assignModalContent}
-              action={actionableItemsForApprove}
-            />
-          )}
-
-          {isConfirmationOpen && selectedCabRequest && (
-            <Modal
-              title="Are you sure you want to delete the request?"
-              shouldShow={isConfirmationOpen}
-              onRequestClose={() => setIsConfirmationOpen(false)}
-              action={actionableItemsForDecline}
-            ></Modal>
-          )}
         </div>
       </div>
     </div>
