@@ -39,7 +39,7 @@ const Navbar = () => {
     setIsLoggedIn(false);
   };
 
-  if (loggedInUser.profile === 'admin') {
+  if (loggedInUser?.profile === 'admin') {
     navigationBarElement = [
       {
         key: '1',
@@ -59,7 +59,7 @@ const Navbar = () => {
       },
     ];
   }
-  if (loggedInUser.profile === 'user') {
+  if (loggedInUser?.profile === 'user') {
     navigationBarElement = [
       {
         key: '1',
@@ -75,10 +75,15 @@ const Navbar = () => {
     ];
   }
 
-  const splitedName = loggedInUser.name.split(' ');
-  let nameInitials = splitedName[0].charAt(0).toUpperCase();
-  if (splitedName.length > 1)
-    nameInitials += splitedName[splitedName.length - 1].charAt(0).toUpperCase();
+  const splitedName = loggedInUser?.name?.split(' ');
+  let nameInitials = 'G';
+  if (splitedName) {
+    splitedName[0].charAt(0).toUpperCase();
+    if (splitedName.length > 1)
+      nameInitials += splitedName[splitedName.length - 1]
+        .charAt(0)
+        .toUpperCase();
+  }
   return (
     <nav className="p-[1rem] shadow-md">
       <div className="flex flex-row justify-between items-center">
@@ -120,9 +125,9 @@ const Navbar = () => {
                   );
                 }
               })}
-            {loggedInUser.profile !== 'guest' && (
+            {loggedInUser?.profile !== 'guest' && (
               <div
-                title={loggedInUser.name}
+                title={loggedInUser?.name}
                 className="flex flex-row items-center justify-center bg-tw_secondary w-9 h-9 rounded-full text-light font-bold cursor-pointer"
               >
                 {nameInitials}
@@ -130,10 +135,10 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        {loggedInUser.profile !== 'guest' && (
+        {loggedInUser?.profile !== 'guest' && (
           <div className="block sm:hidden">
             <div
-              title={loggedInUser.name}
+              title={loggedInUser?.name}
               className="bg-tw_secondary w-8 h-8 rounded-full text-light font-bold flex flex-row items-center justify-center"
             >
               {nameInitials}

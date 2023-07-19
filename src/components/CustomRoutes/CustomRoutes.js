@@ -14,25 +14,25 @@ function CustomRoutes() {
   let routes = (
     <Routes>
       <Route path="login" element={<Login />} />
-      <Route path="*" element={<ErrorPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
       <Route path="/" element={<Login />} />
     </Routes>
   );
 
-  if (loggedInUser.profile === 'user') {
+  if (loggedInUser?.profile === 'user') {
     routes = (
       <Routes>
-        <Route exact path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/" element={<EmployeeCabRequest />} />
         <Route path="/home" element={<EmployeeCabRequest />} />
         <Route path="/cab-request" element={<CabRequestForm />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     );
   }
-  if (loggedInUser.profile === 'admin') {
+  if (loggedInUser?.profile === 'admin') {
     routes = (
       <Routes>
-        <Route path="/" exact element={<Navigate to="/home" replace />} />
+        <Route path="/" element={<Home />} />
         <Route path="/dashboard-admin" element={<CabRequest />} />
         <Route path="home" element={<Home />} />
         <Route path="*" element={<ErrorPage />} />
@@ -40,25 +40,7 @@ function CustomRoutes() {
     );
   }
 
-  return (
-    <>{routes}</>
-
-    // <Routes>
-    //   <Route path="/" element={<Login />} />
-    //   <Route path="login" element={<Login />} />
-    //   {/* <Route path="signup" element={<SignUp />} /> */}
-    //   {/* <Route path="booking" element={<AddCab />} /> */}
-    //   <Route path="home" element={<Home />} />
-    //   {/* <Route
-    //           path="booking-confirmation"
-    //           element={<BookingConfirmation rides={rides} />}
-    //         /> */}
-    //   {/* <Route path="add-route" element={<AddRoute />} /> */}
-    //   <Route path="*" element={<ErrorPage />} />
-    //   <Route path="/dashboard-admin" element={<CabRequest />} />
-    //   <Route path="/cab-request" element={<CabRequestForm />} />
-    // </Routes>
-  );
+  return <>{routes}</>;
 }
 
 export default CustomRoutes;
