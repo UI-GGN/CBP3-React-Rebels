@@ -1,15 +1,20 @@
 import React, { createContext, useState } from 'react';
+import { User } from 'src/types/Interfaces';
 
 interface AuthContextValue {
-  loggedInUser: String;
-  profile: String;
-  login: (user: any, profileData: any) => void;
+  loggedInUser: User;
+  login: (user: User) => void;
   logout: () => void;
 }
-
-export const AuthContext = createContext<AuthContextValue>({
-  loggedInUser: '-1',
+const defaultUser = {
+  id: '-1',
+  username: 'guest',
+  password: '*****',
   profile: 'guest',
+  name: 'guest user',
+};
+export const AuthContext = createContext<AuthContextValue>({
+  loggedInUser: defaultUser,
   login: () => {},
   logout: () => {},
 });
@@ -19,22 +24,18 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [loggedInUser, setLoggedInUser] = useState<String>('-1');
-  const [profile, setProfile] = useState<String>('guest');
+  const [loggedInUser, setLoggedInUser] = useState<User>(defaultUser);
 
-  const login = (user: string, profileData: string) => {
+  const login = (user: User) => {
     setLoggedInUser(user);
-    setProfile(profileData);
   };
 
   const logout = () => {
-    setLoggedInUser('-1');
-    setProfile('guest');
+    setLoggedInUser(defaultUser);
   };
 
   const authContextValue: AuthContextValue = {
     loggedInUser,
-    profile,
     login,
     logout,
   };
