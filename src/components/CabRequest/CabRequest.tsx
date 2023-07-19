@@ -18,6 +18,8 @@ import {
   REQUEST_STATUS_FILETR_OPTIONS,
 } from '../../utils/Constants';
 import DashboardLoader from '../DashboardLoader/DashboardLoader';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const EmployeeCabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
@@ -114,10 +116,38 @@ const EmployeeCabRequest = () => {
     );
   };
 
+  const downloadExcelFile = (jsonObject: object[], fileName: string) => {
+    const worksheet = XLSX.utils.json_to_sheet(jsonObject);
+    const workbook = {
+      Sheets: { 'Sheet 1': worksheet },
+      SheetNames: ['Sheet 1'],
+    };
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+    const data = new Blob([excelBuffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    saveAs(data, fileName + '.xlsx');
+  };
+
+  const generateReport = () => {
+    downloadExcelFile(pageDeatils, 'Hatch-a-cab-request');
+  };
+
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto mb-8">
-        <div className="text-light text-3xl mb-4">Cab Requests</div>
+        <div className="flex flex-row justify-between items-center">
+          <div className="text-light text-3xl mb-4">Cab Requests</div>
+          <button
+            onClick={generateReport}
+            className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4"
+          >
+            Export Report
+          </button>
+        </div>
         <div className="inner-container rounded-b-xl pb-4">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
             <div className="flex flex-row items-center p-2">
