@@ -19,6 +19,7 @@ import {
   REQUEST_STATUS_FILETR_OPTIONS,
 } from '../../utils/Constants';
 import DashboardLoader from '../DashboardLoader/DashboardLoader';
+import AprroveCabRequestModal from './AprroveCabRequestModal';
 
 const EmployeeCabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
@@ -31,13 +32,9 @@ const EmployeeCabRequest = () => {
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
   );
-  const [vendors, setVendors] = useState<Vendor[]>([]);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [selectedCabRequest, setSelectedCabRequest] =
     useState<T_CabRequest | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
-
   const [sortingFilter, setSortingFilter] = useState(SORTING_OPTIONS[0]);
 
   const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
@@ -53,6 +50,7 @@ const EmployeeCabRequest = () => {
     async function getData() {
       setIsLoading(true);
       setCabRequests(await CabRequestService.fetchInfo());
+      setIsLoading(false);
     }
     getData();
   }, []);
@@ -98,6 +96,10 @@ const EmployeeCabRequest = () => {
     setPageDetails(currentRecords);
   }, [currentPage, filteredCabRequest]);
 
+  const updateSelecetdRequest = (value: T_CabRequest | null) => {
+    setSelectedCabRequest(value);
+  };
+
   const requestTypeFilterChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -123,54 +125,14 @@ const EmployeeCabRequest = () => {
     setIsConfirmationOpen(false);
   };
 
-  const handleApproveRequest = () => {
-    console.log('1. ');
-    if (selectedCabRequest != null && selectedVendor != null) {
-      CabRequestService.assignVendor(
-        selectedVendor?.id,
-        selectedCabRequest?.id
-      ).then(() => setIsModalOpen(false));
-      console.log('2. ');
-    }
+  const handleApprove = (cabRequest: T_CabRequest) => {
+    setSelectedCabRequest(cabRequest);
   };
-  const assignModalContent =
-    vendors.length > 0 ? (
-      <div>
-        <div className="flex flex-col p-2">
-          {vendors.map((vendor) => (
-            <button
-              onClick={() => setSelectedVendor(vendor)}
-              key={vendor.id}
-              className="w-full bg-tw_disable_input hover:bg-tw_primary hover:text-white tracking-wide font-semibold my-1 p-2 rounded-lg"
-            >
-              {vendor.name}
-            </button>
-          ))}
-        </div>
-      </div>
-    ) : (
-      <div>Loading vendors...</div>
-    );
-  const actionableItemsForApprove = (
-    <div className="flex flex-row p-2 justify-center">
-      <button
-        onClick={() => setIsModalOpen(false)}
-        className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center"
-      >
-        Cancel
-      </button>
-      <button
-        onClick={handleApproveRequest}
-        className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center"
-      >
-        Save
-      </button>
-    </div>
-  );
+
   const actionableItemsForDecline = (
     <div className="flex flex-row p-2 justify-center">
       <button
-        onClick={() => setIsModalOpen(false)}
+        onClick={() => setIsConfirmationOpen(false)}
         className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center"
       >
         No
@@ -228,33 +190,12 @@ const EmployeeCabRequest = () => {
               {pageDeatils.map((cabRequest) => {
                 const isAdhocRequest =
                   cabRequest.pickupTime === cabRequest.expireDate;
-
-                const handleApprove = (
-                  event: React.MouseEvent<HTMLButtonElement>
-                ) => {
-                  setSelectedCabRequest(cabRequest);
-                  setIsModalOpen(true);
-                  fetchVendors();
-                };
-
                 const handleDecline = (
                   event: React.MouseEvent<HTMLButtonElement>
                 ) => {
                   setSelectedCabRequest(cabRequest);
                   setIsConfirmationOpen(true);
                 };
-                const fetchVendors = async () => {
-                  try {
-                    const response = await fetch(
-                      'https://cab-schedule-serverless.vercel.app/api/v1/vendor'
-                    );
-                    const data = await response.json();
-                    setVendors(data);
-                  } catch (error) {
-                    console.error('Error fetching vendors:', error);
-                  }
-                };
-
                 return (
                   <div
                     className="card w-80 font-inter relative my-2 mx-auto"
@@ -345,7 +286,7 @@ const EmployeeCabRequest = () => {
                     </div>
                     <div className="mt-2 flex flex-row justify-center">
                       <button
-                        onClick={handleApprove}
+                        onClick={() => handleApprove(cabRequest)}
                         className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
                       >
                         Approve
@@ -383,13 +324,10 @@ const EmployeeCabRequest = () => {
               setCurrentPage={setCurrentPage}
             />
           </div>
-          {isModalOpen && selectedCabRequest && (
-            <Modal
-              title="Assign a vendor"
-              shouldShow={isModalOpen}
-              onRequestClose={() => setIsModalOpen(false)}
-              content={assignModalContent}
-              action={actionableItemsForApprove}
+          {selectedCabRequest && (
+            <AprroveCabRequestModal
+              selectedCabRequest={selectedCabRequest}
+              setSelecetdCabRequest={updateSelecetdRequest}
             />
           )}
 

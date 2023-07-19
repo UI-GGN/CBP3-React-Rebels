@@ -47,6 +47,11 @@ export type ModalProps = {
   content?: JSX.Element;
   action?: JSX.Element;
 };
+
+export type BackDropProps = {
+  onRequestClose: () => void;
+};
+
 export type Vendor = {
   id: number;
   name: string;
@@ -64,4 +69,9 @@ export type User = {
   username: string;
   password: string;
   profile: string;
+};
+
+export type ApproveRequestProp = {
+  selectedCabRequest: T_CabRequest;
+  setSelecetdCabRequest: (value: T_CabRequest | null) => void;
 };
