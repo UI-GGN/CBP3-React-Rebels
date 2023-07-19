@@ -133,7 +133,7 @@ const EmployeeCabRequest = () => {
   };
 
   const generateReport = () => {
-    downloadExcelFile(pageDeatils, 'Hatch-a-cab-request');
+    downloadExcelFile(filteredCabRequest, 'Hatch-a-cab-request');
   };
 
   return (
