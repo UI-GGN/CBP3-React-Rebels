@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { ApproveRequestProp, Vendor } from 'src/types/Interfaces';
-import Modal from '../Modal';
+import { AdminActionsProps, Vendor } from 'src/types/Interfaces';
+import Modal from '../../Modal';
 import CabRequestService from 'src/services/CabRequestService';
+import { BiUser } from 'react-icons/bi';
+import { BsTelephone } from 'react-icons/bs';
 
-const AprroveCabRequestModal: React.FC<ApproveRequestProp> = ({
+const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
   selectedCabRequest,
-  setSelecetdCabRequest,
+  onCloseHandler,
+  onSuccessHandler,
 }) => {
   const [vendors, setVendors] = useState<Vendor[]>([]);
   const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
@@ -31,7 +34,21 @@ const AprroveCabRequestModal: React.FC<ApproveRequestProp> = ({
                 vendor === selectedVendor ? activeListItem : listElementStyle
               }
             >
-              {vendor.name}
+              <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row items-center">
+                  <div className="px-2">
+                    {' '}
+                    <BiUser size={'1.1rem'} />
+                  </div>
+                  <div>{vendor.name}</div>
+                </div>
+                <div className="flex flex-row-reverse items-center">
+                  <div className="px-2">{vendor.phoneNumber}</div>
+                  <div>
+                    <BsTelephone size={'1.1rem'} />{' '}
+                  </div>
+                </div>
+              </div>
             </button>
           ))}
         </div>
@@ -41,14 +58,13 @@ const AprroveCabRequestModal: React.FC<ApproveRequestProp> = ({
     );
 
   const handleApproveRequest = () => {
-    console.log('test');
     if (selectedCabRequest != null && selectedVendor != null) {
       CabRequestService.assignVendor(
         selectedVendor?.id,
         selectedCabRequest?.id
       ).then(() => {
         setSelectedVendor(null);
-        setSelecetdCabRequest(null);
+        onSuccessHandler();
       });
     }
   };
@@ -56,7 +72,7 @@ const AprroveCabRequestModal: React.FC<ApproveRequestProp> = ({
   const actionableItemsForApprove = (
     <div className="flex flex-row p-2 justify-center">
       <button
-        onClick={() => setSelecetdCabRequest(null)}
+        onClick={() => onCloseHandler(null)}
         className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center"
       >
         Cancel
@@ -74,8 +90,7 @@ const AprroveCabRequestModal: React.FC<ApproveRequestProp> = ({
   return (
     <Modal
       title="Assign a vendor"
-      shouldShow={true}
-      onRequestClose={() => setSelecetdCabRequest(null)}
+      onRequestClose={() => onCloseHandler(null)}
       content={assignModalContent}
       action={actionableItemsForApprove}
     />

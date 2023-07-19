@@ -7,7 +7,6 @@ const BackDrop: React.FC<BackDropProps> = ({ onRequestClose }) => {
     <div
       className="backdrop"
       onClick={() => {
-        console.log('test');
         onRequestClose();
       }}
     />
@@ -15,7 +14,6 @@ const BackDrop: React.FC<BackDropProps> = ({ onRequestClose }) => {
 };
 
 const Overlay: React.FC<ModalProps> = ({
-  shouldShow,
   onRequestClose,
   title,
   content,
@@ -32,11 +30,13 @@ const Overlay: React.FC<ModalProps> = ({
             X
           </button>
         </div>
-        <div className="text-xl p-2 font-semibold text-tw_primary tracking-wide">
+        <div className="text-xl p-2 font-semibold text-tw_primary tracking-wide border-b-2">
           {title}
         </div>
         {content && (
-          <div className="p-2 overflow-y-scroll h-[20rem]">{content}</div>
+          <div className="p-2 overflow-y-scroll h-[19rem] border-b-2">
+            {content}
+          </div>
         )}
         <div className="p-2 h-1/6">{action}</div>
       </div>
@@ -45,13 +45,12 @@ const Overlay: React.FC<ModalProps> = ({
 };
 
 const Modal: React.FC<ModalProps> = ({
-  shouldShow,
   onRequestClose,
   title,
   content,
   action,
 }) => {
-  return shouldShow ? (
+  return (
     <>
       {ReactDOM.createPortal(
         <BackDrop onRequestClose={onRequestClose} />,
@@ -59,7 +58,6 @@ const Modal: React.FC<ModalProps> = ({
       )}
       {ReactDOM.createPortal(
         <Overlay
-          shouldShow={shouldShow}
           title={title}
           content={content}
           action={action}
@@ -68,7 +66,7 @@ const Modal: React.FC<ModalProps> = ({
         document.getElementById('overlay-root')!
       )}
     </>
-  ) : null;
+  );
 };
 
 export default Modal;

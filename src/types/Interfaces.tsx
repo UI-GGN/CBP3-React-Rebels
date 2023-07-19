@@ -41,7 +41,6 @@ export type T_SelectOptions = {
 };
 
 export type ModalProps = {
-  shouldShow: boolean;
   onRequestClose: () => void;
   title: String;
   content?: JSX.Element;
@@ -71,7 +70,14 @@ export type User = {
   profile: string;
 };
 
-export type ApproveRequestProp = {
+export type AdminActionsProps = {
   selectedCabRequest: T_CabRequest;
-  setSelecetdCabRequest: (value: T_CabRequest | null) => void;
+  onCloseHandler: (value: T_CabRequest | null) => void;
+  onSuccessHandler: () => void;
+};
+
+export type CabRequestCardsProps = {
+  pageDetails: T_CabRequest[];
+  handleApprove: (value: T_CabRequest) => void;
+  handleDecline: (value: T_CabRequest) => void;
 };

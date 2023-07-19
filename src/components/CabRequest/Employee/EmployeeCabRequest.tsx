@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import Modal from '../Modal';
-import '../../styles/components/CabRequest.scss';
-import type { T_CabRequest, Vendor } from '../../types/Interfaces';
-import CabRequestService from '../../services/CabRequestService';
+import React, { useState, useEffect, useContext } from 'react';
+import '../../../styles/components/CabRequest.scss';
+import type { T_CabRequest } from '../../../types/Interfaces';
+import CabRequestService from '../../../services/CabRequestService';
 import {
   AiOutlineClockCircle,
   AiOutlineCalendar,
@@ -10,18 +9,20 @@ import {
 } from 'react-icons/ai';
 import { LuMailX } from 'react-icons/lu';
 import { ImLocation, ImLocation2 } from 'react-icons/im';
-import Select from '../Select';
+import Select from '../../Select';
 import { convertToReadabelDate } from 'src/utils/Date';
-import Pagination from '../Pagination/Pagination';
+import Pagination from '../../Pagination/Pagination';
 import {
   REQUEST_TYPE_FILETR_OPTIONS,
   SORTING_OPTIONS,
   REQUEST_STATUS_FILETR_OPTIONS,
-} from '../../utils/Constants';
-import DashboardLoader from '../DashboardLoader/DashboardLoader';
-import AprroveCabRequestModal from './AprroveCabRequestModal';
+} from '../../../utils/Constants';
+import DashboardLoader from '../../DashboardLoader/DashboardLoader';
+
+import { AuthContext } from 'src/context/AuthContext';
 
 const EmployeeCabRequest = () => {
+  const { loggedInUser } = useContext(AuthContext);
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
   const [requestTypeFilter, setRquestTypeFilter] = useState(
     REQUEST_TYPE_FILETR_OPTIONS[0]
@@ -32,25 +33,24 @@ const EmployeeCabRequest = () => {
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
   );
-  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
-  const [selectedCabRequest, setSelectedCabRequest] =
-    useState<T_CabRequest | null>(null);
+
   const [sortingFilter, setSortingFilter] = useState(SORTING_OPTIONS[0]);
 
   const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(8);
-  const [isLoading, setIsLoading] = useState(false);
 
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const nPages = Math.ceil(filteredCabRequest.length / recordsPerPage);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getData() {
       setIsLoading(true);
-      setCabRequests(await CabRequestService.fetchInfo());
+      setCabRequests(await CabRequestService.fetchUserRequest(loggedInUser));
       setIsLoading(false);
+      // setCabRequests(CAB_REQUEST);
     }
     getData();
   }, []);
@@ -96,10 +96,6 @@ const EmployeeCabRequest = () => {
     setPageDetails(currentRecords);
   }, [currentPage, filteredCabRequest]);
 
-  const updateSelecetdRequest = (value: T_CabRequest | null) => {
-    setSelectedCabRequest(value);
-  };
-
   const requestTypeFilterChangeHandler = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -121,31 +117,15 @@ const EmployeeCabRequest = () => {
     );
   };
 
-  const handleDeleteConfirmation = () => {
-    setIsConfirmationOpen(false);
-  };
-
-  const handleApprove = (cabRequest: T_CabRequest) => {
-    setSelectedCabRequest(cabRequest);
-  };
-
-  const actionableItemsForDecline = (
-    <div className="flex flex-row p-2 justify-center">
-      <button
-        onClick={() => setIsConfirmationOpen(false)}
-        className="p-2 mx-4 w-24 bg-tw_disable_input rounded text-center"
-      >
-        No
-      </button>
-      <button className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center">
-        Yes
-      </button>
-    </div>
-  );
   return (
     <div className="cabRequest pt-12">
       <div className="w-11/12 mx-auto mb-8">
-        <div className="text-light text-3xl mb-4">Cab Requests</div>
+        <div className="flex flex-row justify-between items-center">
+          <div className="text-light text-3xl mb-4">Cab Requests</div>
+          <button className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4">
+            Book a cab
+          </button>
+        </div>
         <div className="inner-container rounded-b-xl pb-4">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
             <div className="flex flex-row items-center p-2">
@@ -190,12 +170,6 @@ const EmployeeCabRequest = () => {
               {pageDeatils.map((cabRequest) => {
                 const isAdhocRequest =
                   cabRequest.pickupTime === cabRequest.expireDate;
-                const handleDecline = (
-                  event: React.MouseEvent<HTMLButtonElement>
-                ) => {
-                  setSelectedCabRequest(cabRequest);
-                  setIsConfirmationOpen(true);
-                };
                 return (
                   <div
                     className="card w-80 font-inter relative my-2 mx-auto"
@@ -285,16 +259,10 @@ const EmployeeCabRequest = () => {
                       </div>
                     </div>
                     <div className="mt-2 flex flex-row justify-center">
-                      <button
-                        onClick={() => handleApprove(cabRequest)}
-                        className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
-                      >
+                      <button className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue">
                         Approve
                       </button>
-                      <button
-                        onClick={handleDecline}
-                        className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink"
-                      >
+                      <button className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink">
                         Decline
                       </button>
                     </div>
@@ -316,7 +284,6 @@ const EmployeeCabRequest = () => {
               </div>
             </div>
           )}
-
           <div className="pt-2">
             <Pagination
               nPages={nPages}
@@ -324,21 +291,6 @@ const EmployeeCabRequest = () => {
               setCurrentPage={setCurrentPage}
             />
           </div>
-          {selectedCabRequest && (
-            <AprroveCabRequestModal
-              selectedCabRequest={selectedCabRequest}
-              setSelecetdCabRequest={updateSelecetdRequest}
-            />
-          )}
-
-          {isConfirmationOpen && selectedCabRequest && (
-            <Modal
-              title="Are you sure you want to delete the request?"
-              shouldShow={isConfirmationOpen}
-              onRequestClose={() => setIsConfirmationOpen(false)}
-              action={actionableItemsForDecline}
-            ></Modal>
-          )}
         </div>
       </div>
     </div>
