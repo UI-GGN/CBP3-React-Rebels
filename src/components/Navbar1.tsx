@@ -1,59 +1,109 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { T_NavBarElement } from 'src/types/Interfaces';
 import '../styles/components/Navabr1.scss';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { AuthContext } from '../context/AuthContext';
 
 const Navbar1 = () => {
-  const isAuthenticated: boolean = true;
+  const { logout, loggedInUser, login, profile } = useContext(AuthContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [istoggle, setIsToggle] = useState(false);
-
   const toggleState = () => setIsToggle((prevState) => !prevState);
   const location = useLocation();
 
-  const navigationBarElement: T_NavBarElement[] = [
-    {
-      key: '1',
-      link: '/home',
-      label: 'Home',
-    },
-    {
-      key: '2',
-      link: '/dashboard-admin',
-      label: 'Cab Requests',
-    },
-    {
-      key: '3',
-      link: '/log-out',
-      label: 'Log Out',
-    },
-  ];
+  useEffect(() => {
+    if (localStorage.getItem('loggedInUser') !== null) {
+      const loggedInUser = JSON.parse(
+        localStorage.getItem('loggedInUser') || '{}'
+      );
+      login(loggedInUser.id, loggedInUser.profile);
+    }
+    if (loggedInUser !== '-1') {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [loggedInUser]);
+
+  let navigationBarElement: T_NavBarElement[] = [];
+
+  if (profile === 'admin') {
+    navigationBarElement = [
+      {
+        key: '1',
+        link: '/home',
+        label: 'Home',
+        isSecured: true,
+      },
+      {
+        key: '2',
+        link: '/dashboard-admin',
+        label: 'Cab Requests',
+        isSecured: true,
+      },
+    ];
+  }
+  if (profile === 'user') {
+    navigationBarElement = [
+      {
+        key: '1',
+        link: '/home',
+        label: 'Home',
+        isSecured: true,
+      },
+    ];
+  }
+  const handleLogout = () => {
+    localStorage.clear();
+    logout();
+    setIsLoggedIn(false);
+  };
+
   return (
-    <nav className="p-2">
+    <nav className="p-[1rem] shadow-md">
       <div className="flex flex-row justify-between items-center">
-        <div className="flex h-12 flex-row">
-          <span className="font-bitter text-tw_primary text-2xl font-extrabold tracking-wide mt-auto ml-2">
+        <div className="flex flex-row">
+          <span className="font-bitter text-tw_primary text-2xl font-extrabold tracking-wide my-auto ml-4">
             Hatch-A-Cab
           </span>
         </div>
         <div className="hidden sm:block">
           <div>
-            {navigationBarElement.map((element) => {
-              const isActive = location.pathname === element.link;
-              let classes =
-                'no-underline text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_primary hover:border-b-4 hover:border-tw_primary';
-              if (isActive)
-                classes =
-                  classes + ' border-b-4 border-tw_yellow font-semibold';
-              return (
-                <Link key={element.key} to={element.link} className={classes}>
-                  {element.label}
-                </Link>
-              );
-            })}
+            {isLoggedIn &&
+              navigationBarElement
+                .filter((element) => element.isSecured)
+                .map((element) => {
+                  const isActive = location.pathname === element.link;
+                  let classes =
+                    'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_secondary transition duration-300';
+                  if (isActive)
+                    classes += ' border-b-[3px] border-tw_secondary';
+                  return (
+                    <Link
+                      key={element.key}
+                      to={element.link}
+                      className={classes}
+                    >
+                      {element.label}
+                    </Link>
+                  );
+                })}
+            {isLoggedIn && (
+              <Link
+                to="/login"
+                className="no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 pb-1 hover:text-tw_secondary"
+                onClick={handleLogout}
+              >
+                Log Out?
+              </Link>
+            )}
           </div>
         </div>
         <div className="block sm:hidden">
-          <button onClick={toggleState}>Test</button>
+          <button onClick={toggleState}>
+            <RxHamburgerMenu size={'1.2rem'} />
+          </button>
         </div>
       </div>
       {istoggle && (
@@ -79,3 +129,6 @@ const Navbar1 = () => {
 };
 
 export default Navbar1;
+function User(this: any, key: string, value: any) {
+  throw new Error('Function not implemented.');
+}

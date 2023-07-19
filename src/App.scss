@@ -40,9 +40,18 @@
 .global-wrapper{
   height: 100vh;
   display: grid;
-  grid-template-rows: 4rem 1fr 5rem;
+  grid-template-rows: 4rem 1fr 3rem;
 }
 
 .global-header {
-    background: #f2f2f2;
+    background: #F7FAFC;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f2f2f2;
+  z-index: 999; /* Ensures the navbar stays on top of other content */
 }
