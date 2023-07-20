@@ -18,8 +18,7 @@ import {
   REQUEST_STATUS_FILETR_OPTIONS,
 } from '../../utils/Constants';
 import DashboardLoader from '../DashboardLoader/DashboardLoader';
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+import { downloadExcelFile } from 'src/utils/GenerateExcel';
 
 const EmployeeCabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
@@ -116,24 +115,8 @@ const EmployeeCabRequest = () => {
     );
   };
 
-  const downloadExcelFile = (jsonObject: object[], fileName: string) => {
-    const worksheet = XLSX.utils.json_to_sheet(jsonObject);
-    const workbook = {
-      Sheets: { 'Sheet 1': worksheet },
-      SheetNames: ['Sheet 1'],
-    };
-    const excelBuffer = XLSX.write(workbook, {
-      bookType: 'xlsx',
-      type: 'array',
-    });
-    const data = new Blob([excelBuffer], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    });
-    saveAs(data, fileName + '.xlsx');
-  };
-
   const generateReport = () => {
-    downloadExcelFile(filteredCabRequest, 'Hatch-a-cab-request');
+    downloadExcelFile(cabRequests, 'Hatch-a-cab-request');
   };
 
   return (
