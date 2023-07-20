@@ -78,7 +78,7 @@ const Navbar = () => {
   const splitedName = loggedInUser?.name?.split(' ');
   let nameInitials = 'G';
   if (splitedName) {
-    splitedName[0].charAt(0).toUpperCase();
+    nameInitials = splitedName[0].charAt(0).toUpperCase();
     if (splitedName.length > 1)
       nameInitials += splitedName[splitedName.length - 1]
         .charAt(0)
