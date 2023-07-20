@@ -1,7 +1,10 @@
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 
-export const downloadExcelFile = (jsonObject: object[], fileName: string) => {
+export const downloadExcelFile = (
+  jsonObject: object[],
+  fileName: string = 'new-file'
+) => {
   const worksheet = XLSX.utils.json_to_sheet(jsonObject);
   const workbook = {
     Sheets: { 'Sheet 1': worksheet },
