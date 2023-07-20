@@ -1,4 +1,5 @@
 import { ReactElement, ReactPortal } from 'react';
+import { JsxElement } from 'typescript';
 
 export type ReactText = string | number;
 export type ReactChild = ReactElement | ReactText;
@@ -32,12 +33,8 @@ export type T_NavBarElement = {
   key: string;
   link: string;
   label: string;
-  isSecured: Boolean;
-};
-
-export type T_SelectOptions = {
-  id: string;
-  value: string;
+  onClick?: () => void | {};
+  childrens?: T_NavBarElement[];
 };
 
 export type ActionButton = {
@@ -50,4 +47,5 @@ export type User = {
   username: string;
   password: string;
   profile: string;
+  name: string;
 };
