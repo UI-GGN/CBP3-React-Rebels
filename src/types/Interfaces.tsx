@@ -1,4 +1,5 @@
 import { ReactElement, ReactPortal } from 'react';
+import { JsxElement } from 'typescript';
 
 export type ReactText = string | number;
 export type ReactChild = ReactElement | ReactText;
@@ -26,18 +27,15 @@ export type T_CabRequest = {
   dropLocation: string;
   expireDate: string;
   status: string;
+  vendorId: string;
 };
 
 export type T_NavBarElement = {
   key: string;
   link: string;
   label: string;
-  isSecured: Boolean;
-};
-
-export type T_SelectOptions = {
-  id: string;
-  value: string;
+  onClick?: () => void | {};
+  childrens?: T_NavBarElement[];
 };
 
 export type ModalProps = {
@@ -52,7 +50,7 @@ export type BackDropProps = {
 };
 
 export type Vendor = {
-  id: number;
+  id: string;
   name: string;
   phoneNumber: string;
   deleted: boolean;
@@ -68,6 +66,7 @@ export type User = {
   username: string;
   password: string;
   profile: string;
+  name: string;
 };
 
 export type AdminActionsProps = {

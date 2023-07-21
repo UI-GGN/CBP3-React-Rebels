@@ -10,7 +10,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useContext } from 'react';
 
 function CustomRoutes() {
-  const { profile } = useContext(AuthContext);
+  const { loggedInUser } = useContext(AuthContext);
   let routes = (
     <Routes>
       <Route path="login" element={<Login />} />
@@ -19,7 +19,7 @@ function CustomRoutes() {
     </Routes>
   );
 
-  if (profile === 'user') {
+  if (loggedInUser?.profile === 'user') {
     routes = (
       <Routes>
         <Route path="/" element={<EmployeeCabRequest />} />
@@ -29,7 +29,7 @@ function CustomRoutes() {
       </Routes>
     );
   }
-  if (profile === 'admin') {
+  if (loggedInUser?.profile === 'admin') {
     routes = (
       <Routes>
         <Route path="/" element={<Home />} />
@@ -40,25 +40,7 @@ function CustomRoutes() {
     );
   }
 
-  return (
-    <>{routes}</>
-
-    // <Routes>
-    //   <Route path="/" element={<Login />} />
-    //   <Route path="login" element={<Login />} />
-    //   {/* <Route path="signup" element={<SignUp />} /> */}
-    //   {/* <Route path="booking" element={<AddCab />} /> */}
-    //   <Route path="home" element={<Home />} />
-    //   {/* <Route
-    //           path="booking-confirmation"
-    //           element={<BookingConfirmation rides={rides} />}
-    //         /> */}
-    //   {/* <Route path="add-route" element={<AddRoute />} /> */}
-    //   <Route path="*" element={<ErrorPage />} />
-    //   <Route path="/dashboard-admin" element={<CabRequest />} />
-    //   <Route path="/cab-request" element={<CabRequestForm />} />
-    // </Routes>
-  );
+  return <>{routes}</>;
 }
 
 export default CustomRoutes;

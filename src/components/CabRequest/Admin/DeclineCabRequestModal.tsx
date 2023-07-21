@@ -1,7 +1,7 @@
 import React from 'react';
-import { AdminActionsProps } from 'src/types/Interfaces';
+import { AdminActionsProps } from '../../../types/Interfaces';
 import Modal from '../../Modal';
-import CabRequestService from 'src/services/CabRequestService';
+import CabRequestService from '../../../services/CabRequestService';
 
 const DeclineCabRequestModal: React.FC<AdminActionsProps> = ({
   selectedCabRequest,

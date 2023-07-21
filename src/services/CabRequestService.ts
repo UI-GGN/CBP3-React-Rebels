@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { T_CabRequest, Vendor } from '../types/Interfaces';
-import { FormProps } from 'src/types/FormProps';
+import { FormProps } from '../types/FormProps';
 
 class CabRequestService {
   static fetchInfo = async (): Promise<T_CabRequest[]> => {
@@ -28,7 +28,7 @@ class CabRequestService {
     return response.data;
   };
 
-  static assignVendor(vendorId: number, requestId: number) {
+  static assignVendor(vendorId: string, requestId: number) {
     return axios.put(
       `https://shuttle-service-tw.vercel.app/api/v1/cab-request/${requestId}`,
       { status: 'APPROVED', vendorId: vendorId }

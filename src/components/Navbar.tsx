@@ -1,153 +1,169 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { T_NavBarElement } from '../types/Interfaces';
+import '../styles/components/Navabr1.scss';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
-  const isAuthenticated: boolean = true;
+  const { logout, loggedInUser, login } = useContext(AuthContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [istoggle, setIsToggle] = useState(false);
+  const location = useLocation();
+  let navigationBarElement: T_NavBarElement[] = [];
+
+  const classes =
+    'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 hover:text-tw_secondary transition duration-300';
+
+  const activeClasses = classes + '  border-b-[3px] border-tw_secondary';
+
+  useEffect(() => {
+    if (localStorage.getItem('loggedInUser') !== null) {
+      const loggedInUser = JSON.parse(
+        localStorage.getItem('loggedInUser') || '{}'
+      );
+      login(loggedInUser);
+    }
+    if (loggedInUser.id !== '-1') {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [loggedInUser.id]);
+
+  const toggleState = () => setIsToggle((prevState: boolean) => !prevState);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    logout();
+    setIsLoggedIn(false);
+  };
+
+  if (loggedInUser?.profile === 'admin') {
+    navigationBarElement = [
+      {
+        key: '1',
+        link: '/home',
+        label: 'Home',
+      },
+      {
+        key: '2',
+        link: '/dashboard-admin',
+        label: 'Cab Requests',
+      },
+      {
+        key: '3',
+        link: '/login',
+        label: 'Log Out',
+        onClick: handleLogout,
+      },
+    ];
+  }
+  if (loggedInUser?.profile === 'user') {
+    navigationBarElement = [
+      {
+        key: '1',
+        link: '/home',
+        label: 'Home',
+      },
+      {
+        key: '2',
+        link: '/login',
+        label: 'Log Out',
+        onClick: handleLogout,
+      },
+    ];
+  }
+
+  const splitedName = loggedInUser?.name?.split(' ');
+  let nameInitials = 'G';
+  if (splitedName) {
+    nameInitials = splitedName[0].charAt(0).toUpperCase();
+    if (splitedName.length > 1)
+      nameInitials += splitedName[splitedName.length - 1]
+        .charAt(0)
+        .toUpperCase();
+  }
   return (
-    <nav className="bg-white-800">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            <button
-              type="button"
-              className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              aria-controls="mobile-menu"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className="block h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-              <svg
-                className="hidden h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex flex-shrink-0 items-center">
-              {/* <img
-                className="hidden h-8 w-auto lg:block"
-                src={logo}
-                alt="Hatch-a-cab"
-              /> */}
-            </div>
-            <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                {isAuthenticated ? (
-                  <>
+    <nav className="p-[1rem] shadow-md">
+      <div className="flex flex-row justify-between items-center">
+        <div className="block sm:hidden">
+          <button onClick={toggleState}>
+            <RxHamburgerMenu size={'1.2rem'} />
+          </button>
+        </div>
+        <div className="flex flex-row">
+          <span className="font-bitter text-tw_primary text-2xl font-extrabold tracking-wide my-auto ml-4">
+            Hatch-A-Cab
+          </span>
+        </div>
+        <div className="hidden sm:block">
+          <div className="flex flex-row items-center">
+            {isLoggedIn &&
+              navigationBarElement.map((element) => {
+                const isActive = location.pathname === element.link;
+                if (element.onClick) {
+                  return (
                     <Link
-                      to="/home"
-                      className="text-gray-900 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                      to={element.link}
+                      key={element.key}
+                      onClick={element.onClick}
+                      className={isActive ? activeClasses : classes}
                     >
-                      Home
+                      {element.label}
                     </Link>
+                  );
+                } else {
+                  return (
                     <Link
-                      to="/booking"
-                      className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                      aria-current="page"
+                      key={element.key}
+                      to={element.link}
+                      className={isActive ? activeClasses : classes}
                     >
-                      Add Cab
+                      {element.label}
                     </Link>
-                  </>
-                ) : (
-                  ''
-                )}
+                  );
+                }
+              })}
+            {loggedInUser?.profile !== 'guest' && (
+              <div
+                title={loggedInUser?.name}
+                className="flex flex-row items-center justify-center bg-tw_secondary w-9 h-9 rounded-full text-light font-bold cursor-pointer"
+              >
+                {nameInitials}
               </div>
-            </div>
-          </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            {isAuthenticated ? (
-              <Link
-                to="/profile"
-                className="text-gray-900 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-              >
-                Profile
-              </Link>
-            ) : (
-              <>
-                <Link
-                  to="/"
-                  className="text-gray-900 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="text-gray-900 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >
-                  Signup
-                </Link>
-              </>
             )}
           </div>
         </div>
+        {loggedInUser?.profile !== 'guest' && (
+          <div className="block sm:hidden">
+            <div
+              title={loggedInUser?.name}
+              className="bg-tw_secondary w-8 h-8 rounded-full text-light font-bold flex flex-row items-center justify-center"
+            >
+              {nameInitials}
+            </div>
+          </div>
+        )}
       </div>
-
-      <div className="sm:hidden" id="mobile-menu">
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          {isAuthenticated ? (
-            <>
-              <Link
-                to="/home"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                to="/booking"
-                className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-                aria-current="page"
-              >
-                Add Cab
-              </Link>
-
-              <Link
-                to="/profile"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-              >
-                Profile
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-              >
-                Signup
-              </Link>
-            </>
-          )}
+      {istoggle && (
+        <div className="block sm:hidden">
+          <ul className="p-0">
+            {navigationBarElement.map((element) => {
+              return (
+                <li key={element.key} className="p-1 border-b-2">
+                  <Link
+                    to={element.link}
+                    className="no-underline ml-4 text-lg tracking-wide px-1 py-2 font-bold text-tw_primary hover:border-b-2 hover:border-tw_primary hover:text-tw_primary"
+                  >
+                    {element.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-      </div>
+      )}
     </nav>
   );
 };

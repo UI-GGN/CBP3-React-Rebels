@@ -5,8 +5,8 @@ import {
   AiOutlineUser,
 } from 'react-icons/ai';
 import { ImLocation, ImLocation2 } from 'react-icons/im';
-import { CabRequestCardsProps, T_CabRequest } from 'src/types/Interfaces';
-import { convertToReadabelDate } from 'src/utils/Date';
+import { CabRequestCardsProps, T_CabRequest } from '../../../types/Interfaces';
+import { convertToReadabelDate } from '../../../utils/Date';
 
 const CabRequestCards: React.FC<CabRequestCardsProps> = ({
   pageDetails,
@@ -96,15 +96,26 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
               </div>
             </div>
             <div className="mt-2 flex flex-row justify-center">
-              <button
-                onClick={() => handleApprove(cabRequest)}
-                className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
-              >
-                Approve
-              </button>
+              {cabRequest.status !== 'APPROVED' && (
+                <button
+                  onClick={() => handleApprove(cabRequest)}
+                  className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
+                >
+                  Approve
+                </button>
+              )}
+              {cabRequest.status === 'APPROVED' && (
+                <button
+                  onClick={() => handleApprove(cabRequest)}
+                  className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
+                >
+                  Reassign
+                </button>
+              )}
               <button
                 onClick={() => handleDecline(cabRequest)}
-                className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink"
+                disabled={cabRequest.status === 'DECLINED'}
+                className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink disabled:bg-tw_disable_input"
               >
                 Decline
               </button>
