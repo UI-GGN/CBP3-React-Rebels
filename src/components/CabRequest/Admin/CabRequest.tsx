@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../../styles/components/CabRequest.scss';
-import type { T_CabRequest } from '../../../types/Interfaces';
+import type { T_CabRequest, Vendor } from '../../../types/Interfaces';
 import CabRequestService from '../../../services/CabRequestService';
 import { LuMailX } from 'react-icons/lu';
 import Select from '../../Select';
@@ -34,6 +34,7 @@ const EmployeeCabRequest = () => {
   const [sortingFilter, setSortingFilter] = useState(SORTING_OPTIONS[0]);
 
   const [pageDetails, setPageDetails] = useState<T_CabRequest[]>([]);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(8);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +46,7 @@ const EmployeeCabRequest = () => {
   async function getData() {
     setIsLoading(true);
     setCabRequests(await CabRequestService.fetchInfo());
+    setVendors(await CabRequestService.getVendors());
     setIsLoading(false);
   }
 
@@ -213,6 +215,7 @@ const EmployeeCabRequest = () => {
                 handleDecline={(cabRequest) => {
                   handleDecline(cabRequest);
                 }}
+                vendors={vendors}
               />
             </div>
           )}

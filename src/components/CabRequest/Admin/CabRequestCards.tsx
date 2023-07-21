@@ -12,19 +12,23 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
   pageDetails,
   handleApprove,
   handleDecline,
+  vendors,
 }) => {
   return (
     <>
       {pageDetails.map((cabRequest: T_CabRequest) => {
         const isAdhocRequest = cabRequest.pickupTime === cabRequest.expireDate;
+        const vendorName = cabRequest.vendorId
+          ? vendors.find((vendor) => vendor.id === cabRequest.vendorId)?.name
+          : undefined;
         return (
           <div
-            className="card w-80 font-inter relative my-2 mx-auto"
+            className="card w-80 font-inter relative p-2 my-2 mx-auto"
             key={cabRequest.id}
           >
             <div className="ellipse-background"></div>
-            <div className="card-content">
-              <div className="flex flex-row justify-between border-b-2 pb-2 mb-2">
+            <div className="card-content text-base">
+              <div className="flex flex-row justify-between border-b-2 pb-2 mb-1">
                 <div>
                   <div
                     className="flex items-center truncate w-full"
@@ -73,9 +77,14 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
                 <div className="pl-1">{cabRequest.employeeName}</div>
               </div>
               <div className="text-muted text-xs">
-                Currently assigned to {cabRequest.projectCode} project.
+                Project code is{' '}
+                <span className="text-tw_yellow font-bold">
+                  {cabRequest.projectCode}
+                </span>
+                .
               </div>
-              <div className="flex flex-row my-2 py-2 border-b-2">
+
+              <div className="flex flex-row py-1">
                 <div className="flex flex-col align-center">
                   <div>
                     <ImLocation className="text-tw_yellow" size={'1.5rem'} />
@@ -86,20 +95,30 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
                   </div>
                 </div>
                 <div className="w-full flex flex-col">
-                  <div className="px-1 hover:text-[1.01rem]">
+                  <div className="px-1 hover:text-[1.05rem]">
                     {cabRequest.pickupLocation}
                   </div>
-                  <div className="mt-auto px-1 hover:text-[1.01rem]">
+                  <div className="mt-auto px-1 hover:text-[1.05rem]">
                     {cabRequest.dropLocation}
                   </div>
                 </div>
               </div>
+              <div className="py-1 text-muted mb-2 text-sm h-[1.5rem]">
+                {cabRequest.vendorId && cabRequest.status === 'APPROVED' && (
+                  <span>
+                    Assigned vendor is{' '}
+                    <span className="text-tw_secondary font-bold">
+                      {vendorName}
+                    </span>
+                  </span>
+                )}
+              </div>
             </div>
-            <div className="mt-2 flex flex-row justify-center">
+            <div className="pt-2 flex flex-row justify-around border-t-2">
               {cabRequest.status !== 'APPROVED' && (
                 <button
                   onClick={() => handleApprove(cabRequest)}
-                  className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
+                  className="btn-1 text-white px-3 py-2 rounded-md font-bold bg-tw_blue"
                 >
                   Approve
                 </button>
@@ -107,7 +126,7 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
               {cabRequest.status === 'APPROVED' && (
                 <button
                   onClick={() => handleApprove(cabRequest)}
-                  className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue"
+                  className="btn-1 text-white px-3 py-2 rounded-md font-bold bg-tw_blue"
                 >
                   Reassign
                 </button>

@@ -33,7 +33,7 @@ const DeclineCabRequestModal: React.FC<AdminActionsProps> = ({
 
   return (
     <Modal
-      title="Are you sure you want to delete the request?"
+      title="Are you sure you want to decline the request?"
       onRequestClose={() => onCloseHandler(null)}
       action={actionableItemsForDecline}
     />

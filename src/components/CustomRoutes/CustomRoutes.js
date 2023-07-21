@@ -12,35 +12,41 @@ import { useContext } from 'react';
 function CustomRoutes() {
   const { loggedInUser } = useContext(AuthContext);
   let routes = (
-    <Routes>
+    <>
       <Route path="login" element={<Login />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
       <Route path="/" element={<Login />} />
-    </Routes>
+    </>
   );
 
   if (loggedInUser?.profile === 'user') {
     routes = (
-      <Routes>
+      <>
         <Route path="/" element={<EmployeeCabRequest />} />
         <Route path="/home" element={<EmployeeCabRequest />} />
         <Route path="/cab-request" element={<CabRequestForm />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      </>
     );
   }
   if (loggedInUser?.profile === 'admin') {
     routes = (
-      <Routes>
+      <>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard-admin" element={<CabRequest />} />
         <Route path="home" element={<Home />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      </>
     );
   }
 
-  return <>{routes}</>;
+  return (
+    <Routes>
+      {routes}
+      {loggedInUser?.profile === 'user' || loggedInUser?.profile === 'admin' ? (
+        <Route path="*" element={<ErrorPage />} />
+      ) : (
+        <Route path="*" element={<Login />} />
+      )}
+    </Routes>
+  );
 }
 
 export default CustomRoutes;

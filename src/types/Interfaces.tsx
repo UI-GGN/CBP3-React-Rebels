@@ -77,6 +77,7 @@ export type AdminActionsProps = {
 
 export type CabRequestCardsProps = {
   pageDetails: T_CabRequest[];
+  vendors: Vendor[];
   handleApprove: (value: T_CabRequest) => void;
   handleDecline: (value: T_CabRequest) => void;
 };
