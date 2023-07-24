@@ -48,12 +48,6 @@ const Navbar = () => {
   const [vendorName, setVendorName] = useState('');
   const [vendorNumber, setVendorNumber] = useState('');
 
-  //   const showToastMessage = () => {
-  //     toast.error('Failed to Add Vendor !', {
-  //       position: toast.POSITION.BOTTOM_RIGHT
-  //     });
-  // };
-
   const handleAddVendorName = (event: any) => {
     setVendorName(event.target.value);
   };
@@ -67,9 +61,24 @@ const Navbar = () => {
       phoneNumber: vendorNumber,
     })
       .then((resp) => {
-        console.log(resp.data);
+        setVendorName('');
+        setVendorNumber('');
+        console.log(resp);
       })
-      .catch((exp) => {});
+      .catch((exp) => {
+        console.log('error message show here');
+        console.log(exp);
+      });
+  };
+  const cancelButton = (event: any) => {
+    event.preventDefault();
+    setVendorName('');
+    setVendorNumber('');
+  };
+  const crossButton = () => {
+    setVendorName('');
+    setVendorNumber('');
+    setShowAddVendorModal(false);
   };
 
   const modalBody = (
@@ -78,7 +87,7 @@ const Navbar = () => {
         <Input
           required={true}
           type="text"
-          id="test"
+          id="vendor-text"
           value={vendorName}
           onChange={handleAddVendorName}
         >
@@ -88,8 +97,8 @@ const Navbar = () => {
       <div className="mb-4 pt-4">
         <Input
           required={true}
-          type="number"
-          id="number"
+          type="text"
+          id="vendor-number"
           value={vendorNumber}
           onChange={handleAddVendorNumber}
         >
@@ -99,13 +108,20 @@ const Navbar = () => {
     </div>
   );
   const modalAction = (
-    <div className="text-center ">
+    <div className="text-center  flex justify-between ">
       <button
         type="submit"
-        className="bg-tw_primary font-bold text-light font-bold py-2 px-4 rounded my-3"
+        className="bg-tw_primary font-bold text-light font-bold py-2 px-4 rounded my-3 "
         onClick={submitButton}
       >
         Submit
+      </button>
+      <button
+        type="submit"
+        className="bg-tw_secondary font-bold text-light font-bold py-2 px-4 rounded my-3 "
+        onClick={cancelButton}
+      >
+        Cancel
       </button>
     </div>
   );
@@ -228,7 +244,7 @@ const Navbar = () => {
           title="Add Vendor"
           content={modalBody}
           action={modalAction}
-          onRequestClose={() => setShowAddVendorModal(false)}
+          onRequestClose={() => crossButton()}
         ></Modal>
       )}
 
