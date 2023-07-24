@@ -5,25 +5,33 @@ import {
   AiOutlineUser,
 } from 'react-icons/ai';
 import { ImLocation, ImLocation2 } from 'react-icons/im';
-import { CabRequestCardsProps, T_CabRequest } from '../../../types/Interfaces';
+import {
+  EmployeeCabRequestCardsProps,
+  T_CabRequest,
+} from '../../../types/Interfaces';
 import { convertToReadabelDate } from '../../../utils/Date';
+import { FaUserNurse } from 'react-icons/fa6';
+import { BsTelephone } from 'react-icons/bs';
+import { CgSandClock } from 'react-icons/cg';
+import { RxCrossCircled } from 'react-icons/rx';
 
-const CabRequestCards: React.FC<CabRequestCardsProps> = ({
+const CabRequestCards: React.FC<EmployeeCabRequestCardsProps> = ({
   pageDetails,
-  handleApprove,
-  handleDecline,
   vendors,
 }) => {
   return (
     <>
       {pageDetails.map((cabRequest: T_CabRequest) => {
         const isAdhocRequest = cabRequest.pickupTime === cabRequest.expireDate;
-        const vendorName = cabRequest.vendorId
-          ? vendors.find((vendor) => vendor.id === cabRequest.vendorId)?.name
+        const vendor = cabRequest.vendorId
+          ? vendors.find((vendor) => vendor.id === cabRequest.vendorId)
           : undefined;
+        const pickupTime = new Date(cabRequest.pickupTime);
+        const requestApprovedWithInTime = pickupTime;
+        requestApprovedWithInTime.setMinutes(pickupTime.getMinutes() - 30);
         return (
           <div
-            className="card w-80 font-inter relative p-2 my-2 mx-auto"
+            className="card w-80 min-h-[17.62rem] font-inter relative p-2 my-2 mx-auto"
             key={cabRequest.id}
           >
             <div className="ellipse-background"></div>
@@ -36,9 +44,7 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
                   >
                     <AiOutlineCalendar size={'1.2rem'} />
                     <span className="pl-1">
-                      {convertToReadabelDate(
-                        new Date(cabRequest.pickupTime).toLocaleDateString()
-                      )}
+                      {convertToReadabelDate(pickupTime.toLocaleDateString())}
                     </span>
                   </div>
                 </div>
@@ -69,22 +75,61 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
                   )}
                 </div>
               </div>
-              <div
-                className="flex items-center truncate w-full text-base"
-                title="Employee Name"
-              >
-                <AiOutlineUser size={'1.4rem'} />
-                <div className="pl-1">{cabRequest.employeeName}</div>
-              </div>
-              <div className="text-muted text-xs">
-                Project code is{' '}
-                <span className="text-tw_yellow font-bold">
-                  {cabRequest.projectCode}
-                </span>
-                .
-              </div>
+              {cabRequest.status === 'APPROVED' && (
+                <div className="text-tw_primary">
+                  {' '}
+                  <div
+                    className="flex items-center truncate w-full text-base mt-3"
+                    title="Assigned Vendor"
+                  >
+                    <FaUserNurse size={'1.4rem'} />
+                    <div className="pl-1">{vendor?.name}</div>
+                  </div>
+                  <div
+                    className="flex items-center truncate w-full text-base my-3"
+                    title="Vendor contact number"
+                  >
+                    <BsTelephone size={'1.4rem'} />
+                    <div className="pl-1">{vendor?.phoneNumber}</div>
+                  </div>
+                </div>
+              )}
+              {cabRequest.status === 'PENDING' && (
+                <div className="h-[4rem] my-3">
+                  <div className="flex w-full text-base">
+                    <CgSandClock size={'1.4rem'} />
+                    Your request is in progress.
+                  </div>
+                  <div className="text-muted text-xs mt-1">
+                    Request will be processed by
+                    <span className="text-tw_yellow font-bold">
+                      {' ' +
+                        convertToReadabelDate(pickupTime.toLocaleDateString()) +
+                        ' ' +
+                        requestApprovedWithInTime.toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                    </span>
+                    .
+                  </div>
+                </div>
+              )}
 
-              <div className="flex flex-row py-1">
+              {cabRequest.status === 'DECLINED' && (
+                <div className="h-[4rem] my-3">
+                  <div className="flex w-full text-tw_secondary">
+                    <div className="pt-1">
+                      <RxCrossCircled size={'1.2rem'} />
+                    </div>
+                    <div className="flex w-full text-base ml-1 font-medium">
+                      Request rejected, currently unable to fulfill.
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex flex-row py-1 mb-0">
                 <div className="flex flex-col align-center">
                   <div>
                     <ImLocation className="text-tw_yellow" size={'1.5rem'} />
@@ -103,41 +148,6 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
                   </div>
                 </div>
               </div>
-              <div className="py-1 text-muted mb-2 text-sm h-[1.5rem]">
-                {cabRequest.vendorId && cabRequest.status === 'APPROVED' && (
-                  <span>
-                    Assigned vendor is{' '}
-                    <span className="text-tw_secondary font-bold">
-                      {vendorName}
-                    </span>
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="pt-2 flex flex-row justify-around border-t-2">
-              {cabRequest.status !== 'APPROVED' && (
-                <button
-                  onClick={() => handleApprove(cabRequest)}
-                  className="btn-1 text-white px-3 py-2 rounded-md font-bold bg-tw_blue"
-                >
-                  Approve
-                </button>
-              )}
-              {cabRequest.status === 'APPROVED' && (
-                <button
-                  onClick={() => handleApprove(cabRequest)}
-                  className="btn-1 text-white px-3 py-2 rounded-md font-bold bg-tw_blue"
-                >
-                  Reassign
-                </button>
-              )}
-              <button
-                onClick={() => handleDecline(cabRequest)}
-                disabled={cabRequest.status === 'DECLINED'}
-                className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink disabled:bg-tw_placeholder disabled:cursor-not-allowed"
-              >
-                Decline
-              </button>
             </div>
           </div>
         );

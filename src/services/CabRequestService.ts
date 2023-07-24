@@ -38,7 +38,7 @@ class CabRequestService {
   static declineRequest(requestId: number) {
     return axios.put(
       `https://shuttle-service-tw.vercel.app/api/v1/cab-request/${requestId}`,
-      { status: 'DECLINED', vendorId: null }
+      { status: 'DECLINED' }
     );
   }
 }

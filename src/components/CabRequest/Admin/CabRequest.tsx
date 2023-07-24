@@ -22,7 +22,7 @@ const EmployeeCabRequest = () => {
     REQUEST_TYPE_FILETR_OPTIONS[0]
   );
   const [requestStatusFilter, setRquestStatusFilter] = useState(
-    REQUEST_STATUS_FILETR_OPTIONS[0]
+    REQUEST_STATUS_FILETR_OPTIONS[1]
   );
   const [filteredCabRequest, setFilteredCabRequest] = useState<T_CabRequest[]>(
     []
@@ -66,7 +66,9 @@ const EmployeeCabRequest = () => {
         (cabRequest) => cabRequest.pickupTime !== cabRequest.expireDate
       );
     }
-    if (requestStatusFilter.value === 'Pending') {
+    if (requestStatusFilter.value === 'All') {
+      filteredRequest = filteredRequest;
+    } else if (requestStatusFilter.value === 'Pending') {
       filteredRequest = filteredRequest.filter(
         (cabRequest) => cabRequest.status === 'PENDING'
       );
@@ -153,7 +155,7 @@ const EmployeeCabRequest = () => {
   };
 
   return (
-    <div className="cabRequest pt-12">
+    <div className="cabRequest pt-8">
       <div className="w-11/12 mx-auto mb-8">
         <div className="flex flex-row justify-between items-center">
           <div className="text-light text-2xl md:text-3xl mb-4">
@@ -166,7 +168,7 @@ const EmployeeCabRequest = () => {
             Export Report
           </button>
         </div>
-        <div className="inner-container rounded-b-xl pb-4">
+        <div className="inner-container relative min-h-[45.381rem] rounded-b-xl pb-3">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
             <div className="flex flex-row items-center p-2">
               <div className="px-2 text-sm">Request Status</div>
@@ -219,7 +221,7 @@ const EmployeeCabRequest = () => {
               />
             </div>
           )}
-          {isLoading && <DashboardLoader />}
+          {isLoading && pageDetails.length === 0 && <DashboardLoader />}
           {pageDetails.length === 0 && !isLoading && (
             <div className="bg-tw_disable_input rounded h-60 w-11/12 mx-auto px-4 my-2">
               <div className="flex h-full text-muted flex-col items-center justify-center">
@@ -233,7 +235,7 @@ const EmployeeCabRequest = () => {
             </div>
           )}
 
-          <div className="pt-2">
+          <div className="absolute bottom-2 right-0">
             <Pagination
               nPages={nPages}
               currentPage={currentPage}
