@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../styles/pages/CabRequestForm.scss';
 import type { FormProps } from '../../types/FormProps';
-import FormComponent from '../../components/FormComponent';
-import CabRequestService from 'src/services/CabRequestService';
 import { useNavigate } from 'react-router-dom';
+import Input from '../../components/Input';
+import CabRequestService from '../../services/CabRequestService';
+
+interface FormField {
+  value: string;
+  error?: string;
+  isTouched: boolean;
+  validations?: string[];
+  label?: string;
+}
+
+interface FormState {
+  [key: string]: FormField;
+}
 
 const CabRequestForm: React.FC<FormProps> = () => {
   const navigate = useNavigate();
-  const onSubmit = (formData: FormProps) => {
-    CabRequestService.createRequest(formData)
-      .then((response) => {
-        console.log('Request created:', response);
-        navigate('/cab-request');
-      })
-      .catch((error) => {
-        console.error('Error creating request:', error);
-      });
-  };
-
   const getCurrentDate = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -26,7 +27,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
     return `${year}-${month}-${day}`;
   };
 
-  const initialState = {
+  const initialState: FormState = {
     name: {
       value: '',
       error: 'Name is mandatory.',
@@ -91,6 +92,57 @@ const CabRequestForm: React.FC<FormProps> = () => {
       label: 'Drop location',
     },
   };
+
+  const [formState, setFormState] = useState(initialState);
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const { name, value } = event.target;
+    if (formState.hasOwnProperty(name)) {
+      setFormState((prevState) => ({
+        ...prevState,
+        [name]: {
+          ...prevState[name],
+          value: value,
+          error: prevState[name].isTouched
+            ? validateInput(prevState[name], value)
+            : prevState[name].error,
+        },
+      }));
+    } else {
+      console.log(`FormState does not have property: ${name}`);
+      console.log(formState);
+    }
+  };
+
+  const validateInput = (input: FormField, value: string) => {
+    throw new Error('Function not implemented.');
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const cabRequestBody = {
+      employeeId: '222',
+      employeeName: 'Naruto',
+      pickupLocation: 'some oggce',
+      dropLocation: 'Thoughtworks gurugram',
+      pickupTime: '2023-09-12T08:55:18.252Z',
+      projectCode: 'dsds',
+      phoneNumber: '+91918310009',
+      expireDate: '2023-09-13T08:55:18.252Z',
+    };
+
+    CabRequestService.createRequest(cabRequestBody)
+      .then((response) => {
+        console.log('Request created:', response);
+      })
+      .catch((error) => {
+        console.error('Error creating request:', error);
+      });
+  };
+
   let formTemplate = {
     title: 'Request a Cab',
     fields: [
@@ -183,11 +235,33 @@ const CabRequestForm: React.FC<FormProps> = () => {
       <div className="leftWindow"></div>
       <div className="rightWindow">
         <div className="formContainer mt-4 px-4 mr-8 ml-8">
-          <FormComponent
-            template={formTemplate}
-            initialState={initialState}
-            onSubmit={onSubmit}
-          />
+          <form onSubmit={handleSubmit}>
+            <h2>{formTemplate.title}</h2>
+            <br />
+            {formTemplate.fields.map((field) => {
+              let { title, type, name, validationProps, value } = field;
+              return (
+                <div key={name}>
+                  <label htmlFor={name}>{title}</label>
+                  <Input
+                    type={type}
+                    id={name}
+                    required={validationProps?.required}
+                    onChange={handleInputChange}
+                    value={value}
+                  />
+                </div>
+              );
+            })}
+
+            <br />
+            <button
+              type="submit"
+              className="btn-1 text-white px-2 py-2 rounded-lg font-bold bg-tw_blue inline-block w-1/4"
+            >
+              SUBMIT
+            </button>
+          </form>
         </div>
       </div>
     </div>

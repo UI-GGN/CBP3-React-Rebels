@@ -20,6 +20,7 @@ import {
 import DashboardLoader from '../DashboardLoader/DashboardLoader';
 
 import { AuthContext } from 'src/context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const EmployeeCabRequest = () => {
   const { loggedInUser } = useContext(AuthContext);
@@ -122,9 +123,11 @@ const EmployeeCabRequest = () => {
       <div className="w-11/12 mx-auto mb-8">
         <div className="flex flex-row justify-between items-center">
           <div className="text-light text-3xl mb-4">Cab Requests</div>
-          <button className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4">
-            Book a cab
-          </button>
+          <Link to={'/cab-request'}>
+            <button className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4">
+              Book a cab
+            </button>
+          </Link>
         </div>
         <div className="inner-container rounded-b-xl pb-4">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">

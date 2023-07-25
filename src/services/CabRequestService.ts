@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { T_CabRequest } from '../types/Interfaces';
-import { FormProps } from 'src/types/FormProps';
 
 class CabRequestService {
   static fetchInfo = async (): Promise<T_CabRequest[]> => {
@@ -10,8 +9,9 @@ class CabRequestService {
     return response.data;
   };
 
-  static createRequest = async (requestData: FormProps): Promise<any> => {
-    const url = 'https://cab-schedule-serverless.vercel.app/api/v1/cab-request';
+  static createRequest = async (requestData: any): Promise<any> => {
+    const url: string =
+      'https://shuttle-service-tw.vercel.app/api/v1/cab-request';
     const response = await axios.post(url, requestData);
     return response.data;
   };

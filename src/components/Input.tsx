@@ -9,8 +9,8 @@ const propTypes = {
   children: PropTypes.string,
   required: PropTypes.bool,
   error: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
   props: PropTypes.any,
-  handleInputChange: PropTypes.func,
 };
 
 type ComponentTypes = InferProps<typeof propTypes>;
@@ -22,7 +22,7 @@ const Input = ({
   required = false,
   children,
   error,
-  handleInputChange,
+  onChange,
   ...props
 }: ComponentTypes) => {
   const inputStyles = className(
@@ -41,10 +41,10 @@ const Input = ({
       <input
         {...props}
         type={type}
-        value={value}
         id={id}
+        value={value}
         className={inputStyles}
-        onChange={handleInputChange}
+        onChange={onChange}
       />
       {error && (
         <div className="text-danger text-sm pb-2 capitalize">{error}</div>

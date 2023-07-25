@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type FormProps = {
   template: {
     title: string;
@@ -6,9 +8,10 @@ export type FormProps = {
       type: string;
       name: string;
       value: string;
-      validationProps: Record<string, any>;
+      validationProps?: Record<string, any>;
     }[];
   };
   initialState: {};
-  onSubmit?: (formData: FormProps) => void;
+  onSubmit?: (event: React.FormEvent) => void;
+  onChange: (event: React.FormEvent) => void;
 };

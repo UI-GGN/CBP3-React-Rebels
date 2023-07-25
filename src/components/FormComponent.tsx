@@ -7,31 +7,15 @@ const FormComponent: React.FC<FormProps> = ({ template, onSubmit }) => {
     return fields.map((field) => {
       let { title, type, name, value, validationProps } = field;
 
-      const [formState, setFormState] = useState(initialState);
-
-      const handleInputChange = (event: any) => {
-        const { name, value } = event.target;
-        setFormState((prevState) => ({
-          ...prevState,
-          [name]: {
-            ...prevState[name],
-            value: value,
-            error: prevState[name].isTouched
-              ? validateInput(prevState[name], value)
-              : prevState[name].error,
-          },
-        }));
-      };
-
       return (
         <div key={name}>
           <label htmlFor={name}>{title}</label>
           <Input
             type={type}
             id={name}
-            required={validationProps.required}
+            required={validationProps?.required}
             value={value}
-            handleInputChange={handleInputChange}
+            onChange={() => {}}
           />
           {/* {errors[name] && <span className="red-text">{errors[name]["message"]}</span>} */}
           <br />
@@ -39,19 +23,10 @@ const FormComponent: React.FC<FormProps> = ({ template, onSubmit }) => {
       );
     });
   };
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData: FormProps = {
-      template: template,
-      initialState: initi,
-    };
-    if (onSubmit) {
-      onSubmit(formData);
-    }
-  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form>
         <h2>{template.title}</h2>
         <br />
         {renderFields(template.fields)}
