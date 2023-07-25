@@ -118,7 +118,8 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
               {cabRequest.status !== 'APPROVED' && (
                 <button
                   onClick={() => handleApprove(cabRequest)}
-                  className="btn-1 text-white px-3 py-2 rounded-md font-bold bg-tw_blue"
+                  disabled={cabRequest.status === 'DECLINED'}
+                  className="btn-1 text-white px-3 py-2 rounded-md font-bold bg-tw_blue disabled:bg-tw_placeholder disabled:cursor-not-allowed"
                 >
                   Approve
                 </button>
@@ -131,6 +132,7 @@ const CabRequestCards: React.FC<CabRequestCardsProps> = ({
                   Reassign
                 </button>
               )}
+
               <button
                 onClick={() => handleDecline(cabRequest)}
                 disabled={cabRequest.status === 'DECLINED'}
