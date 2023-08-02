@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { T_NavBarElement } from 'src/types/Interfaces';
+import { T_NavBarElement } from '../types/Interfaces';
 import '../styles/components/Navabr1.scss';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AuthContext } from '../context/AuthContext';

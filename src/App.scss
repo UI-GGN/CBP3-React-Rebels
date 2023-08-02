@@ -37,14 +37,14 @@
   }
 }
 
-.global-wrapper{
+.global-wrapper {
   height: 100vh;
   display: grid;
   grid-template-rows: 4rem 1fr 3rem;
 }
 
 .global-header {
-    background: #F7FAFC;
+  background: #f7fafc;
 }
 
 nav {
@@ -53,5 +53,15 @@ nav {
   left: 0;
   width: 100%;
   background-color: #f2f2f2;
-  z-index: 999; /* Ensures the navbar stays on top of other content */
+  z-index: 4;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.75);
 }

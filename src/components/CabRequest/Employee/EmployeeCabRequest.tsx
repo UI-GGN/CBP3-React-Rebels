@@ -1,25 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../../styles/components/CabRequest.scss';
-import type { T_CabRequest } from '../../types/Interfaces';
-import CabRequestService from '../../services/CabRequestService';
-import {
-  AiOutlineClockCircle,
-  AiOutlineCalendar,
-  AiOutlineUser,
-} from 'react-icons/ai';
+import '../../../styles/components/CabRequest.scss';
+import type { T_CabRequest, Vendor } from '../../../types/Interfaces';
+import CabRequestService from '../../../services/CabRequestService';
 import { LuMailX } from 'react-icons/lu';
-import { ImLocation, ImLocation2 } from 'react-icons/im';
-import Select from '../Select';
-import { convertToReadabelDate } from 'src/utils/Date';
-import Pagination from '../Pagination/Pagination';
+import Select from '../../Select';
+import Pagination from '../../Pagination/Pagination';
 import {
   REQUEST_TYPE_FILETR_OPTIONS,
   SORTING_OPTIONS,
   REQUEST_STATUS_FILETR_OPTIONS,
-} from '../../utils/Constants';
-import DashboardLoader from '../DashboardLoader/DashboardLoader';
+} from '../../../utils/Constants';
+import DashboardLoader from '../../DashboardLoader/DashboardLoader';
 
 import { AuthContext } from 'src/context/AuthContext';
+import CabRequestCards from './CabRequestCards';
 
 const EmployeeCabRequest = () => {
   const { loggedInUser } = useContext(AuthContext);
@@ -36,7 +30,7 @@ const EmployeeCabRequest = () => {
 
   const [sortingFilter, setSortingFilter] = useState(SORTING_OPTIONS[0]);
 
-  const [pageDeatils, setPageDetails] = useState<T_CabRequest[]>([]);
+  const [pageDetails, setPageDetails] = useState<T_CabRequest[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(8);
 
@@ -44,6 +38,7 @@ const EmployeeCabRequest = () => {
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const nPages = Math.ceil(filteredCabRequest.length / recordsPerPage);
   const [isLoading, setIsLoading] = useState(false);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
 
   useEffect(() => {
     async function getData() {
@@ -51,6 +46,7 @@ const EmployeeCabRequest = () => {
       setCabRequests(
         await CabRequestService.fetchUserRequest(loggedInUser?.id)
       );
+      setVendors(await CabRequestService.getVendors());
       setIsLoading(false);
       // setCabRequests(CAB_REQUEST);
     }
@@ -69,7 +65,9 @@ const EmployeeCabRequest = () => {
         (cabRequest) => cabRequest.pickupTime !== cabRequest.expireDate
       );
     }
-    if (requestStatusFilter.value === 'Pending') {
+    if (requestStatusFilter.value === 'All') {
+      filteredRequest = filteredRequest;
+    } else if (requestStatusFilter.value === 'Pending') {
       filteredRequest = filteredRequest.filter(
         (cabRequest) => cabRequest.status === 'PENDING'
       );
@@ -120,7 +118,7 @@ const EmployeeCabRequest = () => {
   };
 
   return (
-    <div className="cabRequest pt-12">
+    <div className="cabRequest pt-8">
       <div className="w-11/12 mx-auto mb-8">
         <div className="flex flex-row justify-between items-center">
           <div className="text-light text-3xl mb-4">Cab Requests</div>
@@ -128,7 +126,7 @@ const EmployeeCabRequest = () => {
             Book a cab
           </button>
         </div>
-        <div className="inner-container rounded-b-xl pb-4">
+        <div className="inner-container relative min-h-[45.381rem] rounded-b-xl pb-3">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
             <div className="flex flex-row items-center p-2">
               <div className="pr-2 text-sm">Request Status</div>
@@ -167,114 +165,13 @@ const EmployeeCabRequest = () => {
               </div>
             </div>
           </div>
-          {pageDeatils.length > 0 && (
+          {pageDetails.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 sm:gap-1 md:gap-2">
-              {pageDeatils.map((cabRequest) => {
-                const isAdhocRequest =
-                  cabRequest.pickupTime === cabRequest.expireDate;
-                return (
-                  <div
-                    className="card w-80 font-inter relative my-2 mx-auto"
-                    key={cabRequest.id}
-                  >
-                    <div className="ellipse-background"></div>
-                    <div className="card-content">
-                      <div className="flex flex-row justify-between border-b-2 pb-2 mb-2">
-                        <div>
-                          <div
-                            className="flex items-center truncate w-full"
-                            title="Starting Date"
-                          >
-                            <AiOutlineCalendar size={'1.2rem'} />
-                            <span className="pl-1">
-                              {convertToReadabelDate(
-                                new Date(
-                                  cabRequest.pickupTime
-                                ).toLocaleDateString()
-                              )}
-                            </span>
-                          </div>
-                        </div>
-                        <div>
-                          <div
-                            className="flex items-center truncate w-full"
-                            title="Pickup Time"
-                          >
-                            <AiOutlineClockCircle size={'1.2rem'} />
-                            <span className="pl-1">
-                              {new Date(
-                                cabRequest.pickupTime
-                              ).toLocaleTimeString([], {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                              })}
-                            </span>
-                          </div>
-                        </div>
-                        <div title="Request Type">
-                          {isAdhocRequest && (
-                            <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-500">
-                              Adhoc
-                            </span>
-                          )}
-                          {!isAdhocRequest && (
-                            <span className="inline-flex items-center rounded-full bg-indigo-100 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-500">
-                              Recurring
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div
-                        className="flex items-center truncate w-full text-base"
-                        title="Employee Name"
-                      >
-                        <AiOutlineUser size={'1.4rem'} />
-                        <div className="pl-1">{cabRequest.employeeName}</div>
-                      </div>
-                      <div className="text-muted text-xs">
-                        Currently assigned to {cabRequest.projectCode} project.
-                      </div>
-                      <div className="flex flex-row my-2 py-2 border-b-2">
-                        <div className="flex flex-col align-center">
-                          <div>
-                            <ImLocation
-                              className="text-tw_yellow"
-                              size={'1.5rem'}
-                            />
-                          </div>
-                          <div className="h-8 border-r-2 w-0 m-auto my-2 border-tw_primary border-dashed"></div>
-                          <div>
-                            <ImLocation2
-                              className="text-tw_pink"
-                              size={'1.5rem'}
-                            />
-                          </div>
-                        </div>
-                        <div className="w-full flex flex-col">
-                          <div className="px-1 hover:text-[1.01rem]">
-                            {cabRequest.pickupLocation}
-                          </div>
-                          <div className="mt-auto px-1 hover:text-[1.01rem]">
-                            {cabRequest.dropLocation}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-2 flex flex-row justify-center">
-                      <button className="btn-1 text-white px-3 py-2 mr-2 rounded-md font-bold bg-tw_blue">
-                        Approve
-                      </button>
-                      <button className="btn-2 text-white px-3 py-2 rounded-md font-bold bg-tw_pink">
-                        Decline
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+              <CabRequestCards vendors={vendors} pageDetails={pageDetails} />
             </div>
           )}
-          {isLoading && <DashboardLoader />}
-          {pageDeatils.length === 0 && !isLoading && (
+          {isLoading && pageDetails.length === 0 && <DashboardLoader />}
+          {pageDetails.length === 0 && !isLoading && (
             <div className="bg-tw_disable_input rounded h-60 w-11/12 mx-auto px-4 my-2">
               <div className="flex h-full text-muted flex-col items-center justify-center">
                 <div>
@@ -286,7 +183,7 @@ const EmployeeCabRequest = () => {
               </div>
             </div>
           )}
-          <div className="pt-2">
+          <div className="absolute bottom-2 right-0">
             <Pagination
               nPages={nPages}
               currentPage={currentPage}
