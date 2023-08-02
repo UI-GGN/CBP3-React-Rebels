@@ -10,6 +10,7 @@ const propTypes = {
   required: PropTypes.bool,
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   props: PropTypes.any,
 };
 
@@ -23,6 +24,7 @@ const Input = ({
   children,
   error,
   onChange,
+  name,
   ...props
 }: ComponentTypes) => {
   const inputStyles = className(
@@ -41,6 +43,7 @@ const Input = ({
       <input
         {...props}
         type={type}
+        name={name}
         id={id}
         value={value}
         className={inputStyles}

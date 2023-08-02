@@ -4,13 +4,17 @@ import type { FormProps } from '../../types/FormProps';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import CabRequestService from '../../services/CabRequestService';
+import Select from '../../components/Select';
+import type { Option } from '../../components/Select';
+import moment from 'moment';
 
 interface FormField {
   value: string;
   error?: string;
   isTouched: boolean;
-  validations?: string[];
+  validations: string[];
   label?: string;
+  name?: string;
 }
 
 interface FormState {
@@ -27,8 +31,19 @@ const CabRequestForm: React.FC<FormProps> = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const options: Option[] = [
+    {
+      id: 'recurring',
+      value: 'recurring',
+    },
+    {
+      id: 'adhoc',
+      value: 'adhoc',
+    },
+  ];
   const initialState: FormState = {
     name: {
+      name: 'name',
       value: '',
       error: 'Name is mandatory.',
       isTouched: false,
@@ -36,6 +51,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       label: 'Name',
     },
     employeeId: {
+      name: 'employeeId',
       value: '',
       error: 'Employee Id is mandatory.',
       isTouched: false,
@@ -43,20 +59,23 @@ const CabRequestForm: React.FC<FormProps> = () => {
       label: 'Employee Id',
     },
     projectCode: {
+      name: 'projectCode',
       value: '',
       error: 'Project code is mandatory',
       isTouched: false,
       validations: ['required', 'minLength-3'],
       label: 'Project code',
     },
-    endLocation: {
+    phoneNumber: {
+      name: 'phoneNumber',
       value: '',
-      error: 'Drop Point is mandatory.',
+      error: 'Phone number is mandatory.',
       isTouched: false,
       validations: ['required', 'minLength-3'],
-      label: 'Drop Point',
+      label: 'Phone Number',
     },
     startDate: {
+      name: 'startDate',
       value: getCurrentDate(),
       error: undefined,
       isTouched: true,
@@ -64,6 +83,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       label: 'Start Date',
     },
     endDate: {
+      name: 'endDate',
       value: '',
       error: 'End Date is mandatory.',
       isTouched: false,
@@ -71,13 +91,15 @@ const CabRequestForm: React.FC<FormProps> = () => {
       label: 'End Date',
     },
     Time: {
+      name: 'Time',
       value: '',
       error: 'Time is mandatory.',
       isTouched: false,
       validations: ['required'],
       label: 'Time',
     },
-    pickUpLocation: {
+    pickupLocation: {
+      name: 'pickupLocation',
       value: '',
       error: 'Pick up location is mandatory',
       isTouched: false,
@@ -85,11 +107,20 @@ const CabRequestForm: React.FC<FormProps> = () => {
       label: 'Pick up location',
     },
     dropLocation: {
+      name: 'dropLocation',
       value: '',
       error: 'Drop location is mandatory',
       isTouched: false,
       validations: ['required'],
       label: 'Drop location',
+    },
+    cabType: {
+      name: 'cabType',
+      value: '',
+      error: 'cabType is required',
+      isTouched: false,
+      validations: ['required'],
+      label: 'Cab Type',
     },
   };
 
@@ -111,123 +142,61 @@ const CabRequestForm: React.FC<FormProps> = () => {
         },
       }));
     } else {
-      console.log(`FormState does not have property: ${name}`);
-      console.log(formState);
+      console.info(`FormState does not have property: ${name}`);
     }
   };
 
   const validateInput = (input: FormField, value: string) => {
-    throw new Error('Function not implemented.');
+    // if (input.error === 'Route already exists.') return input.error;
+    //
+    //   if (input.validations.includes('required') && !hasValue(value)) {
+    //     return `${input.label} is mandatory.`;
+    //   }
+    //   const minlengthIndex = input.validations.findIndex((element) =>
+    //       element.includes('minLength')
+    //   );
+    //   if (minlengthIndex > -1) {
+    //     const minLength = input.validations[minlengthIndex].split('-')[1];
+    //     if (!hasMinLength(value, minLength))
+    //       return `${input.label} should contain atleast ${minLength} character.`;
+    //   }
+    //   if (input.validations.includes('numeric') && isNaN(Number(value))) {
+    //     return `${input.label} should contain numbers only.`;
+    //   }
+    //   const excetLengthIndex = input.validations.findIndex((element) =>
+    //       element.includes('exectLength')
+    //   );
+    //   if (excetLengthIndex > -1 && value.length > 0) {
+    //     const length = input.validations[excetLengthIndex].split('-')[1];
+    //     if (!exectLength(value, length)) {
+    //       return `${input.label} should contain excelty ${length} character.`;
+    //     }
+    //   }
+    // }
+    return undefined;
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
     const cabRequestBody = {
-      employeeId: '222',
-      employeeName: 'Naruto',
-      pickupLocation: 'some oggce',
-      dropLocation: 'Thoughtworks gurugram',
-      pickupTime: '2023-09-12T08:55:18.252Z',
-      projectCode: 'dsds',
-      phoneNumber: '+91918310009',
-      expireDate: '2023-09-13T08:55:18.252Z',
+      employeeId: formState.employeeId.value,
+      employeeName: formState.name.value,
+      pickupLocation: formState.pickupLocation.value,
+      dropLocation: formState.dropLocation.value,
+      pickupTime: moment(
+        formState.startDate.value + ' ' + formState.Time.value
+      ),
+      projectCode: formState.projectCode.value,
+      phoneNumber: formState.phoneNumber.value,
+      expireDate: moment(
+        formState.startDate.value + ' ' + formState.Time.value
+      ).add(1, 'd'),
     };
 
-    CabRequestService.createRequest(cabRequestBody)
-      .then((response) => {
-        console.log('Request created:', response);
-      })
-      .catch((error) => {
-        console.error('Error creating request:', error);
-      });
-  };
-
-  let formTemplate = {
-    title: 'Request a Cab',
-    fields: [
-      {
-        title: 'Name',
-        type: 'text',
-        name: 'name',
-        validationProps: {
-          required: true,
-        },
-        value: '',
-      },
-      {
-        title: 'Employee ID',
-        type: 'text',
-        name: 'employeeId',
-        validationProps: {
-          required: true,
-        },
-        value: '',
-      },
-      {
-        title: 'Project Code',
-        type: 'text',
-        name: 'projectCode',
-        validationProps: {
-          required: true,
-        },
-        value: '',
-      },
-      {
-        title: 'Phone Number',
-        type: 'text',
-        name: 'phoneNumber',
-        validationProps: {
-          required: true,
-        },
-        value: '',
-      },
-      {
-        title: 'Start Date',
-        type: 'date',
-        name: 'startDate',
-        validationProps: {
-          required: true,
-        },
-        value: '',
-      },
-      {
-        title: 'End Date (optional)',
-        type: 'date',
-        name: 'endDate',
-        validationProps: {
-          required: false,
-        },
-        value: '',
-      },
-      {
-        title: 'Time',
-        type: 'time',
-        name: 'time',
-        validationProps: {
-          required: true,
-        },
-        value: '',
-      },
-      {
-        title: 'Pickup Location',
-        type: 'text',
-        name: 'pickupLocation',
-        validationProps: {
-          required: true,
-        },
-        value: '',
-      },
-      {
-        title: 'Drop Location',
-        type: 'text',
-        name: 'dropLocation',
-        validationProps: {
-          required: true,
-        },
-        value: '',
-      },
-    ],
+    CabRequestService.createRequest(cabRequestBody).then((response) => {
+      setFormState(initialState);
+      navigate('/');
+    });
   };
 
   return (
@@ -236,25 +205,102 @@ const CabRequestForm: React.FC<FormProps> = () => {
       <div className="rightWindow">
         <div className="formContainer mt-4 px-4 mr-8 ml-8">
           <form onSubmit={handleSubmit}>
-            <h2>{formTemplate.title}</h2>
-            <br />
-            {formTemplate.fields.map((field) => {
-              let { title, type, name, validationProps, value } = field;
-              return (
-                <div key={name}>
-                  <label htmlFor={name}>{title}</label>
-                  <Input
-                    type={type}
-                    id={name}
-                    required={validationProps?.required}
-                    onChange={handleInputChange}
-                    value={value}
-                  />
-                </div>
-              );
-            })}
-
-            <br />
+            <h2>{'Request a Cab'}</h2>
+            <div>
+              <Input
+                type={'text'}
+                id={'name'}
+                name={'name'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.name.value}
+              >
+                {formState.name.label}
+              </Input>
+              <Input
+                type={'text'}
+                id={'employeeId'}
+                name={'employeeId'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.employeeId.value}
+              >
+                {formState.employeeId.label}
+              </Input>
+              <Input
+                type={'text'}
+                id={'projectCode'}
+                name={'projectCode'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.projectCode.value}
+              >
+                {formState.projectCode.label}
+              </Input>
+              <Input
+                type={'text'}
+                id={'phoneNumber'}
+                name={'phoneNumber'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.phoneNumber.value}
+              >
+                {formState.phoneNumber.label}
+              </Input>
+              <Select value={'adhoc'} id={'adhoc'} options={options}>
+                {formState.cabType.label}
+              </Select>
+              <Input
+                type={'date'}
+                id={'startDate'}
+                name={'startDate'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.startDate.value}
+              >
+                {formState.startDate.label}
+              </Input>
+              <Input
+                type={'date'}
+                id={'endDate'}
+                name={'endDate'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.endDate.value}
+              >
+                {formState.endDate.label}
+              </Input>
+              <Input
+                type={'time'}
+                id={'Time'}
+                name={'Time'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.Time.value}
+              >
+                {formState.Time.label}
+              </Input>
+              <Input
+                type={'text'}
+                id={'pickupLocation'}
+                name={'pickupLocation'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.pickupLocation.value}
+              >
+                {formState.pickupLocation.label}
+              </Input>
+              <Input
+                type={'text'}
+                id={'dropLocation'}
+                name={'dropLocation'}
+                required={true}
+                onChange={handleInputChange}
+                value={formState.dropLocation.value}
+              >
+                {formState.dropLocation.label}
+              </Input>
+            </div>
             <button
               type="submit"
               className="btn-1 text-white px-2 py-2 rounded-lg font-bold bg-tw_blue inline-block w-1/4"

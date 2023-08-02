@@ -13,6 +13,7 @@ const FormComponent: React.FC<FormProps> = ({ template, onSubmit }) => {
           <Input
             type={type}
             id={name}
+            name={name}
             required={validationProps?.required}
             value={value}
             onChange={() => {}}

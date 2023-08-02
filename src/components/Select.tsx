@@ -2,7 +2,7 @@ import React from 'react';
 import className from 'classnames';
 import PropTypes from 'prop-types';
 
-interface Option {
+export interface Option {
   id: string;
   value: string;
 }
