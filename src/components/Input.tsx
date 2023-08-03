@@ -11,6 +11,7 @@ const propTypes = {
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   props: PropTypes.any,
 };
 
@@ -25,6 +26,7 @@ const Input = ({
   error,
   onChange,
   name,
+  disabled,
   ...props
 }: ComponentTypes) => {
   const inputStyles = className(
@@ -37,18 +39,34 @@ const Input = ({
       {children && (
         <label className="block text-xs mt-2 mb-1 text-muted" htmlFor={id}>
           {children}
-          {required && <span className="text-danger text-bold">*</span>}
+          {required && !disabled && (
+            <span className="text-danger text-bold">*</span>
+          )}
         </label>
       )}
-      <input
-        {...props}
-        type={type}
-        name={name}
-        id={id}
-        value={value}
-        className={inputStyles}
-        onChange={onChange}
-      />
+      {disabled ? (
+        <input
+          {...props}
+          type={type}
+          name={name}
+          id={id}
+          value={value}
+          className={inputStyles}
+          onChange={onChange}
+          disabled={disabled}
+        />
+      ) : (
+        <input
+          {...props}
+          type={type}
+          name={name}
+          id={id}
+          value={value}
+          className={inputStyles}
+          onChange={onChange}
+        />
+      )}
+
       {error && (
         <div className="text-danger text-sm pb-2 capitalize">{error}</div>
       )}

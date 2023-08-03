@@ -15,6 +15,7 @@ interface FormField {
   validations: string[];
   label?: string;
   name?: string;
+  disabled?: boolean;
 }
 
 interface FormState {
@@ -23,6 +24,7 @@ interface FormState {
 
 const CabRequestForm: React.FC<FormProps> = () => {
   const navigate = useNavigate();
+
   const getCurrentDate = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -41,6 +43,14 @@ const CabRequestForm: React.FC<FormProps> = () => {
       value: 'adhoc',
     },
   ];
+
+  const initialBookingType = [
+    {
+      id: 'cabType',
+      name: 'Select Cab Type',
+    },
+  ];
+
   const initialState: FormState = {
     name: {
       name: 'name',
@@ -79,7 +89,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       value: getCurrentDate(),
       error: undefined,
       isTouched: true,
-      validations: [],
+      validations: ['required'],
       label: 'Start Date',
     },
     endDate: {
@@ -89,6 +99,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       isTouched: false,
       validations: [],
       label: 'End Date',
+      disabled: false,
     },
     Time: {
       name: 'Time',
@@ -116,16 +127,18 @@ const CabRequestForm: React.FC<FormProps> = () => {
     },
     cabType: {
       name: 'cabType',
-      value: '',
-      error: 'cabType is required',
+      value: initialBookingType[0].id,
+      error: 'Booking type is required',
       isTouched: false,
       validations: ['required'],
-      label: 'Cab Type',
+      label: 'Booking Type',
     },
   };
 
   const [formState, setFormState] = useState(initialState);
-
+  const [selectedBookingType, setSelectedBookingType] = useState(
+    initialBookingType[0].id
+  );
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -143,6 +156,30 @@ const CabRequestForm: React.FC<FormProps> = () => {
       }));
     } else {
       console.info(`FormState does not have property: ${name}`);
+    }
+  };
+
+  const handleCabType = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const currentValue = event.target.value;
+    setSelectedBookingType(currentValue);
+    if (currentValue === 'adhoc') {
+      setFormState((prevState) => ({
+        ...prevState,
+        endDate: {
+          ...prevState.endDate,
+          value: formState.startDate.value,
+          disabled: true,
+        },
+      }));
+    } else {
+      setFormState((prevState) => ({
+        ...prevState,
+        endDate: {
+          ...prevState.endDate,
+          value: prevState.endDate.value,
+          disabled: false,
+        },
+      }));
     }
   };
 
@@ -247,9 +284,6 @@ const CabRequestForm: React.FC<FormProps> = () => {
               >
                 {formState.phoneNumber.label}
               </Input>
-              <Select value={'adhoc'} id={'adhoc'} options={options}>
-                {formState.cabType.label}
-              </Select>
               <Input
                 type={'date'}
                 id={'startDate'}
@@ -260,6 +294,14 @@ const CabRequestForm: React.FC<FormProps> = () => {
               >
                 {formState.startDate.label}
               </Input>
+              <Select
+                value={selectedBookingType}
+                id={selectedBookingType}
+                options={options}
+                onChange={handleCabType}
+              >
+                {formState.cabType.label}
+              </Select>
               <Input
                 type={'date'}
                 id={'endDate'}
@@ -267,6 +309,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
                 required={true}
                 onChange={handleInputChange}
                 value={formState.endDate.value}
+                disabled={formState.endDate.disabled}
               >
                 {formState.endDate.label}
               </Input>
