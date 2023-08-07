@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Input from './Input';
 import Modal from './Modal';
 import CabRequestService from 'src/services/CabRequestService';
+import { toast } from './Toast/ToastManager';
 
 const AddVendorModal = ({ isActive }: any) => {
   const [vendorName, setVendorName] = useState('');
@@ -31,16 +32,19 @@ const AddVendorModal = ({ isActive }: any) => {
         setIsLoading(false);
         setVendorName('');
         setVendorNumber('');
-        console.log(resp);
-        console.log('Vendor Added');
-        alert('Vendor Added');
+        toast.show({
+          id: 'success',
+          title: 'Vendor Added',
+          duration: 3000,
+        });
       })
       .catch((exp) => {
         setIsLoading(false);
-        console.log('error message show here');
-        console.log('Incorrect Name or Number');
-        console.log(exp);
-        alert('Incorrect Name or Number');
+        toast.show({
+          id: 'failure',
+          title: 'Vendor Not Added',
+          duration: 3000,
+        });
       });
   };
   const cancelButton = (event: any) => {
@@ -87,14 +91,14 @@ const AddVendorModal = ({ isActive }: any) => {
     <div className="text-center  flex justify-between ">
       <button
         type="submit"
-        className="bg-tw_primary font-bold text-light font-bold py-2 px-4 rounded my-3 "
+        className="bg-tw_primary text-light font-bold py-2 px-4 rounded my-3 "
         onClick={submitButton}
       >
         Submit
       </button>
       <button
         type="submit"
-        className="bg-tw_secondary font-bold text-light font-bold py-2 px-4 rounded my-3 "
+        className="bg-tw_secondary text-light font-bold py-2 px-4 rounded my-3 "
         onClick={cancelButton}
       >
         Cancel

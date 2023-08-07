@@ -4,6 +4,7 @@ import Modal from '../../Modal';
 import CabRequestService from '../../../services/CabRequestService';
 import { BiUser } from 'react-icons/bi';
 import { BsTelephone } from 'react-icons/bs';
+import { toast } from '../../../components/Toast/ToastManager';
 
 const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
   selectedCabRequest,
@@ -87,6 +88,11 @@ const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
         setSelectedVendor(null);
         onSuccessHandler();
         setIsLoading(false);
+        toast.show({
+          id: 'success',
+          title: 'Vendor Added',
+          duration: 3000,
+        });
       });
     }
   };
