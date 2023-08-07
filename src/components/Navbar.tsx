@@ -4,21 +4,22 @@ import { T_NavBarElement } from '../types/Interfaces';
 import '../styles/components/Navabr1.scss';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AuthContext } from '../context/AuthContext';
-import Input from './Input';
-import Modal from './Modal';
-import axios from 'axios';
-import CabRequestService from 'src/services/CabRequestService';
+
+import AddVendorModal from './AddVendorModal';
 const Navbar = () => {
   const { logout, loggedInUser, login } = useContext(AuthContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [istoggle, setIsToggle] = useState(false);
   const location = useLocation();
   let navigationBarElement: T_NavBarElement[] = [];
-
   const classes =
     'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 hover:text-tw_secondary transition duration-300';
 
   const activeClasses = classes + '  border-b-[3px] border-tw_secondary';
+
+  const getShowModal = (data: any) => {
+    setShowAddVendorModal(data);
+  };
 
   useEffect(() => {
     if (localStorage.getItem('loggedInUser') !== null) {
@@ -41,90 +42,12 @@ const Navbar = () => {
     logout();
     setIsLoggedIn(false);
   };
+
   const [showAddVendorModal, setShowAddVendorModal] = useState(false);
+
   const handleAddVendor = () => {
     setShowAddVendorModal(true);
   };
-  const [vendorName, setVendorName] = useState('');
-  const [vendorNumber, setVendorNumber] = useState('');
-
-  const handleAddVendorName = (event: any) => {
-    setVendorName(event.target.value);
-  };
-
-  const handleAddVendorNumber = (event: any) => {
-    setVendorNumber(event.target.value);
-  };
-  const submitButton = async (event: any) => {
-    CabRequestService.addVendor({
-      name: vendorName,
-      phoneNumber: vendorNumber,
-    })
-      .then((resp) => {
-        setVendorName('');
-        setVendorNumber('');
-        console.log(resp);
-      })
-      .catch((exp) => {
-        console.log('error message show here');
-        console.log(exp);
-      });
-  };
-  const cancelButton = (event: any) => {
-    event.preventDefault();
-    setVendorName('');
-    setVendorNumber('');
-  };
-  const crossButton = () => {
-    setVendorName('');
-    setVendorNumber('');
-    setShowAddVendorModal(false);
-  };
-
-  const modalBody = (
-    <div className="p-4 mt-4">
-      <div className="mb-4 pt-2">
-        <Input
-          required={true}
-          type="text"
-          id="vendor-text"
-          value={vendorName}
-          onChange={handleAddVendorName}
-        >
-          Enter Name
-        </Input>
-      </div>
-      <div className="mb-4 pt-4">
-        <Input
-          required={true}
-          type="text"
-          id="vendor-number"
-          value={vendorNumber}
-          onChange={handleAddVendorNumber}
-        >
-          Enter Number
-        </Input>
-      </div>
-    </div>
-  );
-  const modalAction = (
-    <div className="text-center  flex justify-between ">
-      <button
-        type="submit"
-        className="bg-tw_primary font-bold text-light font-bold py-2 px-4 rounded my-3 "
-        onClick={submitButton}
-      >
-        Submit
-      </button>
-      <button
-        type="submit"
-        className="bg-tw_secondary font-bold text-light font-bold py-2 px-4 rounded my-3 "
-        onClick={cancelButton}
-      >
-        Cancel
-      </button>
-    </div>
-  );
 
   if (loggedInUser?.profile === 'admin') {
     navigationBarElement = [
@@ -136,7 +59,7 @@ const Navbar = () => {
       {
         key: '2',
         link: '/dashboard-admin',
-        label: 'Cab Requests',
+        label: 'Admin Dashboard',
       },
       {
         key: '3',
@@ -144,6 +67,7 @@ const Navbar = () => {
         label: 'Add Vendor',
         onClick: handleAddVendor,
       },
+
       {
         key: '4',
         link: '/login',
@@ -161,6 +85,11 @@ const Navbar = () => {
       },
       {
         key: '2',
+        link: '/dashboard-employee',
+        label: 'Employee Dashboard',
+      },
+      {
+        key: '3',
         link: '/login',
         label: 'Log Out',
         onClick: handleLogout,
@@ -239,14 +168,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
-      {showAddVendorModal && (
-        <Modal
-          title="Add Vendor"
-          content={modalBody}
-          action={modalAction}
-          onRequestClose={() => crossButton()}
-        ></Modal>
-      )}
+      {showAddVendorModal && <AddVendorModal isActive={getShowModal} />}
 
       {istoggle && (
         <div className="block sm:hidden">

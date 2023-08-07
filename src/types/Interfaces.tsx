@@ -81,8 +81,6 @@ export type CabRequestCardsProps = {
   handleApprove: (value: T_CabRequest) => void;
   handleDecline: (value: T_CabRequest) => void;
 };
-
-export type EmployeeCabRequestCardsProps = {
-  pageDetails: T_CabRequest[];
-  vendors: Vendor[];
+export type SpinnerProps = {
+  showSpinner: boolean;
 };
