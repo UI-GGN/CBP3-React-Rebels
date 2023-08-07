@@ -89,7 +89,7 @@ const Login = (props) => {
       )[0];
       if (user) {
         if (user.password === formState.password.value) {
-          login(user.id, user.profile);
+          login(user);
           localStorage.setItem('loggedInUser', JSON.stringify(user));
           navigate('/home', { replace: true });
         }

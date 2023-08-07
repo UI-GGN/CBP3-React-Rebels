@@ -1,4 +1,5 @@
 import { ReactElement, ReactPortal } from 'react';
+import { JsxElement } from 'typescript';
 
 export type ReactText = string | number;
 export type ReactChild = ReactElement | ReactText;
@@ -26,18 +27,33 @@ export type T_CabRequest = {
   dropLocation: string;
   expireDate: string;
   status: string;
+  vendorId: string;
 };
 
 export type T_NavBarElement = {
   key: string;
   link: string;
   label: string;
-  isSecured: Boolean;
+  onClick?: () => void | {};
+  childrens?: T_NavBarElement[];
 };
 
-export type T_SelectOptions = {
+export type ModalProps = {
+  onRequestClose: () => void;
+  title: String;
+  content?: JSX.Element;
+  action?: JSX.Element;
+};
+
+export type BackDropProps = {
+  onRequestClose: () => void;
+};
+
+export type Vendor = {
   id: string;
-  value: string;
+  name: string;
+  phoneNumber: string;
+  deleted: boolean;
 };
 
 export type ActionButton = {
@@ -50,4 +66,23 @@ export type User = {
   username: string;
   password: string;
   profile: string;
+  name: string;
+};
+
+export type AdminActionsProps = {
+  selectedCabRequest: T_CabRequest;
+  onCloseHandler: (value: T_CabRequest | null) => void;
+  onSuccessHandler: () => void;
+};
+
+export type CabRequestCardsProps = {
+  pageDetails: T_CabRequest[];
+  vendors: Vendor[];
+  handleApprove: (value: T_CabRequest) => void;
+  handleDecline: (value: T_CabRequest) => void;
+};
+
+export type EmployeeCabRequestCardsProps = {
+  pageDetails: T_CabRequest[];
+  vendors: Vendor[];
 };

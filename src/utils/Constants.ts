@@ -16,14 +16,18 @@ export const REQUEST_TYPE_FILETR_OPTIONS = [
 export const REQUEST_STATUS_FILETR_OPTIONS = [
   {
     id: '0',
-    value: 'Pending',
+    value: 'All',
   },
   {
     id: '1',
-    value: 'Approved',
+    value: 'Pending',
   },
   {
     id: '2',
+    value: 'Approved',
+  },
+  {
+    id: '3',
     value: 'Declined',
   },
 ];
