@@ -53,7 +53,7 @@ export type Vendor = {
   id: string;
   name: string;
   phoneNumber: string;
-  deleted: boolean;
+  deleted?: boolean;
 };
 
 export type ActionButton = {

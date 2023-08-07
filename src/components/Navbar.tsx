@@ -4,7 +4,10 @@ import { T_NavBarElement } from '../types/Interfaces';
 import '../styles/components/Navabr1.scss';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AuthContext } from '../context/AuthContext';
-
+import Input from './Input';
+import Modal from './Modal';
+import axios from 'axios';
+import CabRequestService from 'src/services/CabRequestService';
 const Navbar = () => {
   const { logout, loggedInUser, login } = useContext(AuthContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,6 +41,74 @@ const Navbar = () => {
     logout();
     setIsLoggedIn(false);
   };
+  const [showAddVendorModal, setShowAddVendorModal] = useState(false);
+  const handleAddVendor = () => {
+    setShowAddVendorModal(true);
+  };
+  const [vendorName, setVendorName] = useState('');
+  const [vendorNumber, setVendorNumber] = useState('');
+
+  //   const showToastMessage = () => {
+  //     toast.error('Failed to Add Vendor !', {
+  //       position: toast.POSITION.BOTTOM_RIGHT
+  //     });
+  // };
+
+  const handleAddVendorName = (event: any) => {
+    setVendorName(event.target.value);
+  };
+
+  const handleAddVendorNumber = (event: any) => {
+    setVendorNumber(event.target.value);
+  };
+  const submitButton = async (event: any) => {
+    CabRequestService.addVendor({
+      name: vendorName,
+      phoneNumber: vendorNumber,
+    })
+      .then((resp) => {
+        console.log(resp.data);
+      })
+      .catch((exp) => {});
+  };
+
+  const modalBody = (
+    <div className="p-4 mt-4">
+      <div className="mb-4 pt-2">
+        <Input
+          required={true}
+          type="text"
+          id="test"
+          value={vendorName}
+          onChange={handleAddVendorName}
+        >
+          Enter Name
+        </Input>
+      </div>
+      <div className="mb-4 pt-4">
+        <Input
+          required={true}
+          type="number"
+          id="number"
+          value={vendorNumber}
+          onChange={handleAddVendorNumber}
+        >
+          Enter Number
+        </Input>
+      </div>
+    </div>
+  );
+  const modalAction = (
+    <div className="text-center ">
+      <button
+        type="submit"
+        className="bg-tw_primary font-bold text-light font-bold py-2 px-4 rounded my-3"
+        onClick={submitButton}
+      >
+        Submit
+      </button>
+    </div>
+  );
 
   if (loggedInUser?.profile === 'admin') {
     navigationBarElement = [
@@ -53,6 +124,12 @@ const Navbar = () => {
       },
       {
         key: '3',
+        link: '#',
+        label: 'Add Vendor',
+        onClick: handleAddVendor,
+      },
+      {
+        key: '4',
         link: '/login',
         label: 'Log Out',
         onClick: handleLogout,
@@ -146,6 +223,15 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      {showAddVendorModal && (
+        <Modal
+          title="Add Vendor"
+          content={modalBody}
+          action={modalAction}
+          onRequestClose={() => setShowAddVendorModal(false)}
+        ></Modal>
+      )}
+
       {istoggle && (
         <div className="block sm:hidden">
           <ul className="p-0">
