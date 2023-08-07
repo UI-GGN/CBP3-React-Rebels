@@ -344,6 +344,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
                 {formState.dropLocation.label}
               </Input>
             </div>
+            <br />
             <button
               type="submit"
               className="btn-1 text-white px-2 py-2 rounded-lg font-bold bg-tw_blue inline-block w-1/4"
