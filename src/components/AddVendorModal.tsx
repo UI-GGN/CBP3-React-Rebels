@@ -22,7 +22,7 @@ const AddVendorModal = ({ isActive }: any) => {
 
   const submitButton = async (event: any) => {
     setIsLoading(true);
-    // await pause(100000);
+
     CabRequestService.addVendor({
       name: vendorName,
       phoneNumber: vendorNumber,

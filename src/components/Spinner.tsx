@@ -6,8 +6,8 @@ const Spinner = ({ showSpinner }: SpinnerProps) => {
   return (
     <div className={showSpinner ? 'visible' : 'invisible'}>
       <div className="fixed inset-0 bg-gray-700 opacity-80"></div>
-      <div className="fixed  flex items-start justify-center z-[10]">
-        <div className="spin  "></div>
+      <div className="fixed  flex items-start justify-center ">
+        <div className="spin "></div>
       </div>
     </div>
   );
