@@ -30,8 +30,7 @@ const AddVendorModal = ({ isActive }: any) => {
     })
       .then((resp) => {
         setIsLoading(false);
-        setVendorName('');
-        setVendorNumber('');
+        crossButton();
         toast.show({
           id: 'success',
           title: 'Vendor Added',
@@ -62,8 +61,8 @@ const AddVendorModal = ({ isActive }: any) => {
   };
 
   const modalBody = (
-    <div className="p-4 mt-4">
-      <div className="mb-4 pt-2">
+    <div className="p-2 mt-1">
+      <div className="mb-2 pt-2">
         <Input
           required={true}
           type="text"
@@ -71,10 +70,10 @@ const AddVendorModal = ({ isActive }: any) => {
           value={vendorName}
           onChange={handleAddVendorName}
         >
-          Enter Name
+          Vendor Name
         </Input>
       </div>
-      <div className="mb-4 pt-4">
+      <div className="mb-2 pt-2">
         <Input
           required={true}
           type="text"
@@ -82,13 +81,13 @@ const AddVendorModal = ({ isActive }: any) => {
           value={vendorNumber}
           onChange={handleAddVendorNumber}
         >
-          Enter Number
+          Contact Number
         </Input>
       </div>
     </div>
   );
   const modalAction = (
-    <div className="text-center  flex justify-between ">
+    <div className="text-center  flex justify-around">
       <button
         type="submit"
         className="bg-tw_primary text-light font-bold py-2 px-4 rounded my-3 "

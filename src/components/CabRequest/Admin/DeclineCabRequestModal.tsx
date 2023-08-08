@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AdminActionsProps } from '../../../types/Interfaces';
 import Modal from '../../Modal';
 import CabRequestService from '../../../services/CabRequestService';
+import { toast } from '../../../components/Toast/ToastManager';
 
 const DeclineCabRequestModal: React.FC<AdminActionsProps> = ({
   selectedCabRequest,
   onCloseHandler,
   onSuccessHandler,
 }) => {
+  const [isSubmit, setIsSubmit] = useState(false);
+
   const onDeclineHandler = () => {
-    CabRequestService.declineRequest(selectedCabRequest.id).then(() =>
-      onSuccessHandler()
-    );
+    setIsSubmit(true);
+    CabRequestService.declineRequest(selectedCabRequest.id).then(() => {
+      onSuccessHandler();
+      setIsSubmit(false);
+      toast.show({
+        id: 'failure',
+        title: 'Request is declined',
+        duration: 3000,
+      });
+    });
   };
 
   const actionableItemsForDecline = (
@@ -23,8 +33,9 @@ const DeclineCabRequestModal: React.FC<AdminActionsProps> = ({
         No
       </button>
       <button
+        disabled={isSubmit}
         onClick={onDeclineHandler}
-        className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center"
+        className="p-2 mx-4 w-24 bg-tw_primary text-white rounded text-center disabled:bg-tw_disable_input disabled:cursor-not-allowed"
       >
         Yes
       </button>

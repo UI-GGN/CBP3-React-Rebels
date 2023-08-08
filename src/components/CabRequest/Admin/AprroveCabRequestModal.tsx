@@ -15,6 +15,7 @@ const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
   const [selectedVendor, setSelectedVendor] = useState<Vendor | null>(null);
   const [displayedVendorList, setDisplayedVendorList] = useState<Vendor[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const listElementStyle =
     'w-full bg-tw_disable_input hover:bg-tw_primary hover:text-white tracking-wide font-semibold my-1 p-2 rounded-lg';
@@ -45,7 +46,7 @@ const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
 
   const assignModalContent =
     vendors.length > 0 ? (
-      <div>
+      <div className="h-full">
         <div className="flex flex-col p-2">
           {displayedVendorList.map((vendor) => (
             <button
@@ -74,19 +75,22 @@ const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
         </div>
       </div>
     ) : (
-      <div className="flex justify-center items-center h-full">
+      <div className="flex justify-center items-center h-[19rem]">
         <div className="font-semibold text-2xl">Loading vendors...</div>
       </div>
     );
 
   const handleApproveRequest = () => {
+    setIsLoading(true);
     if (selectedCabRequest != null && selectedVendor != null) {
+      setIsSubmit(true);
       CabRequestService.assignVendor(
         selectedVendor?.id!,
         selectedCabRequest?.id
       ).then(() => {
         setSelectedVendor(null);
         onSuccessHandler();
+        setIsSubmit(false);
         setIsLoading(false);
         toast.show({
           id: 'success',
@@ -106,9 +110,9 @@ const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
         Cancel
       </button>
       <button
+        disabled={isSubmit || selectedVendor === null}
         onClick={handleApproveRequest}
         className="p-2 mx-4 w-24 bg-tw_primary font-bold text-white rounded text-center disabled:bg-tw_disable_input disabled:cursor-not-allowed"
-        disabled={selectedVendor === null}
       >
         {!isLoading ? 'Save' : 'Saving...'}
       </button>
@@ -116,12 +120,14 @@ const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
   );
   const titleForModal = vendors.length > 0 ? 'Assign a vendor' : '';
   return (
-    <Modal
-      title={titleForModal}
-      onRequestClose={() => onCloseHandler(null)}
-      content={assignModalContent}
-      action={actionableItemsForApprove}
-    />
+    <>
+      <Modal
+        title={titleForModal}
+        onRequestClose={() => onCloseHandler(null)}
+        content={assignModalContent}
+        action={actionableItemsForApprove}
+      />
+    </>
   );
 };
 
