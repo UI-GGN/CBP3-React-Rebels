@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Input from './Input';
 import Modal from './Modal';
 import CabRequestService from 'src/services/CabRequestService';
+import { toast } from './Toast/ToastManager';
 
 const AddVendorModal = ({ isActive }: any) => {
   const [vendorName, setVendorName] = useState('');
@@ -29,18 +30,20 @@ const AddVendorModal = ({ isActive }: any) => {
     })
       .then((resp) => {
         setIsLoading(false);
-        setVendorName('');
-        setVendorNumber('');
-        console.log(resp);
-        console.log('Vendor Added');
-        alert('Vendor Added');
+        crossButton();
+        toast.show({
+          id: 'success',
+          title: 'Vendor Added',
+          duration: 3000,
+        });
       })
       .catch((exp) => {
         setIsLoading(false);
-        console.log('error message show here');
-        console.log('Incorrect Name or Number');
-        console.log(exp);
-        alert('Incorrect Name or Number');
+        toast.show({
+          id: 'failure',
+          title: 'Vendor Not Added',
+          duration: 3000,
+        });
       });
   };
   const cancelButton = (event: any) => {
@@ -58,8 +61,8 @@ const AddVendorModal = ({ isActive }: any) => {
   };
 
   const modalBody = (
-    <div className="p-4 mt-4">
-      <div className="mb-4 pt-2">
+    <div className="p-2 mt-1">
+      <div className="mb-2 pt-2">
         <Input
           required={true}
           type="text"
@@ -67,10 +70,10 @@ const AddVendorModal = ({ isActive }: any) => {
           value={vendorName}
           onChange={handleAddVendorName}
         >
-          Enter Name
+          Vendor Name
         </Input>
       </div>
-      <div className="mb-4 pt-4">
+      <div className="mb-2 pt-2">
         <Input
           required={true}
           type="text"
@@ -78,23 +81,23 @@ const AddVendorModal = ({ isActive }: any) => {
           value={vendorNumber}
           onChange={handleAddVendorNumber}
         >
-          Enter Number
+          Contact Number
         </Input>
       </div>
     </div>
   );
   const modalAction = (
-    <div className="text-center  flex justify-between ">
+    <div className="text-center  flex justify-around">
       <button
         type="submit"
-        className="bg-tw_primary font-bold text-light font-bold py-2 px-4 rounded my-3 "
+        className="bg-tw_primary text-light font-bold py-2 px-4 rounded my-3 "
         onClick={submitButton}
       >
         Submit
       </button>
       <button
         type="submit"
-        className="bg-tw_secondary font-bold text-light font-bold py-2 px-4 rounded my-3 "
+        className="bg-tw_secondary text-light font-bold py-2 px-4 rounded my-3 "
         onClick={cancelButton}
       >
         Cancel

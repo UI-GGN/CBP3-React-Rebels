@@ -32,6 +32,7 @@ const Navbar = () => {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
+      setShowAddVendorModal(false);
     }
   }, [loggedInUser.id]);
 

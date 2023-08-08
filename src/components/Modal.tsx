@@ -39,7 +39,7 @@ const Overlay: React.FC<ModalProps> = ({
           </div>
         </div>
         {content && (
-          <div className="overflow-y-scroll h-[19rem]">{content}</div>
+          <div className="overflow-y-scroll max-h-[19rem]">{content}</div>
         )}
         {action && <div className="p-2 h-1/6">{action}</div>}
       </div>
