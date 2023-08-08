@@ -80,9 +80,8 @@ const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
 
   const handleApproveRequest = () => {
     if (selectedCabRequest != null && selectedVendor != null) {
-      setIsLoading(true);
       CabRequestService.assignVendor(
-        selectedVendor?.id,
+        selectedVendor?.id!,
         selectedCabRequest?.id
       ).then(() => {
         setSelectedVendor(null);

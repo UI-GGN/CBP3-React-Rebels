@@ -1,23 +1,20 @@
 import React from 'react';
 import className from 'classnames';
-import PropTypes, { InferProps } from 'prop-types';
 
-const propTypes = {
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  children: PropTypes.string,
-  required: PropTypes.bool,
-  error: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  props: PropTypes.any,
-};
+interface inputProps {
+  type: string;
+  value: string;
+  id: string;
+  children?: string;
+  required?: boolean;
+  error?: string;
+  props?: any;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  disabled?: boolean;
+}
 
-type ComponentTypes = InferProps<typeof propTypes>;
-
-const Input = ({
+const Input: React.FC<inputProps> = ({
   type,
   value,
   id,
@@ -28,12 +25,11 @@ const Input = ({
   name,
   disabled,
   ...props
-}: ComponentTypes) => {
+}) => {
   const inputStyles = className(
     'border-x-0 border-top-0 rounded-0 border-b border-gray-300 text-gray-900 text-sm focus:outline-none focus:border-b-tw_dark focus:border-b-[0.12rem]  block w-full p-1',
     {}
   );
-
   return (
     <>
       {children && (
@@ -73,8 +69,6 @@ const Input = ({
     </>
   );
 };
-
-Input.propTypes = propTypes;
 
 export default Input;
 

@@ -50,10 +50,10 @@ export type BackDropProps = {
 };
 
 export type Vendor = {
-  id: string;
+  id?: string;
   name: string;
   phoneNumber: string;
-  deleted: boolean;
+  deleted?: boolean;
 };
 
 export type ActionButton = {
@@ -85,4 +85,7 @@ export type CabRequestCardsProps = {
 export type EmployeeCabRequestCardsProps = {
   pageDetails: T_CabRequest[];
   vendors: Vendor[];
+};
+export type SpinnerProps = {
+  showSpinner: boolean;
 };

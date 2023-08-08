@@ -5,17 +5,21 @@ import '../styles/components/Navabr1.scss';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AuthContext } from '../context/AuthContext';
 
+import AddVendorModal from './AddVendorModal';
 const Navbar = () => {
   const { logout, loggedInUser, login } = useContext(AuthContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [istoggle, setIsToggle] = useState(false);
   const location = useLocation();
   let navigationBarElement: T_NavBarElement[] = [];
-
   const classes =
     'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 hover:text-tw_secondary transition duration-300';
 
   const activeClasses = classes + '  border-b-[3px] border-tw_secondary';
+
+  const getShowModal = (data: any) => {
+    setShowAddVendorModal(data);
+  };
 
   useEffect(() => {
     if (localStorage.getItem('loggedInUser') !== null) {
@@ -39,6 +43,12 @@ const Navbar = () => {
     setIsLoggedIn(false);
   };
 
+  const [showAddVendorModal, setShowAddVendorModal] = useState(false);
+
+  const handleAddVendor = () => {
+    setShowAddVendorModal(true);
+  };
+
   if (loggedInUser?.profile === 'admin') {
     navigationBarElement = [
       {
@@ -49,10 +59,17 @@ const Navbar = () => {
       {
         key: '2',
         link: '/dashboard-admin',
-        label: 'Cab Requests',
+        label: 'Admin Dashboard',
       },
       {
         key: '3',
+        link: '#',
+        label: 'Add Vendor',
+        onClick: handleAddVendor,
+      },
+
+      {
+        key: '4',
         link: '/login',
         label: 'Log Out',
         onClick: handleLogout,
@@ -68,6 +85,11 @@ const Navbar = () => {
       },
       {
         key: '2',
+        link: '/dashboard-employee',
+        label: 'Employee Dashboard',
+      },
+      {
+        key: '3',
         link: '/login',
         label: 'Log Out',
         onClick: handleLogout,
@@ -146,6 +168,8 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      {showAddVendorModal && <AddVendorModal isActive={getShowModal} />}
+
       {istoggle && (
         <div className="block sm:hidden">
           <ul className="p-0">
