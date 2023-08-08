@@ -41,6 +41,13 @@ class CabRequestService {
       { status: 'DECLINED' }
     );
   }
+
+  static addVendor(body: Vendor) {
+    return axios.post(
+      'https://shuttle-service-tw.vercel.app/api/v1/vendor',
+      body
+    );
+  }
 }
 
 export default CabRequestService;

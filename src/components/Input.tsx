@@ -1,20 +1,18 @@
 import React from 'react';
 import className from 'classnames';
-import PropTypes, { InferProps } from 'prop-types';
 
-const propTypes = {
-  type: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  children: PropTypes.string,
-  required: PropTypes.bool,
-  error: PropTypes.string,
-  props: PropTypes.any,
-};
+interface inputProps {
+  type: string;
+  value: string;
+  id: string;
+  children?: string;
+  required?: boolean;
+  error?: string;
+  props?: any;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-type ComponentTypes = InferProps<typeof propTypes>;
-
-const Input = ({
+const Input: React.FC<inputProps> = ({
   type,
   value,
   id,
@@ -22,7 +20,7 @@ const Input = ({
   children,
   error,
   ...props
-}: ComponentTypes) => {
+}) => {
   const inputStyles = className(
     'border-x-0 border-top-0 rounded-0 border-b border-gray-300 text-gray-900 text-sm focus:outline-none focus:border-b-tw_dark focus:border-b-[0.12rem]  block w-full p-1',
     {}
@@ -48,8 +46,6 @@ const Input = ({
     </>
   );
 };
-
-Input.propTypes = propTypes;
 
 export default Input;
 
