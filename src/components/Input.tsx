@@ -10,6 +10,8 @@ interface inputProps {
   error?: string;
   props?: any;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  disabled?: boolean;
 }
 
 const Input: React.FC<inputProps> = ({
@@ -19,6 +21,9 @@ const Input: React.FC<inputProps> = ({
   required = false,
   children,
   error,
+  onChange,
+  name,
+  disabled,
   ...props
 }) => {
   const inputStyles = className(
@@ -30,16 +35,34 @@ const Input: React.FC<inputProps> = ({
       {children && (
         <label className="block text-xs mt-2 mb-1 text-muted" htmlFor={id}>
           {children}
-          {required && <span className="text-danger text-bold">*</span>}
+          {required && !disabled && (
+            <span className="text-danger text-bold">*</span>
+          )}
         </label>
       )}
-      <input
-        {...props}
-        type={type}
-        value={value}
-        id={id}
-        className={inputStyles}
-      />
+      {disabled ? (
+        <input
+          {...props}
+          type={type}
+          name={name}
+          id={id}
+          value={value}
+          className={inputStyles}
+          onChange={onChange}
+          disabled={disabled}
+        />
+      ) : (
+        <input
+          {...props}
+          type={type}
+          name={name}
+          id={id}
+          value={value}
+          className={inputStyles}
+          onChange={onChange}
+        />
+      )}
+
       {error && (
         <div className="text-danger text-sm pb-2 capitalize">{error}</div>
       )}

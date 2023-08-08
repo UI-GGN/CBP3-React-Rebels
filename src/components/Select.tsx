@@ -2,7 +2,7 @@ import React from 'react';
 import className from 'classnames';
 import PropTypes from 'prop-types';
 
-interface Option {
+export interface Option {
   id: string;
   value: string;
 }
@@ -25,6 +25,7 @@ const Select: React.FC<SelectProps> = ({
   children,
   error,
   options,
+  onChange,
   ...props
 }) => {
   const inputStyles = className(
@@ -40,7 +41,13 @@ const Select: React.FC<SelectProps> = ({
           {required && <span className="text-danger text-bold">*</span>}
         </label>
       )}
-      <select {...props} value={value} id={id} className={inputStyles}>
+      <select
+        {...props}
+        value={value}
+        id={id}
+        className={inputStyles}
+        onChange={onChange}
+      >
         {options.map((option) => (
           <option key={option.id} value={option.id}>
             {option.value}

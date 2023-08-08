@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Input from './Input';
 import type { FormProps } from '../types/FormProps';
 
@@ -13,8 +13,10 @@ const FormComponent: React.FC<FormProps> = ({ template, onSubmit }) => {
           <Input
             type={type}
             id={name}
-            required={validationProps.required}
+            name={name}
+            required={validationProps?.required}
             value={value}
+            onChange={() => {}}
           />
           {/* {errors[name] && <span className="red-text">{errors[name]["message"]}</span>} */}
           <br />
@@ -22,18 +24,10 @@ const FormComponent: React.FC<FormProps> = ({ template, onSubmit }) => {
       );
     });
   };
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData: FormProps = {
-      template: template,
-    };
-    if (onSubmit) {
-      onSubmit(formData);
-    }
-  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form>
         <h2>{template.title}</h2>
         <br />
         {renderFields(template.fields)}

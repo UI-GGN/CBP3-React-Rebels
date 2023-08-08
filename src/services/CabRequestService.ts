@@ -9,7 +9,7 @@ class CabRequestService {
     return response.data;
   };
 
-  static createRequest = async (requestData: FormProps): Promise<any> => {
+  static createRequest = async (requestData: any): Promise<any> => {
     const url = 'https://shuttle-service-tw.vercel.app/api/v1/cab-request';
     const response = await axios.post(url, requestData);
     return response.data;
