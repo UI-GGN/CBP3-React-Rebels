@@ -13,7 +13,7 @@ const Navbar = () => {
   const location = useLocation();
   let navigationBarElement: T_NavBarElement[] = [];
   const classes =
-    'no-underline font-medium text-lg tracking-wide mx-1 text-tw_primary px-1 hover:text-tw_secondary transition duration-300';
+    'no-underline font-medium text-sm tracking-wide mx-1 text-tw_primary px-1 hover:text-tw_secondary transition duration-300';
 
   const activeClasses = classes + '  border-b-[3px] border-tw_secondary';
 
@@ -46,31 +46,15 @@ const Navbar = () => {
 
   const [showAddVendorModal, setShowAddVendorModal] = useState(false);
 
-  const handleAddVendor = () => {
-    setShowAddVendorModal(true);
-  };
-
   if (loggedInUser?.profile === 'admin') {
     navigationBarElement = [
       {
         key: '1',
-        link: '/home',
+        link: '/dashboard-admin',
         label: 'Home',
       },
       {
         key: '2',
-        link: '/dashboard-admin',
-        label: 'Admin Dashboard',
-      },
-      {
-        key: '3',
-        link: '#',
-        label: 'Add Vendor',
-        onClick: handleAddVendor,
-      },
-
-      {
-        key: '4',
         link: '/login',
         label: 'Log Out',
         onClick: handleLogout,
@@ -86,11 +70,6 @@ const Navbar = () => {
       },
       {
         key: '2',
-        link: '/dashboard-employee',
-        label: 'Employee Dashboard',
-      },
-      {
-        key: '3',
         link: '/login',
         label: 'Log Out',
         onClick: handleLogout,

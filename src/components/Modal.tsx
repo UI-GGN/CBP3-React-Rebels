@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ModalProps, BackDropProps } from '../types/Interfaces';
 import { RxCross2 } from 'react-icons/rx';
+import '../styles/components/Modal.scss';
 
 const BackDrop: React.FC<BackDropProps> = ({ onRequestClose }) => {
   return (

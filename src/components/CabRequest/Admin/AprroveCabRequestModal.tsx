@@ -94,7 +94,7 @@ const AprroveCabRequestModal: React.FC<AdminActionsProps> = ({
         setIsLoading(false);
         toast.show({
           id: 'success',
-          title: 'Notification has been sent',
+          title: 'Notification has been sent to the Vendor.',
           duration: 3000,
         });
       });

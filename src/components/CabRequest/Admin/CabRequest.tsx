@@ -15,6 +15,7 @@ import DeclineCabRequestModal from './DeclineCabRequestModal';
 import CabRequestCards from './CabRequestCards';
 import DashboardLoader from '../../DashboardLoader/DashboardLoader';
 import { downloadExcelFile } from '../../../utils/GenerateExcel';
+import AddVendorModal from '../../AddVendorModal';
 
 const EmployeeCabRequest = () => {
   const [cabRequests, setCabRequests] = useState<T_CabRequest[]>([]);
@@ -42,6 +43,7 @@ const EmployeeCabRequest = () => {
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const nPages = Math.ceil(filteredCabRequest.length / recordsPerPage);
+  const [showAddVendorModal, setShowAddVendorModal] = useState(false);
 
   async function getData() {
     setIsLoading(true);
@@ -154,19 +156,35 @@ const EmployeeCabRequest = () => {
     downloadExcelFile(cabRequests, 'Hatch-a-cab-request');
   };
 
+  const handleAddVendor = () => {
+    setShowAddVendorModal(true);
+  };
+
+  const getShowModal = (data: any) => {
+    setShowAddVendorModal(data);
+  };
+
   return (
     <div className="cabRequest pt-8">
       <div className="w-11/12 mx-auto mb-8">
-        <div className="flex flex-row justify-between items-center">
-          <div className="text-light text-2xl md:text-3xl mb-4">
+        <div className="flex flex-row items-center">
+          <div className="text-light text-2xl md:text-3xl mb-4 mr-10">
             Cab Requests
           </div>
-          <button
-            onClick={generateReport}
-            className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4"
-          >
-            Export Report
-          </button>
+          <div className="flex flex-row flex-1 w-full justify-end">
+            <button
+              onClick={handleAddVendor}
+              className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4 mr-4"
+            >
+              Add New Vendor
+            </button>
+            <button
+              onClick={generateReport}
+              className="bg-tw_secondary font-bold text-light py-2 px-8 rounded disabled:bg-tw_placeholder disabled:cursor-not-allowed mb-4"
+            >
+              Export Report
+            </button>
+          </div>
         </div>
         <div className="inner-container relative min-h-[45.381rem] rounded-b-xl pb-3">
           <div className="bg-light rounded-t-lg flex flex-col md:flex-row justify-end mb-3">
@@ -260,6 +278,7 @@ const EmployeeCabRequest = () => {
           )}
         </div>
       </div>
+      {showAddVendorModal && <AddVendorModal isActive={getShowModal} />}
     </div>
   );
 };

@@ -26,6 +26,7 @@ interface FormState {
 const CabRequestForm: React.FC<FormProps> = () => {
   const navigate = useNavigate();
   const { loggedInUser } = useContext(AuthContext);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const getCurrentDate = () => {
     const currentDate = new Date();
@@ -214,6 +215,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
+    setIsSubmit(true);
     event.preventDefault();
     const cabRequestBody = {
       employeeId: formState.employeeId.value,
@@ -231,6 +233,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
     };
 
     CabRequestService.createRequest(cabRequestBody).then((response) => {
+      setIsSubmit(false);
       setFormState(initialState);
       navigate('/');
     });
@@ -240,9 +243,9 @@ const CabRequestForm: React.FC<FormProps> = () => {
     <div className="cabRequestForm">
       <div className="leftWindow"></div>
       <div className="rightWindow">
-        <div className="formContainer mt-4 px-4 mr-8 ml-8">
+        <div className="formContainer mt-4 px-4 mr-8 ml-8 w-full h-full">
           <form onSubmit={handleSubmit}>
-            <h2>{'Request a Cab'}</h2>
+            <h2 className="mb-10 text-tw_primary">{'Request a Cab'}</h2>
             <div>
               <Input
                 type={'text'}
@@ -338,7 +341,8 @@ const CabRequestForm: React.FC<FormProps> = () => {
             <br />
             <button
               type="submit"
-              className="btn-1 text-white px-2 py-2 rounded-lg font-bold bg-tw_blue inline-block w-1/4"
+              className="btn-1 text-white px-2 py-2 rounded-lg font-bold bg-tw_blue inline-block w-1/4 disabled:bg-tw_disable_input disabled:cursor-not-allowed"
+              disabled={isSubmit}
             >
               SUBMIT
             </button>

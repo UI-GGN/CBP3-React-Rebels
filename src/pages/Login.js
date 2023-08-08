@@ -88,10 +88,15 @@ const Login = (props) => {
         (user) => user.username === formState.username.value
       )[0];
       if (user) {
+        console.log(user);
         if (user.password === formState.password.value) {
           login(user);
           localStorage.setItem('loggedInUser', JSON.stringify(user));
-          navigate('/home', { replace: true });
+          if (user.profile === 'admin') {
+            navigate('/dashboard-admin', { replace: true });
+          } else {
+            navigate('/home', { replace: true });
+          }
         }
       }
       setServerError(true);
