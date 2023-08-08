@@ -8,9 +8,13 @@ export const convertToReadabelDate = (date: String) => {
     'Jun',
     'Jul',
     'Aug',
+    'Sep',
+    'Oct',
     'Nov',
     'Dec',
   ];
   const dateParts: string[] = date.split('/');
-  return `${dateParts[0]} ${monthList[Number(dateParts[1])]} ${dateParts[2]}`;
+  return `${dateParts[0]} ${monthList[parseInt(dateParts[1]) - 1]} ${
+    dateParts[2]
+  }`;
 };

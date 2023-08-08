@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/pages/CabRequestForm.scss';
 import type { FormProps } from '../../types/FormProps';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import CabRequestService from '../../services/CabRequestService';
 import Select from '../../components/Select';
 import type { Option } from '../../components/Select';
 import moment from 'moment';
+import { AuthContext } from '../../context/AuthContext';
 
 interface FormField {
   value: string;
@@ -24,6 +25,7 @@ interface FormState {
 
 const CabRequestForm: React.FC<FormProps> = () => {
   const navigate = useNavigate();
+  const { loggedInUser } = useContext(AuthContext);
 
   const getCurrentDate = () => {
     const currentDate = new Date();
@@ -34,10 +36,6 @@ const CabRequestForm: React.FC<FormProps> = () => {
   };
 
   const options: Option[] = [
-    {
-      id: 'recurring',
-      value: 'recurring',
-    },
     {
       id: 'adhoc',
       value: 'adhoc',
@@ -54,19 +52,21 @@ const CabRequestForm: React.FC<FormProps> = () => {
   const initialState: FormState = {
     name: {
       name: 'name',
-      value: '',
+      value: loggedInUser.name,
       error: 'Name is mandatory.',
       isTouched: false,
       validations: ['required', 'minLength-3'],
       label: 'Name',
+      disabled: true,
     },
     employeeId: {
       name: 'employeeId',
-      value: '',
+      value: loggedInUser.id,
       error: 'Employee Id is mandatory.',
       isTouched: false,
       validations: ['required'],
       label: 'Employee Id',
+      disabled: true,
     },
     projectCode: {
       name: 'projectCode',
@@ -99,7 +99,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       isTouched: false,
       validations: [],
       label: 'End Date',
-      disabled: false,
+      disabled: true,
     },
     Time: {
       name: 'Time',
@@ -107,7 +107,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       error: 'Time is mandatory.',
       isTouched: false,
       validations: ['required'],
-      label: 'Time',
+      label: 'Pickup Time',
     },
     pickupLocation: {
       name: 'pickupLocation',
@@ -115,7 +115,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
       error: 'Pick up location is mandatory',
       isTouched: false,
       validations: ['required'],
-      label: 'Pick up location',
+      label: 'Pickup location',
     },
     dropLocation: {
       name: 'dropLocation',
@@ -251,6 +251,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
                 required={true}
                 onChange={handleInputChange}
                 value={formState.name.value}
+                disabled={formState.name.disabled}
               >
                 {formState.name.label}
               </Input>
@@ -261,6 +262,7 @@ const CabRequestForm: React.FC<FormProps> = () => {
                 required={true}
                 onChange={handleInputChange}
                 value={formState.employeeId.value}
+                disabled={formState.employeeId.disabled}
               >
                 {formState.employeeId.label}
               </Input>
@@ -302,17 +304,6 @@ const CabRequestForm: React.FC<FormProps> = () => {
               >
                 {formState.cabType.label}
               </Select>
-              <Input
-                type={'date'}
-                id={'endDate'}
-                name={'endDate'}
-                required={true}
-                onChange={handleInputChange}
-                value={formState.endDate.value}
-                disabled={formState.endDate.disabled}
-              >
-                {formState.endDate.label}
-              </Input>
               <Input
                 type={'time'}
                 id={'Time'}
